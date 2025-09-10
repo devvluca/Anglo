@@ -1,0 +1,234 @@
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { 
+  Facebook, 
+  Instagram, 
+  Youtube, 
+  Twitter, 
+  Mail, 
+  Phone, 
+  MapPin,
+  Cross,
+  BookOpen,
+  Users,
+  Heart
+} from "lucide-react";
+
+const footerLinks = {
+  products: [
+    "Teologia",
+    "Espiritualidade", 
+    "Estudos Bíblicos",
+    "Vida Cristã",
+    "Oração & Liturgia",
+    "Formação"
+  ],
+  company: [
+    "Sobre Nós",
+    "Nossa Missão",
+    "Autores",
+    "Contato",
+    "Trabalhe Conosco",
+    "Imprensa"
+  ],
+  support: [
+    "Central de Ajuda",
+    "Política de Privacidade",
+    "Termos de Uso", 
+    "Política de Entrega",
+    "Trocas e Devoluções",
+    "FAQ"
+  ],
+  community: [
+    "Blog",
+    "Newsletter",
+    "Eventos",
+    "Grupos de Estudo",
+    "Parcerias",
+    "Testemunhos"
+  ]
+};
+
+const socialLinks = [
+  { icon: Facebook, href: "#", label: "Facebook" },
+  { icon: Instagram, href: "#", label: "Instagram" }, 
+  { icon: Youtube, href: "#", label: "YouTube" },
+  { icon: Twitter, href: "#", label: "Twitter" }
+];
+
+const contactInfo = [
+  { icon: Mail, text: "contato@editoraanglo.com.br" },
+  { icon: Phone, text: "(11) 1234-5678" },
+  { icon: MapPin, text: "São Paulo, SP - Brasil" }
+];
+
+export function Footer() {
+  return (
+    <footer className="bg-primary text-primary-foreground">
+      <div className="container mx-auto px-4">
+        {/* Main Footer Content */}
+        <div className="py-16">
+          <div className="grid grid-cols-1 lg:grid-cols-6 gap-8">
+            {/* Brand Section */}
+            <div className="lg:col-span-2">
+              <div className="mb-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 bg-beige/20 rounded-lg flex items-center justify-center">
+                    <Cross className="w-6 h-6 text-beige" />
+                  </div>
+                  <div>
+                    <h3 className="font-display text-2xl font-bold">Editora Anglo</h3>
+                    <p className="text-sm text-beige">Tradição, Palavra & Presença</p>
+                  </div>
+                </div>
+                
+                <p className="font-serif text-sm text-primary-foreground/80 leading-relaxed mb-6">
+                  Uma voz de convergência no cenário cristão brasileiro, promovendo formação 
+                  teológica e espiritualidade sólida através da unidade na diversidade.
+                </p>
+                
+                {/* Trinity Symbol */}
+                <div className="flex items-center gap-2 mb-6">
+                  <div className="flex items-center">
+                    <div className="w-2 h-2 rounded-full bg-beige/60"></div>
+                    <div className="w-2 h-2 rounded-full bg-rose/60 -ml-0.5"></div>
+                    <div className="w-2 h-2 rounded-full bg-blue/60 -ml-0.5"></div>
+                  </div>
+                  <span className="text-xs text-primary-foreground/60">Santíssima Trindade</span>
+                </div>
+              </div>
+              
+              {/* Contact Info */}
+              <div className="space-y-3">
+                {contactInfo.map((item, index) => {
+                  const Icon = item.icon;
+                  return (
+                    <div key={index} className="flex items-center gap-3">
+                      <Icon className="w-4 h-4 text-beige" />
+                      <span className="text-sm text-primary-foreground/80">{item.text}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+            
+            {/* Links Sections */}
+            <div>
+              <h4 className="font-serif font-semibold mb-4 flex items-center gap-2">
+                <BookOpen className="w-4 h-4 text-beige" />
+                Produtos
+              </h4>
+              <ul className="space-y-2">
+                {footerLinks.products.map((link) => (
+                  <li key={link}>
+                    <a 
+                      href="#" 
+                      className="text-sm text-primary-foreground/70 hover:text-beige transition-colors"
+                    >
+                      {link}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            
+            <div>
+              <h4 className="font-serif font-semibold mb-4 flex items-center gap-2">
+                <Heart className="w-4 h-4 text-beige" />
+                Empresa
+              </h4>
+              <ul className="space-y-2">
+                {footerLinks.company.map((link) => (
+                  <li key={link}>
+                    <a 
+                      href="#" 
+                      className="text-sm text-primary-foreground/70 hover:text-beige transition-colors"
+                    >
+                      {link}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            
+            <div>
+              <h4 className="font-serif font-semibold mb-4 flex items-center gap-2">
+                <Users className="w-4 h-4 text-beige" />
+                Suporte
+              </h4>
+              <ul className="space-y-2">
+                {footerLinks.support.map((link) => (
+                  <li key={link}>
+                    <a 
+                      href="#" 
+                      className="text-sm text-primary-foreground/70 hover:text-beige transition-colors"
+                    >
+                      {link}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            
+            <div>
+              <h4 className="font-serif font-semibold mb-4 flex items-center gap-2">
+                <Cross className="w-4 h-4 text-beige" />
+                Comunidade
+              </h4>
+              <ul className="space-y-2">
+                {footerLinks.community.map((link) => (
+                  <li key={link}>
+                    <a 
+                      href="#" 
+                      className="text-sm text-primary-foreground/70 hover:text-beige transition-colors"
+                    >
+                      {link}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <Separator className="bg-primary-foreground/20" />
+        
+        {/* Bottom Footer */}
+        <div className="py-8">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+            {/* Copyright */}
+            <div className="text-center md:text-left">
+              <p className="text-sm text-primary-foreground/70">
+                © 2024 Editora Anglo. Todos os direitos reservados.
+              </p>
+              <p className="text-xs text-primary-foreground/50 mt-1">
+                Desenvolvido com ❤️ para a comunidade cristã brasileira
+              </p>
+            </div>
+            
+            {/* Social Links */}
+            <div className="flex items-center gap-4">
+              <span className="text-sm text-primary-foreground/70 mr-2">Siga-nos:</span>
+              {socialLinks.map((social, index) => {
+                const Icon = social.icon;
+                return (
+                  <Button
+                    key={index}
+                    variant="ghost"
+                    size="icon"
+                    className="text-primary-foreground/70 hover:text-beige hover:bg-primary-foreground/10"
+                    asChild
+                  >
+                    <a href={social.href} aria-label={social.label}>
+                      <Icon className="w-4 h-4" />
+                    </a>
+                  </Button>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}

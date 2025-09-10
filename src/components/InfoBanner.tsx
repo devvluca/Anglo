@@ -1,4 +1,4 @@
-import { Truck, CreditCard, Shield, Clock } from "lucide-react";
+import { Truck, CreditCard, Shield, Clock } from "phosphor-react";
 
 const InfoBanner = () => {
   const benefits = [

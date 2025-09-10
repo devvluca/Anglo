@@ -1,5 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { Shield, Award, Users, Truck, BookOpen, Heart } from "lucide-react";
+import { Shield, Trophy, Users, Truck, BookOpen, Heart } from "phosphor-react";
 
 const benefits = [
   {
@@ -9,7 +9,7 @@ const benefits = [
     color: "purple"
   },
   {
-    icon: Award,
+    icon: Trophy,
     title: "Autores Reconhecidos", 
     description: "Trabalhamos com os melhores teólogos e escritores cristãos do Brasil e exterior",
     color: "rose"
@@ -53,11 +53,11 @@ export function WhyChooseSection() {
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-6">
+          <h2 className="font-display text-5xl md:text-6xl font-bold text-foreground mb-8 animate-fade-in">
             Por que escolher a{" "}
-            <span className="text-purple">Anglo?</span>
+            <span className="text-purple hover:text-rose transition-colors duration-500">Anglo?</span>
           </h2>
-          <p className="font-serif text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="font-serif text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto font-medium opacity-0 animate-slide-up-delayed-1">
             Descubra os diferenciais que fazem da Editora Anglo a escolha ideal para sua jornada espiritual
           </p>
         </div>
@@ -71,20 +71,21 @@ export function WhyChooseSection() {
             return (
               <Card 
                 key={index}
-                className="group hover:shadow-elegant transition-spiritual border-border/50 bg-card/50 backdrop-blur-sm"
+                className={`group hover:shadow-elegant transition-all duration-500 border-border/50 bg-card/50 backdrop-blur-sm hover:scale-105 cursor-pointer opacity-0 animate-card-fade-in`}
+                style={{ animationDelay: `${(index + 2) * 0.1}s` }}
               >
                 <CardContent className="p-8 text-center">
                   <div className="mb-6">
-                    <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-purple/10 to-rose/10 rounded-2xl group-hover:scale-110 transition-spiritual">
-                      <Icon className={`w-8 h-8 ${colorClass}`} />
+                    <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-purple/10 to-rose/10 rounded-2xl group-hover:scale-125 group-hover:rotate-6 transition-all duration-500 group-hover:shadow-lg">
+                      <Icon className={`w-10 h-10 ${colorClass} group-hover:scale-110 transition-all duration-300`} />
                     </div>
                   </div>
                   
-                  <h3 className="font-serif text-xl font-semibold text-foreground mb-4">
+                  <h3 className="font-serif text-2xl font-bold text-foreground mb-4 group-hover:text-purple transition-colors duration-300">
                     {benefit.title}
                   </h3>
                   
-                  <p className="text-muted-foreground leading-relaxed">
+                  <p className="text-muted-foreground leading-relaxed text-lg font-medium group-hover:text-foreground transition-colors duration-300">
                     {benefit.description}
                   </p>
                 </CardContent>

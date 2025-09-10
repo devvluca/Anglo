@@ -1,10 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowRight, BookOpen, Cross, Heart, Users, Lightbulb, Church } from "lucide-react";
+import { ArrowRight, BookOpen, X, Heart, Users, Lightbulb, Buildings } from "phosphor-react";
 
 const categories = [
   {
-    icon: Cross,
+    icon: X,
     title: "Teologia",
     description: "Fundamentos doutrinários e reflexões teológicas profundas para fortalecer sua fé",
     color: "purple",
@@ -32,7 +32,7 @@ const categories = [
     count: 94
   },
   {
-    icon: Church,
+    icon: Buildings,
     title: "Oração & Liturgia",
     description: "Recursos para enriquecer sua vida de oração e participação litúrgica",
     color: "purple",
@@ -80,11 +80,11 @@ export function CategoriesSection() {
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-6">
+          <h2 className="font-display text-5xl md:text-6xl font-bold text-foreground mb-8 animate-fade-in">
             Explore Nossas{" "}
-            <span className="text-purple">Categorias</span>
+            <span className="text-purple hover:text-rose transition-colors duration-500">Categorias</span>
           </h2>
-          <p className="font-serif text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="font-serif text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto font-medium opacity-0 animate-slide-up-delayed-1">
             Descubra conteúdos organizados para nutrir cada aspecto de sua jornada espiritual
           </p>
         </div>
@@ -98,35 +98,36 @@ export function CategoriesSection() {
             return (
               <Card 
                 key={index} 
-                className={`group cursor-pointer hover:shadow-elegant transition-spiritual border-2 ${colors.border} ${colors.hover}`}
+                className={`group cursor-pointer hover:shadow-elegant transition-all duration-500 border-2 ${colors.border} ${colors.hover} hover:scale-105 hover:-translate-y-2 opacity-0 animate-card-fade-in`}
+                style={{ animationDelay: `${(index + 2) * 0.15}s` }}
               >
                 <CardContent className="p-8">
                   <div className="flex items-start gap-4 mb-6">
-                    <div className={`${colors.bg} p-4 rounded-xl group-hover:scale-110 transition-spiritual`}>
-                      <Icon className={`w-8 h-8 ${colors.text}`} />
+                    <div className={`${colors.bg} p-4 rounded-xl group-hover:scale-125 group-hover:rotate-12 transition-all duration-500 group-hover:shadow-lg`}>
+                      <Icon className={`w-8 h-8 ${colors.text} group-hover:scale-110 transition-all duration-300`} />
                     </div>
                     <div className="flex-1">
                       <div className="flex items-center justify-between mb-2">
-                        <h3 className="font-serif text-xl font-semibold text-foreground">
+                        <h3 className="font-serif text-2xl font-bold text-foreground group-hover:${colors.text} transition-colors duration-300">
                           {category.title}
                         </h3>
-                        <span className={`text-sm font-medium px-2 py-1 rounded-full ${colors.bg} ${colors.text}`}>
+                        <span className={`text-sm font-bold px-3 py-1 rounded-full ${colors.bg} ${colors.text} group-hover:scale-110 transition-all duration-300 group-hover:shadow-md`}>
                           {category.count}
                         </span>
                       </div>
                     </div>
                   </div>
                   
-                  <p className="text-muted-foreground mb-6 leading-relaxed">
+                  <p className="text-muted-foreground mb-6 leading-relaxed text-lg font-medium group-hover:text-foreground transition-colors duration-300">
                     {category.description}
                   </p>
                   
                   <Button 
                     variant="ghost" 
-                    className={`group/btn w-full justify-between ${colors.text} ${colors.hover} font-serif`}
+                    className={`group/btn w-full justify-between ${colors.text} ${colors.hover} font-serif text-lg font-semibold hover:scale-105 transition-all duration-300`}
                   >
                     <span>Explorar Categoria</span>
-                    <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+                    <ArrowRight className="w-5 h-5 group-hover/btn:translate-x-2 group-hover/btn:scale-110 transition-all duration-300" />
                   </Button>
                 </CardContent>
               </Card>

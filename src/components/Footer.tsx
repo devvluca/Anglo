@@ -1,18 +1,19 @@
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { 
-  Facebook, 
-  Instagram, 
-  Youtube, 
-  Twitter, 
-  Mail, 
+  FacebookLogo, 
+  InstagramLogo, 
+  YoutubeLogo, 
+  TwitterLogo, 
+  LinkedinLogo,
+  Envelope, 
   Phone, 
   MapPin,
-  Cross,
+  X,
   BookOpen,
   Users,
   Heart
-} from "lucide-react";
+} from "phosphor-react";
 
 const footerLinks = {
   products: [
@@ -50,16 +51,14 @@ const footerLinks = {
 };
 
 const socialLinks = [
-  { icon: Facebook, href: "#", label: "Facebook" },
-  { icon: Instagram, href: "#", label: "Instagram" }, 
-  { icon: Youtube, href: "#", label: "YouTube" },
-  { icon: Twitter, href: "#", label: "Twitter" }
+  { icon: InstagramLogo, href: "#", label: "Instagram" }, 
+  { icon: LinkedinLogo, href: "#", label: "LinkedIn" },
 ];
 
 const contactInfo = [
-  { icon: Mail, text: "contato@editoraanglo.com.br" },
-  { icon: Phone, text: "(11) 1234-5678" },
-  { icon: MapPin, text: "São Paulo, SP - Brasil" }
+  { icon: Envelope, text: "contato@editoraanglo.com" },
+  { icon: Phone, text: "(81) 9973-3520" },
+  { icon: MapPin, text: "Recife, PE - Brasil" }
 ];
 
 export function Footer() {
@@ -72,30 +71,11 @@ export function Footer() {
             {/* Brand Section */}
             <div className="lg:col-span-2">
               <div className="mb-6">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 bg-beige/20 rounded-lg flex items-center justify-center">
-                    <Cross className="w-6 h-6 text-beige" />
-                  </div>
-                  <div>
-                    <h3 className="font-display text-2xl font-bold">Editora Anglo</h3>
-                    <p className="text-sm text-beige">Tradição, Palavra & Presença</p>
-                  </div>
-                </div>
-                
-                <p className="font-serif text-sm text-primary-foreground/80 leading-relaxed mb-6">
-                  Uma voz de convergência no cenário cristão brasileiro, promovendo formação 
-                  teológica e espiritualidade sólida através da unidade na diversidade.
-                </p>
-                
-                {/* Trinity Symbol */}
-                <div className="flex items-center gap-2 mb-6">
-                  <div className="flex items-center">
-                    <div className="w-2 h-2 rounded-full bg-beige/60"></div>
-                    <div className="w-2 h-2 rounded-full bg-rose/60 -ml-0.5"></div>
-                    <div className="w-2 h-2 rounded-full bg-blue/60 -ml-0.5"></div>
-                  </div>
-                  <span className="text-xs text-primary-foreground/60">Santíssima Trindade</span>
-                </div>
+                <img
+                  src="/public/logo_com_nome_bege.png"
+                  alt="Logo Editora Anglo"
+                  className="w-48 h-auto object-contain mb-6"
+                />
               </div>
               
               {/* Contact Info */}
@@ -172,7 +152,7 @@ export function Footer() {
             
             <div>
               <h4 className="font-serif font-semibold mb-4 flex items-center gap-2">
-                <Cross className="w-4 h-4 text-beige" />
+                <X className="w-4 h-4 text-beige" />
                 Comunidade
               </h4>
               <ul className="space-y-2">
@@ -199,10 +179,7 @@ export function Footer() {
             {/* Copyright */}
             <div className="text-center md:text-left">
               <p className="text-sm text-primary-foreground/70">
-                © 2024 Editora Anglo. Todos os direitos reservados.
-              </p>
-              <p className="text-xs text-primary-foreground/50 mt-1">
-                Desenvolvido com ❤️ para a comunidade cristã brasileira
+                © 2025 Editora Anglo. Todos os direitos reservados.
               </p>
             </div>
             

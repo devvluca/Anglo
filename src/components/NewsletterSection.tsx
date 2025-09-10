@@ -2,7 +2,8 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
-import { Mail, Send, Gift, Book, Users } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
+import { Envelope, PaperPlaneTilt, Gift, BookOpen, Users } from "phosphor-react";
 import { useToast } from "@/hooks/use-toast";
 
 export function NewsletterSection() {
@@ -22,7 +23,7 @@ export function NewsletterSection() {
 
   const benefits = [
     {
-      icon: Book,
+      icon: BookOpen,
       title: "Conteúdo Exclusivo",
       description: "Artigos e materiais disponíveis apenas para assinantes"
     },
@@ -46,7 +47,7 @@ export function NewsletterSection() {
             <CardContent className="p-12">
               <div className="text-center mb-12">
                 <div className="inline-flex items-center gap-2 bg-purple/10 text-purple px-4 py-2 rounded-full mb-6">
-                  <Mail className="w-4 h-4" />
+                  <Envelope className="w-4 h-4" />
                   <span className="font-medium">Newsletter</span>
                 </div>
                 
@@ -78,7 +79,7 @@ export function NewsletterSection() {
                     size="lg"
                     className="font-serif"
                   >
-                    <Send className="w-4 h-4" />
+                    <PaperPlaneTilt className="w-4 h-4" />
                     Inscrever
                   </Button>
                 </div>

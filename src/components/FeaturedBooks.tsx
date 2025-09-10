@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Star, ShoppingCart, Eye } from "lucide-react";
+import { Star, ShoppingCart, Eye } from "phosphor-react";
 import bookImage from "@/assets/book-1.jpg";
 
 const featuredBooks = [

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Cross, Menu, ShoppingCart, Search, User } from "lucide-react";
+import { X, List, ShoppingCart, MagnifyingGlass, User } from "phosphor-react";
 
 const navigationLinks = [
   { href: "#", label: "Início" },
@@ -26,34 +26,22 @@ export function Navbar() {
   }, []);
 
   return (
-    <nav 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled 
-          ? "bg-background/95 backdrop-blur-md shadow-elegant border-b border-border/50" 
-          : "bg-transparent"
-      }`}
-    >
-      <div className="container mx-auto px-4">
+            <nav 
+              className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+                isScrolled 
+                  ? "bg-background/95 backdrop-blur-md shadow-elegant border-b border-border/50" 
+                  : "bg-transparent border-none shadow-none"
+              }`}
+            >
+  <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <div className="flex items-center gap-3">
-            <div className={`w-10 h-10 rounded-lg flex items-center justify-center transition-colors ${
-              isScrolled ? "bg-purple/10" : "bg-white/10 backdrop-blur-sm"
-            }`}>
-              <Cross className={`w-6 h-6 ${isScrolled ? "text-purple" : "text-white"}`} />
-            </div>
-            <div>
-              <h1 className={`font-display text-xl font-bold transition-colors ${
-                isScrolled ? "text-foreground" : "text-white"
-              }`}>
-                Editora Anglo
-              </h1>
-              <p className={`text-xs transition-colors ${
-                isScrolled ? "text-muted-foreground" : "text-beige"
-              }`}>
-                Tradição, Palavra & Presença
-              </p>
-            </div>
+            <img
+              src={isScrolled ? "/public/logo_com_nome.png" : "/public/logo_com_nome_bege.png"}
+              alt="Logo Editora Anglo"
+              className="w-32 h-auto object-contain"
+            />
           </div>
 
           {/* Desktop Navigation */}
@@ -75,8 +63,6 @@ export function Navbar() {
               </a>
             ))}
           </div>
-
-          {/* Desktop Actions */}
           <div className="hidden lg:flex items-center gap-4">
             <Button
               variant="ghost"
@@ -87,7 +73,7 @@ export function Navbar() {
                   : "text-white/90 hover:text-beige hover:bg-white/10"
               }`}
             >
-              <Search className="w-5 h-5" />
+              <MagnifyingGlass className="w-5 h-5" />
             </Button>
             
             <Button
@@ -135,7 +121,7 @@ export function Navbar() {
                       : "text-white/90 hover:text-beige hover:bg-white/10"
                   }`}
                 >
-                  <Menu className="w-6 h-6" />
+                  <List className="w-6 h-6" />
                 </Button>
               </SheetTrigger>
               
@@ -143,17 +129,11 @@ export function Navbar() {
                 <div className="flex flex-col h-full">
                   {/* Mobile Logo */}
                   <div className="flex items-center gap-3 mb-8 pt-4">
-                    <div className="w-10 h-10 bg-purple/10 rounded-lg flex items-center justify-center">
-                      <Cross className="w-6 h-6 text-purple" />
-                    </div>
-                    <div>
-                      <h2 className="font-display text-xl font-bold text-foreground">
-                        Editora Anglo
-                      </h2>
-                      <p className="text-xs text-muted-foreground">
-                        Tradição, Palavra & Presença
-                      </p>
-                    </div>
+                    <img
+                      src={isScrolled ? "/public/logo_com_nome.png" : "/public/logo_com_nome_bege.png"}
+                      alt="Logo Editora Anglo"
+                      className="w-32 h-auto object-contain"
+                    />
                   </div>
 
                   {/* Mobile Navigation */}
@@ -174,7 +154,7 @@ export function Navbar() {
                   <div className="space-y-4 mt-auto pb-8">
                     <div className="flex items-center gap-4">
                       <Button variant="outline" size="icon">
-                        <Search className="w-5 h-5" />
+                        <MagnifyingGlass className="w-5 h-5" />
                       </Button>
                       <Button variant="outline" size="icon">
                         <User className="w-5 h-5" />

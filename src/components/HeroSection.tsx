@@ -6,11 +6,11 @@ const heroDesktop = "/hero_desktop.jpg";
 const heroMobile = "/hero_mobile.jpg";
 
 const colorMeanings = {
-  purple: "Representa a soberania de Cristo, cor litúrgica da Quaresma e Advento",
-  beige: "Representando simplicidade, clareza e solidez fundamentais na fé", 
-  rose: "Calor e acessibilidade sem perder sofisticação e caráter simbólico",
-  blue: "Referência à tradição e modernidade",
-  green: "Associado ao Tempo Comum litúrgico"
+  purple: "Soberania de Cristo",
+  beige: "Simplicidade e Clareza na fé", 
+  rose: "Calor e Acessibilidade",
+  blue: "Tradição e Modernidade",
+  green: "Tempo Comum Litúrgico"
 };
 
 const colorNames = {

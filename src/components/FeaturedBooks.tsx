@@ -190,7 +190,7 @@ export function FeaturedBooks() {
         </div>
 
         {/* Books Carousel - Mobile */}
-        <div className="md:hidden">
+  <div className="md:hidden overflow-hidden px-4">
           <Swiper
             modules={[Navigation, Pagination, Autoplay]}
             spaceBetween={20}
@@ -205,6 +205,7 @@ export function FeaturedBooks() {
               dynamicBullets: true,
             }}
             className="books-swiper pb-12"
+            style={{ touchAction: 'pan-y' }}
           >
             {featuredBooks.map((book, index) => {
               const colors = colorClasses[book.color as keyof typeof colorClasses];
@@ -212,9 +213,7 @@ export function FeaturedBooks() {
               
               return (
                 <SwiperSlide key={book.id}>
-                  <Card 
-                    className={`overflow-hidden border-2 ${colors.border} ${colors.bg} backdrop-blur-sm cursor-pointer mx-2`}
-                  >
+                  <Card className={`overflow-hidden border-2 ${colors.border} ${colors.bg} backdrop-blur-sm cursor-pointer w-full`}>
                     {/* Book Cover with Icon */}
                     <div className="relative h-48 flex items-center justify-center overflow-hidden">
                       {/* Background gradient */}

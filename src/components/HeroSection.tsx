@@ -97,60 +97,32 @@ export function HeroSection() {
           </div>
           
           {/* Main Heading */}
-          <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight">
+          <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-normal mb-6 leading-tight">
             <span className="inline-block">
               {"Tradição,".split('').map((letter, index) => (
-                <span 
-                  key={index}
-                  className={letter.toLowerCase() === 'a' ? 'inline-block w-[0.8em] h-[1em] align-baseline' : 'inline-block'}
-                  style={letter.toLowerCase() === 'a' ? {
-                    backgroundImage: 'url(/logo_branco.png)',
-                    backgroundSize: 'contain',
-                    backgroundRepeat: 'no-repeat',
-                    backgroundPosition: 'center',
-                    marginBottom: '0.5rem', // desce mais a logo
-                    verticalAlign: 'bottom'
-                  } : {}}
-                >
-                  {letter.toLowerCase() === 'a' ? '' : letter}
-                </span>
+                letter.toLowerCase() === 'a' ? (
+                  <span
+                    key={index}
+                    className="inline-block w-[0.8em] h-[1em] align-baseline"
+                    style={{
+                      backgroundImage: 'url(/logo_branco.png)',
+                      backgroundSize: 'contain',
+                      backgroundRepeat: 'no-repeat',
+                      backgroundPosition: 'center',
+                      marginBottom: '0.5rem',
+                      verticalAlign: 'bottom'
+                    }}
+                  />
+                ) : (
+                  <span key={index} className="inline-block">{letter}</span>
+                )
               ))}
             </span>{" "}
             <span className="block" style={{ color: 'hsl(var(--beige))' }}>
-              {"Palavra".split('').map((letter, index) => (
-                <span 
-                  key={index}
-                  className={letter.toLowerCase() === 'a' ? 'inline-block w-[0.8em] h-[1em] align-baseline' : 'inline-block'}
-                  style={letter.toLowerCase() === 'a' ? {
-                    backgroundImage: 'url(/logo_bege.png)',
-                    backgroundSize: 'contain',
-                    backgroundRepeat: 'no-repeat',
-                    backgroundPosition: 'center',
-                    marginBottom: '0.5rem', // desce mais a logo
-                    verticalAlign: 'bottom'
-                  } : {}}
-                >
-                  {letter.toLowerCase() === 'a' ? '' : letter}
-                </span>
-              ))}
+              Palavra
             </span>
             <span style={{ color: 'hsl(var(--blue))' }}>
-              {"&Presença".split('').map((letter, index) => (
-                <span 
-                  key={index}
-                  className={letter.toLowerCase() === 'a' ? 'inline-block w-[0.8em] h-[1em] align-baseline' : 'inline-block'}
-                  style={letter.toLowerCase() === 'a' ? {
-                    backgroundImage: 'url(/logo_azul.png)',
-                    backgroundSize: 'contain',
-                    backgroundRepeat: 'no-repeat',
-                    backgroundPosition: 'center',
-                    marginBottom: '0.5rem', // desce mais a logo
-                    verticalAlign: 'bottom'
-                  } : {}}
-                >
-                  {letter.toLowerCase() === 'a' ? '' : letter}
-                </span>
-              ))}
+              &Presença
             </span>
           </h1>
           

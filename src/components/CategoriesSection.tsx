@@ -1,11 +1,11 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+// removed unused UI imports
 import { ArrowRight, BookOpen, X, Heart, Users, Lightbulb, Buildings } from "phosphor-react";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import './carousel-styles.css';
 
 const categories = [
   {
@@ -90,7 +90,7 @@ const colorClasses = {
 
 export function CategoriesSection() {
   return (
-    <section className="py-20 bg-muted/30">
+    <section className="py-20 bg-muted/80 font-display">
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <div className="text-center mb-16">
@@ -98,7 +98,7 @@ export function CategoriesSection() {
             Explore Nossas{" "}
             <span className="text-purple hover:text-rose transition-colors duration-500">Categorias</span>
           </h2>
-          <p className="font-serif text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto font-medium opacity-0 animate-slide-up-delayed-1">
+          <p className="font-display text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto font-medium opacity-0 animate-slide-up-delayed-1">
             Descubra conteúdos organizados para nutrir cada aspecto de sua jornada espiritual
           </p>
         </div>
@@ -112,41 +112,25 @@ export function CategoriesSection() {
             return (
               <div
                 key={index} 
-                className={`group cursor-pointer rounded-2xl overflow-hidden ${colors.bg} hover:scale-105 hover:-rotate-1 hover:z-10 transition-all duration-300 opacity-0 animate-card-fade-in shadow-xl hover:shadow-2xl hover:${colors.glow} relative will-change-transform`}
+                className={`group cursor-pointer rounded-2xl ${colors.bg} hover:scale-105 hover:-rotate-1 hover:z-10 transition-all duration-300 opacity-0 animate-card-fade-in shadow-2xl hover:shadow-[0_20px_40px_rgba(0,0,0,0.25)] hover:${colors.glow} relative will-change-transform font-display overflow-hidden`}
                 style={{ 
                   animationDelay: `${(index + 2) * 0.1}s`
                 }}
               >
-                {/* Simplified overlay */}
-                <div className={`absolute inset-0 ${colors.overlay} group-hover:opacity-30 transition-opacity duration-300`} />
-                
-                {/* Reduced floating particles */}
-                <div className="absolute inset-0 overflow-hidden opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <div className="absolute top-4 right-4 w-2 h-2 bg-white/20 rounded-full animate-pulse"></div>
-                  <div className="absolute bottom-6 left-6 w-1 h-1 bg-white/25 rounded-full animate-ping"></div>
-                </div>
-                
                 <div className="relative p-6 h-[26rem] flex flex-col group-hover:scale-[1.02] transition-transform duration-300">
-                  {/* Simplified background icon */}
-                  <div className="absolute top-4 right-4 w-12 h-12 opacity-10 group-hover:opacity-20 group-hover:scale-110 transition-all duration-300">
-                    <Icon className="w-full h-full text-white" />
-                  </div>
-                  
-                  {/* Simplified header icon */}
+                  {/* Simplified header icon (no background) */}
                   <div className="mb-6 relative z-10">
-                    <div className={`${colors.accent} p-3 rounded-xl backdrop-blur-sm inline-flex group-hover:scale-110 transition-all duration-300`}>
-                      <Icon className={`w-7 h-7 ${colors.text}`} />
-                    </div>
+                    <Icon weight="thin" className={`w-7 h-7 ${colors.text}`} />
                   </div>
                   
                   {/* Simplified content */}
                   <div className="flex-1 flex flex-col justify-between relative z-10">
                     <div className="space-y-4">
-                      <h3 className={`font-display text-2xl font-bold ${colors.text} leading-tight group-hover:scale-105 transition-transform duration-300`}>
+                      <h3 className={`text-2xl font-bold ${colors.text} leading-tight group-hover:scale-105 transition-transform duration-300`}>
                         {category.title}
                       </h3>
                       
-                      <p className={`${colors.text} opacity-85 leading-relaxed text-sm font-medium group-hover:opacity-100 transition-opacity duration-300`}>
+                      <p className={`${colors.text} leading-relaxed text-sm font-normal group-hover:opacity-100 transition-opacity duration-300`}>
                         {category.description}
                       </p>
                     </div>
@@ -154,32 +138,32 @@ export function CategoriesSection() {
                     {/* Simplified bottom section */}
                     <div className="mt-6 space-y-4">
                       {/* Book count */}
-                      <div className={`${colors.accent} backdrop-blur-sm px-4 py-2 rounded-full inline-flex items-center group-hover:scale-105 transition-transform duration-300`}>
-                        <span className={`text-sm font-bold ${colors.text}`}>
+                      <div className={`px-4 py-2 rounded-full inline-flex items-center group-hover:scale-105 transition-transform duration-300`}>
+                        <span className={`text-sm font-semibold ${colors.text}`}>
                           {category.count} livros
                         </span>
                       </div>
                       
                       {/* Simplified CTA */}
-                      <div className={`inline-flex items-center gap-2 ${colors.accent} backdrop-blur-sm px-5 py-3 rounded-xl group-hover:scale-[1.02] transition-all duration-300 w-full justify-center cursor-pointer`}>
-                        <span className={`font-serif font-semibold text-sm ${colors.text}`}>
+                      <div className={`inline-flex items-center gap-2 px-5 py-3 rounded-xl group-hover:scale-[1.02] duration-300 w-full justify-center cursor-pointer bg-black/10 hover:bg-black/30 ${colors.text} hover:text-white hover:-translate-y-1 transition-colors duration-200`}> 
+                        <span className={`font-display font-semibold text-sm text-current`}>
                           Explorar
                         </span>
-                        <ArrowRight className={`w-4 h-4 ${colors.text} group-hover:translate-x-1 transition-transform duration-300`} />
+                        <ArrowRight weight="thin" className={`w-4 h-4 group-hover:translate-x-1 transition-transform duration-300`} />
                       </div>
                     </div>
                   </div>
                 </div>
                 
                 {/* Simplified border glow */}
-                <div className="absolute inset-0 rounded-2xl border-2 border-white/0 group-hover:border-white/15 transition-all duration-300"></div>
+                <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-white/10 transition-all duration-300"></div>
               </div>
             );
           })}
         </div>
 
         {/* Categories Carousel - Mobile */}
-        <div className="md:hidden">
+        <div className="md:hidden bg-transparent">
           <Swiper
             modules={[Navigation, Pagination, Autoplay]}
             spaceBetween={20}
@@ -193,41 +177,33 @@ export function CategoriesSection() {
               clickable: true,
               dynamicBullets: true,
             }}
-            className="categories-swiper pb-12"
+            className="categories-swiper pb-12 px-4"
+            style={{ touchAction: 'pan-y', backgroundColor: 'transparent' }}
           >
             {categories.map((category, index) => {
               const colors = colorClasses[category.color as keyof typeof colorClasses];
               const Icon = category.icon;
               
               return (
-                <SwiperSlide key={index}>
-                  <div
-                    className={`group cursor-pointer rounded-2xl overflow-hidden ${colors.bg} shadow-xl relative h-[24rem] mx-2`}
-                  >
-                    {/* Simplified overlay */}
-                    <div className={`absolute inset-0 ${colors.overlay} transition-opacity duration-300`} />
+                <SwiperSlide key={index} style={{ background: 'none', backgroundColor: 'transparent', border: 'none', outline: 'none' }}>
+                  <div className="w-full h-full bg-transparent p-0 m-0">
+                    <div className={`group cursor-pointer rounded-2xl ${colors.bg} shadow-2xl hover:shadow-[0_18px_36px_rgba(0,0,0,0.22)] relative h-[22rem] w-full font-display overflow-hidden border-0`}>
+                    <div className={`absolute inset-0 pointer-events-none ${colors.overlay} transition-opacity duration-300`} />
                     
-                    <div className="relative p-6 h-full flex flex-col">
-                      {/* Simplified background icon */}
-                      <div className="absolute top-4 right-4 w-12 h-12 opacity-15">
-                        <Icon className="w-full h-full text-white" />
-                      </div>
-                      
-                      {/* Simplified header icon */}
-                      <div className="mb-6 relative z-10">
-                        <div className={`${colors.accent} p-3 rounded-xl backdrop-blur-sm inline-flex`}>
-                          <Icon className={`w-7 h-7 ${colors.text}`} />
-                        </div>
+                    <div className="relative p-4 h-full flex flex-col">
+                      {/* Header icon (no background) */}
+                      <div className="mb-4 relative z-10">
+                        <Icon weight="thin" className={`w-6 h-6 ${colors.text}`} />
                       </div>
                       
                       {/* Simplified content */}
                       <div className="flex-1 flex flex-col justify-between relative z-10">
-                        <div className="space-y-4">
-                          <h3 className={`font-display text-xl font-bold ${colors.text} leading-tight`}>
+                        <div className="space-y-5">
+                          <h3 className={`text-2xl font-bold ${colors.text} leading-tight`}>
                             {category.title}
                           </h3>
                           
-                          <p className={`${colors.text} opacity-85 leading-relaxed text-sm font-medium`}>
+                          <p className={`${colors.text} leading-relaxed text-base font-normal`}>
                             {category.description}
                           </p>
                         </div>
@@ -235,22 +211,23 @@ export function CategoriesSection() {
                         {/* Simplified bottom section */}
                         <div className="mt-6 space-y-4">
                           {/* Book count */}
-                          <div className={`${colors.accent} backdrop-blur-sm px-4 py-2 rounded-full inline-flex items-center`}>
-                            <span className={`text-sm font-bold ${colors.text}`}>
+                          <div className={`px-4 py-2 rounded-full inline-flex items-center`}>
+                            <span className={`text-sm font-semibold ${colors.text}`}>
                               {category.count} livros
                             </span>
                           </div>
                           
                           {/* Simplified CTA */}
-                          <div className={`inline-flex items-center gap-2 ${colors.accent} backdrop-blur-sm px-5 py-3 rounded-xl w-full justify-center cursor-pointer`}>
-                            <span className={`font-serif font-semibold text-sm ${colors.text}`}>
+                          <div className={`inline-flex items-center gap-2 px-4 py-3 rounded-xl w-full justify-center cursor-pointer bg-black/10 hover:bg-black/30 ${colors.text} hover:text-white hover:-translate-y-1 transition-colors duration-200`}>
+                            <span className={`font-display font-semibold text-sm text-current`}>
                               Explorar
                             </span>
-                            <ArrowRight className={`w-4 h-4 ${colors.text}`} />
+                            <ArrowRight weight="thin" className={`w-4 h-4`} />
                           </div>
                         </div>
                       </div>
                     </div>
+                  </div>
                   </div>
                 </SwiperSlide>
               );

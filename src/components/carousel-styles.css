@@ -1,4 +1,34 @@
 /* Swiper customization */
+.categories-swiper {
+  background: transparent !important;
+}
+
+.categories-swiper .swiper-wrapper {
+  background: transparent !important;
+}
+
+.categories-swiper .swiper-slide {
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.categories-swiper .swiper-slide::before,
+.categories-swiper .swiper-slide::after {
+  display: none !important;
+}
+
+.categories-swiper .swiper-slide > div {
+  border: none !important;
+  outline: none !important;
+}
+
+/* Remove any possible white backgrounds */
+.categories-swiper * {
+  box-sizing: border-box;
+}
+
 .categories-swiper .swiper-pagination-bullet {
   background: hsl(var(--purple));
   opacity: 0.3;

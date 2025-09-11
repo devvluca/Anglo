@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { useState } from 'react';
 import { Separator } from "@/components/ui/separator";
 import { 
   FacebookLogo, 
@@ -62,11 +63,15 @@ const contactInfo = [
 ];
 
 export function Footer() {
+  const [openProducts, setOpenProducts] = useState(false);
+  const [openCompany, setOpenCompany] = useState(false);
+  const [openSupport, setOpenSupport] = useState(false);
+  const [openCommunity, setOpenCommunity] = useState(false);
   return (
     <footer className="bg-primary text-primary-foreground">
       <div className="container mx-auto px-4">
         {/* Main Footer Content */}
-        <div className="py-16">
+          <div className="py-16">
           <div className="grid grid-cols-1 lg:grid-cols-6 gap-8">
             {/* Brand Section */}
             <div className="lg:col-span-2">
@@ -92,8 +97,8 @@ export function Footer() {
               </div>
             </div>
             
-            {/* Links Sections */}
-            <div>
+            {/* Links Sections - desktop shows columns, mobile shows accordions */}
+            <div className="hidden md:block">
               <h4 className="font-serif font-semibold mb-4 flex items-center gap-2">
                 <BookOpen className="w-4 h-4 text-beige" />
                 Produtos
@@ -111,8 +116,8 @@ export function Footer() {
                 ))}
               </ul>
             </div>
-            
-            <div>
+
+            <div className="hidden md:block">
               <h4 className="font-serif font-semibold mb-4 flex items-center gap-2">
                 <Heart className="w-4 h-4 text-beige" />
                 Empresa
@@ -130,8 +135,8 @@ export function Footer() {
                 ))}
               </ul>
             </div>
-            
-            <div>
+
+            <div className="hidden md:block">
               <h4 className="font-serif font-semibold mb-4 flex items-center gap-2">
                 <Users className="w-4 h-4 text-beige" />
                 Suporte
@@ -149,8 +154,8 @@ export function Footer() {
                 ))}
               </ul>
             </div>
-            
-            <div>
+
+            <div className="hidden md:block">
               <h4 className="font-serif font-semibold mb-4 flex items-center gap-2">
                 <X className="w-4 h-4 text-beige" />
                 Comunidade
@@ -167,6 +172,65 @@ export function Footer() {
                   </li>
                 ))}
               </ul>
+            </div>
+
+            {/* Mobile accordions: 4 grouped buttons that expand to show links */}
+            <div className="md:hidden">
+              <button className="w-full text-left py-3" onClick={() => setOpenProducts(v => !v)}>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2"><BookOpen className="w-5 h-5 text-beige"/> <span className="font-semibold">Produtos</span></div>
+                  <span>{openProducts ? '-' : '+'}</span>
+                </div>
+              </button>
+              {openProducts && (
+                <ul className="pl-4 space-y-2 pb-3">
+                  {footerLinks.products.map(link => (
+                    <li key={link}><a href="#" className="text-sm text-primary-foreground/70 block py-1">{link}</a></li>
+                  ))}
+                </ul>
+              )}
+
+              <button className="w-full text-left py-3" onClick={() => setOpenCompany(v => !v)}>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2"><Heart className="w-5 h-5 text-beige"/> <span className="font-semibold">Empresa</span></div>
+                  <span>{openCompany ? '-' : '+'}</span>
+                </div>
+              </button>
+              {openCompany && (
+                <ul className="pl-4 space-y-2 pb-3">
+                  {footerLinks.company.map(link => (
+                    <li key={link}><a href="#" className="text-sm text-primary-foreground/70 block py-1">{link}</a></li>
+                  ))}
+                </ul>
+              )}
+
+              <button className="w-full text-left py-3" onClick={() => setOpenSupport(v => !v)}>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2"><Users className="w-5 h-5 text-beige"/> <span className="font-semibold">Suporte</span></div>
+                  <span>{openSupport ? '-' : '+'}</span>
+                </div>
+              </button>
+              {openSupport && (
+                <ul className="pl-4 space-y-2 pb-3">
+                  {footerLinks.support.map(link => (
+                    <li key={link}><a href="#" className="text-sm text-primary-foreground/70 block py-1">{link}</a></li>
+                  ))}
+                </ul>
+              )}
+
+              <button className="w-full text-left py-3" onClick={() => setOpenCommunity(v => !v)}>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2"><X className="w-5 h-5 text-beige"/> <span className="font-semibold">Comunidade</span></div>
+                  <span>{openCommunity ? '-' : '+'}</span>
+                </div>
+              </button>
+              {openCommunity && (
+                <ul className="pl-4 space-y-2 pb-3">
+                  {footerLinks.community.map(link => (
+                    <li key={link}><a href="#" className="text-sm text-primary-foreground/70 block py-1">{link}</a></li>
+                  ))}
+                </ul>
+              )}
             </div>
           </div>
         </div>

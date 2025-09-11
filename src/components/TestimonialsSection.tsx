@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Star } from "phosphor-react";
 
 const testimonials = [
@@ -39,14 +39,79 @@ const colorClasses = {
 
 export function TestimonialsSection() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const carouselRef = useRef<HTMLDivElement | null>(null);
+  const pointerRef = useRef({ isDown: false, startX: 0, delta: 0 });
+  const isDraggingRef = useRef(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+      if (!isDraggingRef.current) {
+        setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+      }
     }, 6000); // Muda a cada 6 segundos
 
     return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    const el = carouselRef.current;
+    if (!el) return;
+
+    const onPointerDown = (e: PointerEvent) => {
+      e.preventDefault();
+      try {
+        (e.currentTarget as Element).setPointerCapture((e as any).pointerId);
+      } catch {}
+      pointerRef.current.isDown = true;
+      pointerRef.current.startX = e.clientX;
+      pointerRef.current.delta = 0;
+      isDraggingRef.current = true;
+    };
+
+    const onPointerMove = (e: PointerEvent) => {
+      if (!pointerRef.current.isDown) return;
+      e.preventDefault();
+      const dxRaw = e.clientX - pointerRef.current.startX;
+      // clamp so user can't drag content completely off-screen
+      const max = window.innerWidth * 0.6;
+      const dx = Math.max(Math.min(dxRaw, max), -max);
+      pointerRef.current.delta = dx;
+      // apply transform for visual feedback
+      el.style.transform = `translateX(${dx}px)`;
+    };
+
+    const onPointerUp = (e?: PointerEvent) => {
+      if (!pointerRef.current.isDown) return;
+      pointerRef.current.isDown = false;
+      try {
+        (e?.currentTarget as Element)?.releasePointerCapture?.((e as any)?.pointerId);
+      } catch {}
+      const dx = pointerRef.current.delta;
+      el.style.transform = '';
+      // swipe threshold
+      const threshold = 80;
+      if (dx > threshold) {
+        // swipe right -> previous
+        setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+      } else if (dx < -threshold) {
+        // swipe left -> next
+        setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+      }
+      pointerRef.current.delta = 0;
+      // short delay before allowing autoplay again
+      setTimeout(() => { isDraggingRef.current = false; }, 300);
+    };
+
+  el.addEventListener('pointerdown', onPointerDown as any, { passive: false });
+  window.addEventListener('pointermove', onPointerMove as any, { passive: false });
+  window.addEventListener('pointerup', onPointerUp as any);
+
+    return () => {
+      el.removeEventListener('pointerdown', onPointerDown as any);
+      window.removeEventListener('pointermove', onPointerMove as any);
+      window.removeEventListener('pointerup', onPointerUp as any);
+    };
+  }, [carouselRef.current]);
 
   const current = testimonials[currentTestimonial];
 
@@ -76,7 +141,10 @@ export function TestimonialsSection() {
           </div>
 
           {/* Conteúdo do testemunho */}
-          <div className="transition-all duration-500 ease-in-out">
+          <div
+            ref={carouselRef}
+            className="transition-transform duration-300 ease-in-out cursor-grab active:cursor-grabbing"
+          >
             <p className="font-serif text-xl md:text-2xl text-gray-700 leading-relaxed mb-8 max-w-3xl mx-auto">
               {current.content}
             </p>

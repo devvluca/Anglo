@@ -41,7 +41,7 @@ export function Navbar() {
           {/* Logo */}
           <div className="flex items-center gap-3">
             <img
-              src={(isScrolled || isHovered) ? "/public/logo_com_nome.png" : "/public/logo_com_nome_bege.png"}
+              src={(isScrolled || isHovered) ? "/logo_com_nome.png" : "/logo_com_nome_bege.png"}
               alt="Logo Editora Anglo"
               className="w-32 h-auto object-contain"
             />
@@ -133,7 +133,7 @@ export function Navbar() {
                   {/* Mobile Logo */}
                   <div className="flex items-center gap-3 mb-8 pt-4">
                     <img
-                      src={(isScrolled || isHovered) ? "/public/logo_com_nome.png" : "/public/logo_com_nome_bege.png"}
+                      src={(isScrolled || isHovered) ? "/logo_com_nome.png" : "/logo_com_nome_bege.png"}
                       alt="Logo Editora Anglo"
                       className="w-32 h-auto object-contain"
                     />

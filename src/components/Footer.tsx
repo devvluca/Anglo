@@ -72,7 +72,7 @@ export function Footer() {
             <div className="lg:col-span-2">
               <div className="mb-6">
                 <img
-                  src="/public/logo_com_nome_bege.png"
+                  src="/logo_com_nome_bege.png"
                   alt="Logo Editora Anglo"
                   className="w-48 h-auto object-contain mb-6"
                 />

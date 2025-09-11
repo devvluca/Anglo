@@ -2,8 +2,8 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, BookOpen, Heart } from "phosphor-react";
 import { useState, useEffect } from "react";
 // Imagens de fundo para desktop e mobile
-const heroDesktop = "/public/hero_desktop.jpg";
-const heroMobile = "/public/hero_mobile.jpg";
+const heroDesktop = "/hero_desktop.jpg";
+const heroMobile = "/hero_mobile.jpg";
 
 const colorMeanings = {
   purple: "Representa a soberania de Cristo, cor litúrgica da Quaresma e Advento",

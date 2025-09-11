@@ -6,11 +6,11 @@ const heroDesktop = "/public/hero_desktop.jpg";
 const heroMobile = "/public/hero_mobile.jpg";
 
 const colorMeanings = {
-  purple: "Associado à realeza e à espiritualidade, representa a soberania de Cristo, cor litúrgica da Quaresma e Advento",
-  beige: "Tom neutro que equilibra a composição, representando simplicidade, clareza e solidez fundamentais na fé", 
-  rose: "Variação moderna do roxo, trazendo calor e acessibilidade sem perder sofisticação e caráter simbólico",
-  blue: "Remete à serenidade e confiança, fazendo referência à tradição e modernidade",
-  green: "Associado ao Tempo Comum litúrgico, representa esperança, crescimento e renovação espiritual"
+  purple: "Representa a soberania de Cristo, cor litúrgica da Quaresma e Advento",
+  beige: "Representando simplicidade, clareza e solidez fundamentais na fé", 
+  rose: "Calor e acessibilidade sem perder sofisticação e caráter simbólico",
+  blue: "Referência à tradição e modernidade",
+  green: "Associado ao Tempo Comum litúrgico"
 };
 
 const colorNames = {
@@ -25,6 +25,7 @@ export function HeroSection() {
   const [hoveredColor, setHoveredColor] = useState(null);
   const [isHovered, setIsHovered] = useState(false);
   const [currentColorIndex, setCurrentColorIndex] = useState(0);
+  const [hoverTimeout, setHoverTimeout] = useState(null);
   
   const colors = ['purple', 'beige', 'rose', 'blue', 'green'];
   
@@ -36,8 +37,42 @@ export function HeroSection() {
     return () => clearInterval(interval);
   }, []);
 
+  const handleMouseEnterBall = () => {
+    if (hoverTimeout) {
+      clearTimeout(hoverTimeout);
+      setHoverTimeout(null);
+    }
+    setIsHovered(true);
+  };
+
+  const handleMouseLeaveBall = () => {
+    const timeout = setTimeout(() => {
+      setIsHovered(false);
+      setHoveredColor(null);
+    }, 500); // 0.5 segundos de delay
+    setHoverTimeout(timeout);
+  };
+
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24">
+      {/* Bolas decorativas com efeito prisma */}
+      <div className="absolute top-1/4 left-8 w-16 h-16 opacity-30 pointer-events-none animate-pulse">
+        <div className="w-full h-full rounded-full bg-gradient-to-br from-purple/40 via-rose/30 to-blue/40 filter blur-sm animate-bounce" style={{animationDuration: '4s'}} />
+      </div>
+      <div className="absolute bottom-1/3 right-12 w-12 h-12 opacity-25 pointer-events-none">
+        <div className="w-full h-full rounded-full bg-gradient-to-br from-beige/50 via-green/30 to-purple/40 filter blur-sm animate-pulse" style={{animationDuration: '3s', animationDelay: '1s'}} />
+      </div>
+      <div className="absolute top-2/3 left-16 w-8 h-8 opacity-35 pointer-events-none">
+        <div className="w-full h-full rounded-full bg-gradient-to-br from-blue/40 via-rose/30 to-beige/40 filter blur-sm animate-bounce" style={{animationDuration: '5s', animationDelay: '2s'}} />
+      </div>
+      <div className="absolute top-1/5 right-20 w-10 h-10 opacity-30 pointer-events-none animate-pulse">
+        <div className="w-full h-full rounded-full bg-gradient-to-br from-green/40 via-purple/30 to-rose/40 filter blur-sm" style={{animationDuration: '3.5s', animationDelay: '0.5s'}} />
+      </div>
+      
+      {/* Prisma sutil original */}
+      <div className="absolute top-1/3 right-1/4 w-32 h-32 opacity-20 pointer-events-none">
+        <div className="w-full h-full rounded-lg bg-gradient-to-br from-purple/30 via-rose/30 to-blue/30 filter blur-sm" />
+      </div>
       {/* Background Image responsiva */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -63,9 +98,60 @@ export function HeroSection() {
           
           {/* Main Heading */}
           <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight">
-            Tradição,{" "}
-            <span className="text-beige block">Palavra</span>
-            <span className="text-blue">& Presença</span>
+            <span className="inline-block">
+              {"Tradição,".split('').map((letter, index) => (
+                <span 
+                  key={index}
+                  className={letter.toLowerCase() === 'a' ? 'inline-block w-[0.8em] h-[1em] align-baseline' : 'inline-block'}
+                  style={letter.toLowerCase() === 'a' ? {
+                    backgroundImage: 'url(/logo_branco.png)',
+                    backgroundSize: 'contain',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'center',
+                    marginBottom: '0.5rem', // desce mais a logo
+                    verticalAlign: 'bottom'
+                  } : {}}
+                >
+                  {letter.toLowerCase() === 'a' ? '' : letter}
+                </span>
+              ))}
+            </span>{" "}
+            <span className="block" style={{ color: 'hsl(var(--beige))' }}>
+              {"Palavra".split('').map((letter, index) => (
+                <span 
+                  key={index}
+                  className={letter.toLowerCase() === 'a' ? 'inline-block w-[0.8em] h-[1em] align-baseline' : 'inline-block'}
+                  style={letter.toLowerCase() === 'a' ? {
+                    backgroundImage: 'url(/logo_bege.png)',
+                    backgroundSize: 'contain',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'center',
+                    marginBottom: '0.5rem', // desce mais a logo
+                    verticalAlign: 'bottom'
+                  } : {}}
+                >
+                  {letter.toLowerCase() === 'a' ? '' : letter}
+                </span>
+              ))}
+            </span>
+            <span style={{ color: 'hsl(var(--blue))' }}>
+              {"&Presença".split('').map((letter, index) => (
+                <span 
+                  key={index}
+                  className={letter.toLowerCase() === 'a' ? 'inline-block w-[0.8em] h-[1em] align-baseline' : 'inline-block'}
+                  style={letter.toLowerCase() === 'a' ? {
+                    backgroundImage: 'url(/logo_azul.png)',
+                    backgroundSize: 'contain',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'center',
+                    marginBottom: '0.5rem', // desce mais a logo
+                    verticalAlign: 'bottom'
+                  } : {}}
+                >
+                  {letter.toLowerCase() === 'a' ? '' : letter}
+                </span>
+              ))}
+            </span>
           </h1>
           
           {/* Subtitle */}
@@ -76,10 +162,10 @@ export function HeroSection() {
           
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button variant="hero" size="lg" className="font-serif text-lg px-8 py-6">
+            <Button variant="hero" size="lg" className="font-serif text-lg px-8 py-6 group">
               <BookOpen className="w-5 h-5" />
               Explore Nossos Livros
-              <ArrowRight className="w-5 h-5" />
+              <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
             </Button>
             
             <Button variant="outline" size="lg" className="font-serif text-lg px-8 py-6 bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white/20">
@@ -118,11 +204,8 @@ export function HeroSection() {
                 className={`bg-white/10 backdrop-blur-sm border border-white/30 flex items-center justify-center cursor-pointer transition-all duration-700 ease-in-out ${
                   isHovered ? 'w-40 h-10 rounded-full' : 'w-20 h-20 rounded-full'
                 }`}
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => {
-                  setIsHovered(false);
-                  setHoveredColor(null);
-                }}
+                onMouseEnter={handleMouseEnterBall}
+                onMouseLeave={handleMouseLeaveBall}
               >
                 <div className="relative flex items-center justify-center">
                   {/* Convergent state - all colors together forming a circle */}

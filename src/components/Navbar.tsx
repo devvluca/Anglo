@@ -15,6 +15,7 @@ const navigationLinks = [
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,17 +29,19 @@ export function Navbar() {
   return (
             <nav 
               className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-                isScrolled 
+                isScrolled || isHovered
                   ? "bg-background/95 backdrop-blur-md shadow-elegant border-b border-border/50" 
                   : "bg-transparent border-none shadow-none"
               }`}
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
             >
   <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <div className="flex items-center gap-3">
             <img
-              src={isScrolled ? "/public/logo_com_nome.png" : "/public/logo_com_nome_bege.png"}
+              src={(isScrolled || isHovered) ? "/public/logo_com_nome.png" : "/public/logo_com_nome_bege.png"}
               alt="Logo Editora Anglo"
               className="w-32 h-auto object-contain"
             />
@@ -51,14 +54,14 @@ export function Navbar() {
                 key={link.label}
                 href={link.href}
                 className={`font-serif font-medium transition-colors relative group ${
-                  isScrolled 
+                  (isScrolled || isHovered)
                     ? "text-foreground hover:text-purple" 
                     : "text-white/90 hover:text-beige"
                 }`}
               >
                 {link.label}
                 <span className={`absolute -bottom-1 left-0 w-0 h-0.5 transition-all group-hover:w-full ${
-                  isScrolled ? "bg-purple" : "bg-beige"
+                  (isScrolled || isHovered) ? "bg-purple" : "bg-beige"
                 }`} />
               </a>
             ))}
@@ -68,7 +71,7 @@ export function Navbar() {
               variant="ghost"
               size="icon"
               className={`transition-colors ${
-                isScrolled 
+                (isScrolled || isHovered)
                   ? "text-foreground hover:text-purple hover:bg-purple/10" 
                   : "text-white/90 hover:text-beige hover:bg-white/10"
               }`}
@@ -80,7 +83,7 @@ export function Navbar() {
               variant="ghost"
               size="icon"
               className={`transition-colors ${
-                isScrolled 
+                (isScrolled || isHovered)
                   ? "text-foreground hover:text-purple hover:bg-purple/10" 
                   : "text-white/90 hover:text-beige hover:bg-white/10"
               }`}
@@ -92,7 +95,7 @@ export function Navbar() {
               variant="ghost"
               size="icon"
               className={`transition-colors ${
-                isScrolled 
+                (isScrolled || isHovered)
                   ? "text-foreground hover:text-purple hover:bg-purple/10" 
                   : "text-white/90 hover:text-beige hover:bg-white/10"
               }`}
@@ -101,7 +104,7 @@ export function Navbar() {
             </Button>
 
             <Button 
-              variant={isScrolled ? "spiritual" : "hero"} 
+              variant={(isScrolled || isHovered) ? "spiritual" : "hero"} 
               className="font-serif ml-4"
             >
               Explorar Livros
@@ -116,7 +119,7 @@ export function Navbar() {
                   variant="ghost"
                   size="icon"
                   className={`transition-colors ${
-                    isScrolled 
+                    (isScrolled || isHovered)
                       ? "text-foreground hover:text-purple hover:bg-purple/10" 
                       : "text-white/90 hover:text-beige hover:bg-white/10"
                   }`}
@@ -130,7 +133,7 @@ export function Navbar() {
                   {/* Mobile Logo */}
                   <div className="flex items-center gap-3 mb-8 pt-4">
                     <img
-                      src={isScrolled ? "/public/logo_com_nome.png" : "/public/logo_com_nome_bege.png"}
+                      src={(isScrolled || isHovered) ? "/public/logo_com_nome.png" : "/public/logo_com_nome_bege.png"}
                       alt="Logo Editora Anglo"
                       className="w-32 h-auto object-contain"
                     />

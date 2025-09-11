@@ -6,7 +6,6 @@ import { MissionSection } from "@/components/MissionSection";
 import { CategoriesSection } from "@/components/CategoriesSection";
 import { WhyChooseSection } from "@/components/WhyChooseSection";
 import { TestimonialsSection } from "@/components/TestimonialsSection";
-import { NewsletterSection } from "@/components/NewsletterSection";
 import { Footer } from "@/components/Footer";
 
 const Index = () => {
@@ -14,13 +13,12 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
       <HeroSection />
-      <FeaturedBooks />
-      <InfoBanner />
-      <MissionSection />
       <CategoriesSection />
-      <WhyChooseSection />
+      <InfoBanner />
+      <FeaturedBooks />
+      <MissionSection />
+      {/* <WhyChooseSection /> */}
       <TestimonialsSection />
-      <NewsletterSection />
       <Footer />
     </div>
   );

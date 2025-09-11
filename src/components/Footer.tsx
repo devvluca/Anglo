@@ -56,7 +56,7 @@ const socialLinks = [
 ];
 
 const contactInfo = [
-  { icon: Envelope, text: "contato@editoraanglo.com" },
+  { icon: Envelope, text: "editoraanglo@gmail.com" },
   { icon: Phone, text: "(81) 9973-3520" },
   { icon: MapPin, text: "Recife, PE - Brasil" }
 ];

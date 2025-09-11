@@ -1,119 +1,105 @@
-import { Card, CardContent } from "@/components/ui/card";
-import { Star, Quote } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Star } from "phosphor-react";
 
 const testimonials = [
   {
+    name: "Ana Débora Veloso",
+    content: "Desde 2020 utilizo os planners, e depois comecei a ser abençoada pelos livros, book planner, journal... todas as ferramentas criadas por vocês me aproximam de Jesus, e fazem eu ter uma visão mais clara da vida que Ele me deu para administrar, me deixando mais consciente sobre para onde Ele está me levando e de seu Propósito para a minha vida. Obrigada!",
+    color: "purple"
+  },
+  {
     name: "Pe. Francisco Almeida",
-    role: "Pároco da Igreja São José",
-    location: "São Paulo, SP",
     content: "As publicações da Editora Anglo têm sido fundamentais para minha formação continuada. A qualidade teológica é excepcional e a abordagem convergente enriquece minha perspectiva pastoral.",
-    rating: 5,
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face"
+    color: "beige"
   },
   {
     name: "Dra. Maria Fernanda",
-    role: "Professora de Teologia",
-    location: "Rio de Janeiro, RJ", 
     content: "Recomendo os livros da Anglo para todos os meus alunos. A editora consegue unir profundidade acadêmica com acessibilidade, tornando temas complexos compreensíveis.",
-    rating: 5,
-    image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face"
+    color: "rose"
   },
   {
     name: "Rev. Carlos Santos",
-    role: "Pastor Metodista",
-    location: "Belo Horizonte, MG",
     content: "A visão convergente da Anglo é exatamente o que nossa igreja precisava. Os livros nos ajudam a valorizar nossa tradição enquanto dialogamos com outras denominações cristãs.",
-    rating: 5,
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
+    color: "blue"
   },
   {
     name: "Irmã Teresa Gonzalez",
-    role: "Diretora Espiritual",
-    location: "Brasília, DF",
     content: "Os livros de espiritualidade da Anglo transformaram minha vida de oração. A combinação de tradição e contemporaneidade é perfeita para os desafios atuais.",
-    rating: 5,
-    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face"
-  },
-  {
-    name: "Prof. João Ribeiro",
-    role: "Teólogo Leigo",
-    location: "Recife, PE",
-    content: "Como estudioso da teologia, posso afirmar que a Editora Anglo está entre as melhores do país. A seriedade acadêmica aliada à espiritualidade é impressionante.",
-    rating: 5,
-    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face"
-  },
-  {
-    name: "Ana Clara Silva",
-    role: "Líder de Grupo de Estudo",
-    location: "Curitiba, PR",
-    content: "Nossa comunidade foi enriquecida pelos estudos bíblicos da Anglo. A profundidade dos comentários nos ajuda a crescer na fé e no conhecimento das Escrituras.",
-    rating: 5,
-    image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&fit=crop&crop=face"
+    color: "green"
   }
 ];
 
+const colorClasses = {
+  purple: "text-purple",
+  beige: "text-beige", 
+  rose: "text-rose",
+  blue: "text-blue",
+  green: "text-green"
+};
+
 export function TestimonialsSection() {
+  const [currentTestimonial, setCurrentTestimonial] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+    }, 6000); // Muda a cada 6 segundos
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const current = testimonials[currentTestimonial];
+
   return (
-    <section className="py-20 bg-gradient-to-br from-purple/5 to-rose/5">
+    <section className="py-20 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden">
       <div className="container mx-auto px-4">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-6">
-            Testemunhos que{" "}
-            <span className="text-purple">Inspiram</span>
+        {/* Título da seção */}
+        <div className="text-center mb-20">
+          <h2 className="font-display text-4xl md:text-5xl font-bold text-gray-800 mb-6">
+            Vozes que Transformam
           </h2>
-          <p className="font-serif text-xl text-muted-foreground max-w-2xl mx-auto">
-            Veja como nossas publicações têm transformado vidas e fortalecido comunidades cristãs
-          </p>
         </div>
-        
-        {/* Testimonials Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {testimonials.map((testimonial, index) => (
-            <Card 
-              key={index}
-              className="group hover:shadow-elegant transition-spiritual bg-card/80 backdrop-blur-sm border-border/50"
-            >
-              <CardContent className="p-8">
-                {/* Quote Icon */}
-                <div className="mb-6">
-                  <Quote className="w-8 h-8 text-purple/60" />
-                </div>
-                
-                {/* Content */}
-                <p className="font-serif text-muted-foreground leading-relaxed mb-6 italic">
-                  "{testimonial.content}"
-                </p>
-                
-                {/* Rating */}
-                <div className="flex items-center gap-1 mb-6">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 text-yellow-400 fill-current" />
-                  ))}
-                </div>
-                
-                {/* Author */}
-                <div className="flex items-center gap-4">
-                  <img 
-                    src={testimonial.image}
-                    alt={testimonial.name}
-                    className="w-12 h-12 rounded-full object-cover"
-                  />
-                  <div>
-                    <h4 className="font-serif font-semibold text-foreground">
-                      {testimonial.name}
-                    </h4>
-                    <p className="text-sm text-muted-foreground">
-                      {testimonial.role}
-                    </p>
-                    <p className="text-xs text-muted-foreground">
-                      {testimonial.location}
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+
+        {/* Testemunho atual */}
+        <div className="max-w-4xl mx-auto text-center">
+          {/* Estrelas com cor do testemunho atual */}
+          <div className="flex items-center justify-center gap-1 mb-12">
+            {[...Array(5)].map((_, index) => (
+              <Star 
+                key={index}
+                weight="fill"
+                className={`w-4 h-4 transition-all duration-500 ${
+                  colorClasses[current.color as keyof typeof colorClasses]
+                }`}
+              />
+            ))}
+          </div>
+
+          {/* Conteúdo do testemunho */}
+          <div className="transition-all duration-500 ease-in-out">
+            <p className="font-serif text-xl md:text-2xl text-gray-700 leading-relaxed mb-8 max-w-3xl mx-auto">
+              {current.content}
+            </p>
+            
+            <p className="font-serif text-lg text-gray-600">
+              - Com carinho, {current.name}.
+            </p>
+          </div>
+
+          {/* Indicadores de progresso */}
+          <div className="flex items-center justify-center gap-2 mt-12">
+            {testimonials.map((testimonial, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentTestimonial(index)}
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  index === currentTestimonial 
+                    ? `${colorClasses[testimonial.color as keyof typeof colorClasses].replace('text-', 'bg-')} scale-125` 
+                    : 'bg-gray-300 hover:bg-gray-400'
+                }`}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>

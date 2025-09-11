@@ -1,0 +1,72 @@
+/* Swiper customization */
+.categories-swiper .swiper-pagination-bullet {
+  background: hsl(var(--purple));
+  opacity: 0.3;
+}
+
+.categories-swiper .swiper-pagination-bullet-active {
+  background: hsl(var(--purple));
+  opacity: 1;
+}
+
+.books-swiper .swiper-pagination-bullet {
+  background: hsl(var(--blue));
+  opacity: 0.3;
+}
+
+.books-swiper .swiper-pagination-bullet-active {
+  background: hsl(var(--blue));
+  opacity: 1;
+}
+
+/* Enhanced center slide effect with better spacing */
+.swiper-slide {
+  transition: all 0.4s ease;
+  opacity: 0.5;
+  transform: scale(0.8);
+}
+
+.swiper-slide-active {
+  opacity: 1;
+  transform: scale(1);
+  z-index: 10;
+}
+
+.swiper-slide-next,
+.swiper-slide-prev {
+  opacity: 0.6;
+  transform: scale(0.85);
+}
+
+/* Categories specific styling */
+.categories-swiper .swiper-slide {
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.categories-swiper .swiper-slide-active {
+  transform: scale(1.1);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* Books specific styling */
+.books-swiper .swiper-slide {
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.books-swiper .swiper-slide-active {
+  transform: scale(1.12);
+  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.2);
+}
+
+/* Mobile pagination spacing */
+.categories-swiper .swiper-pagination,
+.books-swiper .swiper-pagination {
+  bottom: 0 !important;
+}
+
+/* Better spacing and overflow handling */
+.categories-swiper,
+.books-swiper {
+  overflow: visible;
+  padding: 20px 0;
+}

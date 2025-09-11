@@ -3,27 +3,27 @@ import { Star } from "phosphor-react";
 
 const testimonials = [
   {
-    name: "Ana Débora Veloso",
+    name: "Helena Franco",
     content: "Desde 2020 utilizo os planners, e depois comecei a ser abençoada pelos livros, book planner, journal... todas as ferramentas criadas por vocês me aproximam de Jesus, e fazem eu ter uma visão mais clara da vida que Ele me deu para administrar, me deixando mais consciente sobre para onde Ele está me levando e de seu Propósito para a minha vida. Obrigada!",
     color: "purple"
   },
   {
-    name: "Pe. Francisco Almeida",
+    name: "Cil Farney",
     content: "As publicações da Editora Anglo têm sido fundamentais para minha formação continuada. A qualidade teológica é excepcional e a abordagem convergente enriquece minha perspectiva pastoral.",
     color: "beige"
   },
   {
-    name: "Dra. Maria Fernanda",
+    name: "Adriane Stephany",
     content: "Recomendo os livros da Anglo para todos os meus alunos. A editora consegue unir profundidade acadêmica com acessibilidade, tornando temas complexos compreensíveis.",
     color: "rose"
   },
   {
-    name: "Rev. Carlos Santos",
+    name: "Júlia Sultanum",
     content: "A visão convergente da Anglo é exatamente o que nossa igreja precisava. Os livros nos ajudam a valorizar nossa tradição enquanto dialogamos com outras denominações cristãs.",
     color: "blue"
   },
   {
-    name: "Irmã Teresa Gonzalez",
+    name: "Irmã Lídia",
     content: "Os livros de espiritualidade da Anglo transformaram minha vida de oração. A combinação de tradição e contemporaneidade é perfeita para os desafios atuais.",
     color: "green"
   }
@@ -82,7 +82,7 @@ export function TestimonialsSection() {
             </p>
             
             <p className="font-serif text-lg text-gray-600">
-              - Com carinho, {current.name}.
+              - {current.name}.
             </p>
           </div>
 

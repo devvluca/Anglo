@@ -1,6 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Star, ShoppingCart, Eye, BookOpen, Heart, Users, X } from "phosphor-react";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import './carousel-styles.css';
 
 const featuredBooks = [
   {
@@ -103,8 +109,8 @@ export function FeaturedBooks() {
           </p>
         </div>
         
-        {/* Books Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {/* Books Grid - Desktop */}
+        <div className="hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {featuredBooks.map((book, index) => {
             const colors = colorClasses[book.color as keyof typeof colorClasses];
             const Icon = book.icon;
@@ -181,6 +187,95 @@ export function FeaturedBooks() {
               </Card>
             );
           })}
+        </div>
+
+        {/* Books Carousel - Mobile */}
+        <div className="md:hidden">
+          <Swiper
+            modules={[Navigation, Pagination, Autoplay]}
+            spaceBetween={20}
+            slidesPerView={1.1}
+            centeredSlides={true}
+            autoplay={{
+              delay: 4000,
+              disableOnInteraction: false,
+            }}
+            pagination={{
+              clickable: true,
+              dynamicBullets: true,
+            }}
+            className="books-swiper pb-12"
+          >
+            {featuredBooks.map((book, index) => {
+              const colors = colorClasses[book.color as keyof typeof colorClasses];
+              const Icon = book.icon;
+              
+              return (
+                <SwiperSlide key={book.id}>
+                  <Card 
+                    className={`overflow-hidden border-2 ${colors.border} ${colors.bg} backdrop-blur-sm cursor-pointer mx-2`}
+                  >
+                    {/* Book Cover with Icon */}
+                    <div className="relative h-48 flex items-center justify-center overflow-hidden">
+                      {/* Background gradient */}
+                      <div className={`absolute inset-0 ${colors.bg}`} />
+                      
+                      {/* Large background icon */}
+                      <div className="absolute inset-0 flex items-center justify-center opacity-15">
+                        <Icon className="w-24 h-24 text-foreground" />
+                      </div>
+                      
+                      {/* Category badge */}
+                      <div className="absolute top-3 left-3">
+                        <span className={`${colors.categoryBg} ${colors.categoryText} px-2 py-1 rounded-full text-xs font-bold backdrop-blur-sm border border-white/20`}>
+                          {book.category}
+                        </span>
+                      </div>
+                    </div>
+                    
+                    <CardContent className="p-4">
+                      <h3 className="font-serif text-lg font-bold text-foreground mb-2 line-clamp-2">
+                        {book.title}
+                      </h3>
+                      <p className="text-muted-foreground mb-3 font-medium text-sm">
+                        {book.author}
+                      </p>
+                      
+                      {/* Rating */}
+                      <div className="flex items-center gap-2 mb-3">
+                        <div className="flex items-center">
+                          {[...Array(5)].map((_, i) => (
+                            <Star 
+                              key={i} 
+                              className={`w-3 h-3 ${i < Math.floor(book.rating) ? 'text-yellow-400 fill-current' : 'text-gray-300'}`}
+                            />
+                          ))}
+                        </div>
+                        <span className="text-xs text-muted-foreground">
+                          {book.rating} ({book.reviews})
+                        </span>
+                      </div>
+                      
+                      {/* Price */}
+                      <div className="flex items-center gap-2 mb-4">
+                        <span className="font-bold text-lg text-green-600">{book.price}</span>
+                        <span className="text-xs text-muted-foreground line-through">{book.originalPrice}</span>
+                      </div>
+                      
+                      {/* Add to Cart Button */}
+                      <Button 
+                        variant="spiritual" 
+                        className="w-full font-serif font-semibold text-sm text-white hover:text-white"
+                      >
+                        <ShoppingCart className="w-4 h-4" />
+                        Adicionar ao Carrinho
+                      </Button>
+                    </CardContent>
+                  </Card>
+                </SwiperSlide>
+              );
+            })}
+          </Swiper>
         </div>
         
         {/* View All Button */}

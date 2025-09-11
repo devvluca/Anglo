@@ -19,15 +19,15 @@ export function MissionSection() {
       </div>
       
       <div className="container mx-auto px-4 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-16 lg:gap-16 items-center">
           {/* Left Content */}
-          <div className="relative">
-            <div className="inline-flex items-center gap-2 bg-beige/20 text-beige px-6 py-3 rounded-full mb-8 hover:bg-beige/30 transition-all duration-300 hover:scale-105 backdrop-blur-sm border border-beige/30">
-              <X className="w-5 h-5 animate-pulse" />
-              <span className="font-bold">Nossa Missão</span>
+          <div className="relative order-1 lg:order-1">
+            <div className="inline-flex items-center gap-2 bg-beige/20 text-beige px-4 lg:px-6 py-2 lg:py-3 rounded-full mb-6 lg:mb-8 hover:bg-beige/30 transition-all duration-300 hover:scale-105 backdrop-blur-sm border border-beige/30">
+              <X className="w-4 h-4 lg:w-5 lg:h-5 animate-pulse" />
+              <span className="font-bold text-sm lg:text-base">Nossa Missão</span>
             </div>
             
-            <h2 className="font-display text-5xl md:text-6xl font-bold text-beige mb-8 leading-tight animate-fade-in">
+            <h2 className="font-display text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-beige mb-6 lg:mb-8 leading-tight animate-fade-in">
               Uma Voz de{" "}
               <span className="text-white hover:text-beige transition-colors duration-500 relative">
                 Convergência
@@ -35,7 +35,7 @@ export function MissionSection() {
               no Cenário Cristão
             </h2>
             
-            <div className="space-y-10 font-serif text-xl md:text-2xl leading-relaxed font-medium">
+            <div className="space-y-6 lg:space-y-10 font-serif text-lg md:text-xl lg:text-2xl leading-relaxed font-medium">
               <div className="group hover:transform hover:scale-105 transition-all duration-300">
                 <p className="text-beige opacity-0 animate-slide-up-delayed-1 hover:text-white transition-all duration-300">
                   A Editora Anglo surge como uma ponte entre a rica tradição cristã e as necessidades 
@@ -64,7 +64,7 @@ export function MissionSection() {
           
           
           {/* Right Content - Diagrama de Venn */}
-          <div className="relative flex items-center justify-center h-[600px] w-[600px] mx-auto overflow-visible">
+          <div className="relative flex items-center justify-center h-[400px] md:h-[500px] lg:h-[600px] w-full max-w-[400px] md:max-w-[500px] lg:max-w-[600px] mx-auto overflow-visible order-2 lg:order-2">
             <svg
               viewBox="0 0 700 700"
               className="w-full h-full overflow-visible"

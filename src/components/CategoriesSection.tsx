@@ -1,6 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight, BookOpen, X, Heart, Users, Lightbulb, Buildings } from "phosphor-react";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
 const categories = [
   {
@@ -98,8 +103,8 @@ export function CategoriesSection() {
           </p>
         </div>
         
-        {/* Categories Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
+        {/* Categories Grid - Desktop */}
+        <div className="hidden md:grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
           {categories.map((category, index) => {
             const colors = colorClasses[category.color as keyof typeof colorClasses];
             const Icon = category.icon;
@@ -171,6 +176,86 @@ export function CategoriesSection() {
               </div>
             );
           })}
+        </div>
+
+        {/* Categories Carousel - Mobile */}
+        <div className="md:hidden">
+          <Swiper
+            modules={[Navigation, Pagination, Autoplay]}
+            spaceBetween={20}
+            slidesPerView={1.2}
+            centeredSlides={true}
+            autoplay={{
+              delay: 3000,
+              disableOnInteraction: false,
+            }}
+            pagination={{
+              clickable: true,
+              dynamicBullets: true,
+            }}
+            className="categories-swiper pb-12"
+          >
+            {categories.map((category, index) => {
+              const colors = colorClasses[category.color as keyof typeof colorClasses];
+              const Icon = category.icon;
+              
+              return (
+                <SwiperSlide key={index}>
+                  <div
+                    className={`group cursor-pointer rounded-2xl overflow-hidden ${colors.bg} shadow-xl relative h-[24rem] mx-2`}
+                  >
+                    {/* Simplified overlay */}
+                    <div className={`absolute inset-0 ${colors.overlay} transition-opacity duration-300`} />
+                    
+                    <div className="relative p-6 h-full flex flex-col">
+                      {/* Simplified background icon */}
+                      <div className="absolute top-4 right-4 w-12 h-12 opacity-15">
+                        <Icon className="w-full h-full text-white" />
+                      </div>
+                      
+                      {/* Simplified header icon */}
+                      <div className="mb-6 relative z-10">
+                        <div className={`${colors.accent} p-3 rounded-xl backdrop-blur-sm inline-flex`}>
+                          <Icon className={`w-7 h-7 ${colors.text}`} />
+                        </div>
+                      </div>
+                      
+                      {/* Simplified content */}
+                      <div className="flex-1 flex flex-col justify-between relative z-10">
+                        <div className="space-y-4">
+                          <h3 className={`font-display text-xl font-bold ${colors.text} leading-tight`}>
+                            {category.title}
+                          </h3>
+                          
+                          <p className={`${colors.text} opacity-85 leading-relaxed text-sm font-medium`}>
+                            {category.description}
+                          </p>
+                        </div>
+                        
+                        {/* Simplified bottom section */}
+                        <div className="mt-6 space-y-4">
+                          {/* Book count */}
+                          <div className={`${colors.accent} backdrop-blur-sm px-4 py-2 rounded-full inline-flex items-center`}>
+                            <span className={`text-sm font-bold ${colors.text}`}>
+                              {category.count} livros
+                            </span>
+                          </div>
+                          
+                          {/* Simplified CTA */}
+                          <div className={`inline-flex items-center gap-2 ${colors.accent} backdrop-blur-sm px-5 py-3 rounded-xl w-full justify-center cursor-pointer`}>
+                            <span className={`font-serif font-semibold text-sm ${colors.text}`}>
+                              Explorar
+                            </span>
+                            <ArrowRight className={`w-4 h-4 ${colors.text}`} />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </SwiperSlide>
+              );
+            })}
+          </Swiper>
         </div>
       </div>
     </section>

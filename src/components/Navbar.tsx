@@ -180,7 +180,6 @@ export function Navbar() {
                         <div className="w-2 h-2 rounded-full bg-rose/60 -ml-0.5"></div>
                         <div className="w-2 h-2 rounded-full bg-blue/60 -ml-0.5"></div>
                       </div>
-                      <span className="text-xs text-muted-foreground">Santíssima Trindade</span>
                     </div>
                   </div>
                 </div>

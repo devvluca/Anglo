@@ -212,8 +212,9 @@ export function FeaturedBooks() {
               const Icon = book.icon;
               
               return (
-                <SwiperSlide key={book.id}>
-                  <Card className={`overflow-hidden border-2 ${colors.border} ${colors.bg} backdrop-blur-sm cursor-pointer w-full`}>
+                <SwiperSlide key={book.id} style={{ background: 'none', backgroundColor: 'transparent', border: 'none', outline: 'none' }}>
+                  <div className="w-full h-full bg-transparent p-0 m-0">
+                    <Card className={`overflow-hidden border-2 ${colors.border} ${colors.bg} backdrop-blur-sm cursor-pointer w-full border-0`}>
                     {/* Book Cover with Icon */}
                     <div className="relative h-48 flex items-center justify-center overflow-hidden">
                       {/* Background gradient */}
@@ -271,6 +272,7 @@ export function FeaturedBooks() {
                       </Button>
                     </CardContent>
                   </Card>
+                  </div>
                 </SwiperSlide>
               );
             })}

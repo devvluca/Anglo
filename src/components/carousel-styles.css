@@ -39,6 +39,37 @@
   opacity: 1;
 }
 
+/* Books swiper specific rules */
+.books-swiper {
+  background: transparent !important;
+}
+
+.books-swiper .swiper-wrapper {
+  background: transparent !important;
+}
+
+.books-swiper .swiper-slide {
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.books-swiper .swiper-slide::before,
+.books-swiper .swiper-slide::after {
+  display: none !important;
+}
+
+.books-swiper .swiper-slide > div {
+  border: none !important;
+  outline: none !important;
+}
+
+/* Remove any possible white backgrounds */
+.books-swiper * {
+  box-sizing: border-box;
+}
+
 .books-swiper .swiper-pagination-bullet {
   background: hsl(var(--blue));
   opacity: 0.3;

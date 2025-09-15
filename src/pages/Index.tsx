@@ -4,7 +4,6 @@ import { InfoBanner } from "@/components/InfoBanner";
 import { FeaturedBooks } from "@/components/FeaturedBooks";
 import { MissionSection } from "@/components/MissionSection";
 import { CategoriesSection } from "@/components/CategoriesSection";
-import { WhyChooseSection } from "@/components/WhyChooseSection";
 import { TestimonialsSection } from "@/components/TestimonialsSection";
 import { Footer } from "@/components/Footer";
 
@@ -13,11 +12,10 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
       <HeroSection />
-      <CategoriesSection />
+      {/* <CategoriesSection /> */}
       <InfoBanner />
       <FeaturedBooks />
       <MissionSection />
-      {/* <WhyChooseSection /> */}
       <TestimonialsSection />
       <Footer />
     </div>

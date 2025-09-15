@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Star, ShoppingCart, Eye, BookOpen, Heart, Users, X } from "phosphor-react";
+import { ShoppingCart, Eye, BookOpen, Heart, Users, X } from "phosphor-react";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
@@ -131,13 +131,6 @@ export function FeaturedBooks() {
                     <Icon className="w-32 h-32 text-foreground" />
                   </div>
                   
-                  {/* Category badge */}
-                  <div className="absolute top-4 left-4">
-                    <span className={`${colors.categoryBg} ${colors.categoryText} px-3 py-1 rounded-full text-sm font-bold backdrop-blur-sm border border-white/20`}>
-                      {book.category}
-                    </span>
-                  </div>
-                  
                   {/* View button */}
                   <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                     <Button variant="secondary" size="icon" className="bg-white/90 hover:bg-white hover:scale-105 transition-all duration-200">
@@ -153,21 +146,6 @@ export function FeaturedBooks() {
                   <p className="text-muted-foreground mb-4 font-medium group-hover:text-foreground transition-colors duration-200">
                     {book.author}
                   </p>
-                  
-                  {/* Rating */}
-                  <div className="flex items-center gap-2 mb-4">
-                    <div className="flex items-center">
-                      {[...Array(5)].map((_, i) => (
-                        <Star 
-                          key={i} 
-                          className={`w-4 h-4 ${i < Math.floor(book.rating) ? 'text-yellow-400 fill-current' : 'text-gray-300'} group-hover:scale-105 transition-transform duration-200`}
-                        />
-                      ))}
-                    </div>
-                    <span className="text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-200">
-                      {book.rating} ({book.reviews})
-                    </span>
-                  </div>
                   
                   {/* Price */}
                   <div className="flex items-center gap-2 mb-6">
@@ -190,7 +168,7 @@ export function FeaturedBooks() {
         </div>
 
         {/* Books Carousel - Mobile */}
-  <div className="md:hidden overflow-hidden px-4">
+        <div className="md:hidden overflow-hidden px-4">
           <Swiper
             modules={[Navigation, Pagination, Autoplay]}
             spaceBetween={20}
@@ -215,63 +193,41 @@ export function FeaturedBooks() {
                 <SwiperSlide key={book.id} style={{ background: 'none', backgroundColor: 'transparent', border: 'none', outline: 'none' }}>
                   <div className="w-full h-full bg-transparent p-0 m-0">
                     <Card className={`overflow-hidden border-2 ${colors.border} ${colors.bg} backdrop-blur-sm cursor-pointer w-full border-0`}>
-                    {/* Book Cover with Icon */}
-                    <div className="relative h-48 flex items-center justify-center overflow-hidden">
-                      {/* Background gradient */}
-                      <div className={`absolute inset-0 ${colors.bg}`} />
-                      
-                      {/* Large background icon */}
-                      <div className="absolute inset-0 flex items-center justify-center opacity-15">
-                        <Icon className="w-24 h-24 text-foreground" />
-                      </div>
-                      
-                      {/* Category badge */}
-                      <div className="absolute top-3 left-3">
-                        <span className={`${colors.categoryBg} ${colors.categoryText} px-2 py-1 rounded-full text-xs font-bold backdrop-blur-sm border border-white/20`}>
-                          {book.category}
-                        </span>
-                      </div>
-                    </div>
-                    
-                    <CardContent className="p-4">
-                      <h3 className="font-serif text-lg font-bold text-foreground mb-2 line-clamp-2">
-                        {book.title}
-                      </h3>
-                      <p className="text-muted-foreground mb-3 font-medium text-sm">
-                        {book.author}
-                      </p>
-                      
-                      {/* Rating */}
-                      <div className="flex items-center gap-2 mb-3">
-                        <div className="flex items-center">
-                          {[...Array(5)].map((_, i) => (
-                            <Star 
-                              key={i} 
-                              className={`w-3 h-3 ${i < Math.floor(book.rating) ? 'text-yellow-400 fill-current' : 'text-gray-300'}`}
-                            />
-                          ))}
+                      {/* Book Cover with Icon */}
+                      <div className="relative h-48 flex items-center justify-center overflow-hidden">
+                        {/* Background gradient */}
+                        <div className={`absolute inset-0 ${colors.bg}`} />
+                        
+                        {/* Large background icon */}
+                        <div className="absolute inset-0 flex items-center justify-center opacity-15">
+                          <Icon className="w-24 h-24 text-foreground" />
                         </div>
-                        <span className="text-xs text-muted-foreground">
-                          {book.rating} ({book.reviews})
-                        </span>
                       </div>
                       
-                      {/* Price */}
-                      <div className="flex items-center gap-2 mb-4">
-                        <span className="font-bold text-lg text-green-600">{book.price}</span>
-                        <span className="text-xs text-muted-foreground line-through">{book.originalPrice}</span>
-                      </div>
-                      
-                      {/* Add to Cart Button */}
-                      <Button 
-                        variant="spiritual" 
-                        className="w-full font-serif font-semibold text-sm text-white hover:text-white"
-                      >
-                        <ShoppingCart className="w-4 h-4" />
-                        Adicionar ao Carrinho
-                      </Button>
-                    </CardContent>
-                  </Card>
+                      <CardContent className="p-4">
+                        <h3 className="font-serif text-lg font-bold text-foreground mb-2 line-clamp-2">
+                          {book.title}
+                        </h3>
+                        <p className="text-muted-foreground mb-3 font-medium text-sm">
+                          {book.author}
+                        </p>
+                        
+                        {/* Price */}
+                        <div className="flex items-center gap-2 mb-4">
+                          <span className="font-bold text-lg text-green-600">{book.price}</span>
+                          <span className="text-xs text-muted-foreground line-through">{book.originalPrice}</span>
+                        </div>
+                        
+                        {/* Add to Cart Button */}
+                        <Button 
+                          variant="spiritual" 
+                          className="w-full font-serif font-semibold text-sm text-white hover:text-white"
+                        >
+                          <ShoppingCart className="w-4 h-4" />
+                          Adicionar ao Carrinho
+                        </Button>
+                      </CardContent>
+                    </Card>
                   </div>
                 </SwiperSlide>
               );

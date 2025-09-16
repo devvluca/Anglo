@@ -52,7 +52,7 @@ export function Navbar() {
             />
           </div>
 
-          {/* Desktop Navigation */}
+          {/* Desktop Navigation a */}
           <div className="hidden lg:flex items-center gap-10 pl-0">
             {navigationLinks.map((link) => (
               <a

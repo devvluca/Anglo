@@ -1,13 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { X, List, ShoppingCart, MagnifyingGlass, User } from "phosphor-react";
 
 const navigationLinks = [
   { href: "#", label: "Início" },
-  { href: "#", label: "Livros" },
-  { href: "#", label: "Categorias" },
-  { href: "#", label: "Blog" },
   { href: "#", label: "Sobre" },
   { href: "#", label: "Contato" }
 ];
@@ -16,12 +13,19 @@ export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [showNavbar, setShowNavbar] = useState(true);
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
+      if (window.scrollY > lastScrollY.current && window.scrollY > 60) {
+        setShowNavbar(false);
+      } else {
+        setShowNavbar(true);
+      }
+      lastScrollY.current = window.scrollY;
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -32,23 +36,24 @@ export function Navbar() {
                 isScrolled || isHovered
                   ? "bg-background/95 backdrop-blur-md shadow-elegant border-b border-border/50" 
                   : "bg-transparent border-none shadow-none"
-              }`}
+              } ${showNavbar ? "translate-y-0" : "-translate-y-full"}`}
+              style={{ willChange: 'transform' }}
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}
             >
   <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 pl-4">
             <img
               src={(isScrolled || isHovered) ? "/logo_com_nome.png" : "/logo_com_nome_bege.png"}
               alt="Logo Editora Anglo"
-              className="w-32 h-auto object-contain"
+              className="w-24 h-auto object-contain"
             />
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-8">
+          <div className="hidden lg:flex items-center gap-10 pl-0">
             {navigationLinks.map((link) => (
               <a
                 key={link.label}
@@ -66,7 +71,7 @@ export function Navbar() {
               </a>
             ))}
           </div>
-          <div className="hidden lg:flex items-center gap-4">
+          <div className="hidden lg:flex items-center gap-8">
             <Button
               variant="ghost"
               size="icon"
@@ -78,7 +83,6 @@ export function Navbar() {
             >
               <MagnifyingGlass className="w-5 h-5" />
             </Button>
-            
             <Button
               variant="ghost"
               size="icon"
@@ -89,25 +93,6 @@ export function Navbar() {
               }`}
             >
               <User className="w-5 h-5" />
-            </Button>
-            
-            <Button
-              variant="ghost"
-              size="icon"
-              className={`transition-colors ${
-                (isScrolled || isHovered)
-                  ? "text-foreground hover:text-purple hover:bg-purple/10" 
-                  : "text-white/90 hover:text-beige hover:bg-white/10"
-              }`}
-            >
-              <ShoppingCart className="w-5 h-5" />
-            </Button>
-
-            <Button 
-              variant={(isScrolled || isHovered) ? "spiritual" : "hero"} 
-              className="font-serif ml-4"
-            >
-              Explorar Livros
             </Button>
           </div>
 

@@ -143,7 +143,7 @@ export function TestimonialsSection() {
           {/* Conteúdo do testemunho */}
           <div
             ref={carouselRef}
-            className="transition-transform duration-300 ease-in-out cursor-grab active:cursor-grabbing"
+            className="transition-transform duration-300 ease-in-out cursor-grab active:cursor-grabbing min-h-[240px] flex flex-col justify-center"
           >
             <p className="font-serif text-xl md:text-2xl text-gray-700 leading-relaxed mb-8 max-w-3xl mx-auto">
               {current.content}

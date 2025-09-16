@@ -54,7 +54,7 @@ export function HeroSection() {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24">
+  <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-48">
       {/* Bolas decorativas com efeito prisma */}
       <div className="absolute top-1/4 left-8 w-16 h-16 opacity-30 pointer-events-none animate-pulse">
         <div className="w-full h-full rounded-full bg-gradient-to-br from-purple/40 via-rose/30 to-blue/40 filter blur-sm animate-bounce" style={{animationDuration: '4s'}} />
@@ -89,11 +89,11 @@ export function HeroSection() {
       <div className="relative z-10 container mx-auto px-4 text-center text-white">
         <div className="max-w-4xl mx-auto">
           
-          {/* Main Heading */}
-          <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-normal mb-6 leading-tight">
-            <span className="inline-block">
-              {"Tradição,".split('').map((letter, index) => (
-                letter.toLowerCase() === 'a' ? (
+          {/* Main Heading - igual ao print */}
+          <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-normal mb-4 leading-tight">
+            <span className="block">
+              {"TRADIÇÃO,".split('').map((letter, index) => (
+                letter.toLowerCase() === 'a' && index === 2 ? (
                   <span
                     key={index}
                     className="inline-block w-[0.8em] h-[1em] align-baseline"
@@ -110,31 +110,27 @@ export function HeroSection() {
                   <span key={index} className="inline-block">{letter}</span>
                 )
               ))}
-            </span>{" "}
-            <span className="block" style={{ color: 'hsl(var(--beige))' }}>
-              Palavra
             </span>
-            <span style={{ color: 'hsl(var(--blue))' }}>
-              &Presença
-            </span>
+            <span className="block">PALAVRA</span>
+            <span className="block">& ESPERANÇA.</span>
           </h1>
-          
-          {/* Subtitle */}
-          <p className="font-serif text-xl md:text-2xl lg:text-3xl mb-8 max-w-3xl mx-auto leading-relaxed opacity-90">
-            Promovendo formação teológica e espiritualidade sólida através da publicação de conteúdos 
-            que unem tradição cristã e presença transformadora.
+          {/* Subtitle - igual ao print */}
+          <p className="font-serif text-base md:text-lg lg:text-xl mb-4 max-w-xl mx-auto leading-relaxed opacity-90">
+            Promovendo formação teológica e espiritualidade sólida através da publicação de conteúdos que unem tradição cristã e presença transformadora.
           </p>
-          
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button variant="hero" size="lg" className="font-serif text-lg px-8 py-6 group">
-              <BookOpen className="w-5 h-5" />
-              Explore Nossos Livros
-              <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
-            </Button>
-            
-            <Button variant="outline" size="lg" className="font-serif text-lg px-8 py-6 bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white/20">
-              Conheça Nossa Missão
+          {/* CTA Button único */}
+          <div className="flex justify-center items-center mb-4">
+            <Button
+              variant={typeof window !== 'undefined' && window.scrollY > 20 ? "spiritual" : "hero"}
+              className="font-serif text-lg px-8 py-2 ml-0"
+              onClick={() => {
+                const missionSection = document.getElementById('mission-section');
+                if (missionSection) {
+                  missionSection.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+            >
+              Conheça nossa Missão
             </Button>
           </div>
           

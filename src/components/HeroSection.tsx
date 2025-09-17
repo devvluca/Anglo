@@ -55,7 +55,7 @@ export function HeroSection() {
   };
 
   return (
-  <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-48 pb-2">
+  <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-32 pb-0">
       {/* Bolas decorativas com efeito prisma */}
       <div className="absolute top-1/4 left-8 w-16 h-16 opacity-30 pointer-events-none animate-pulse">
         <div className="w-full h-full rounded-full bg-gradient-to-br from-purple/40 via-rose/30 to-blue/40 filter blur-sm animate-bounce" style={{animationDuration: '4s'}} />
@@ -87,9 +87,9 @@ export function HeroSection() {
 
       
       {/* Content */}
-  <div className="relative z-10 container mx-auto px-4 text-center text-white pt-20">
+  <div className="relative z-10 container mx-auto px-4 text-center text-white pt-4">
         <div className="max-w-4xl mx-auto">
-          <div className="flex flex-col items-center justify-center gap-6">
+          <div className="flex flex-col items-center justify-center gap-4">
             <motion.img 
               src="/logo_branco.png" 
               alt="Logo Anglo" 
@@ -137,7 +137,7 @@ export function HeroSection() {
           </div>
           
           {/* Color description text between buttons and symbol */}
-          <div className="mt-16 mb-4 h-12 flex items-center justify-center">
+          <div className="mt-8 mb-8 h-12 flex items-center justify-center">
             <div className={`transition-all duration-300 ease-in-out ${
               hoveredColor ? 'opacity-100' : 'opacity-0'
             }`}>
@@ -156,7 +156,7 @@ export function HeroSection() {
           </div>
           
           {/* Trinity Symbol - Interactive 5 Colors */}
-          <div className="-mt-14 mb-10 flex justify-center">
+          <div className="-mt-16 mb-6 flex justify-center">
             <div className="relative h-24 flex items-center justify-center">
               <div 
                 className={`bg-white/10 backdrop-blur-sm border border-white/30 flex items-center justify-center cursor-pointer transition-all duration-700 ease-in-out ${

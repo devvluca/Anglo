@@ -7,7 +7,7 @@ import { X, List, ShoppingCart, MagnifyingGlass, User } from "phosphor-react";
 const navigationLinks = [
   { href: "#", label: "Início" },
   { href: "#", label: "Sobre" },
-  { href: "#", label: "Contato" }
+  { href: "#newsletter-section", label: "Contato" }
 ];
 
 export function Navbar() {
@@ -31,16 +31,54 @@ export function Navbar() {
 
           {/* Desktop Navigation a */}
           <div className="hidden lg:flex items-center gap-10 pl-0">
-            {navigationLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="font-serif font-medium transition-colors relative group text-foreground hover:text-purple"
-              >
-                {link.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 transition-all group-hover:w-full bg-purple" />
-              </a>
-            ))}
+            {navigationLinks.map((link) => {
+              if (link.label === "Contato") {
+                return (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    className="font-serif font-medium transition-colors relative group text-foreground hover:text-purple"
+                    onClick={e => {
+                      e.preventDefault();
+                      const el = document.getElementById("newsletter-section");
+                      if (el) {
+                        const y = el.getBoundingClientRect().top + window.scrollY - 40;
+                        window.scrollTo({ top: y, behavior: "smooth" });
+                      }
+                    }}
+                  >
+                    {link.label}
+                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 transition-all group-hover:w-full bg-purple" />
+                  </a>
+                );
+              }
+              if (link.label === "Início") {
+                return (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    className="font-serif font-medium transition-colors relative group text-foreground hover:text-purple"
+                    onClick={e => {
+                      e.preventDefault();
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }}
+                  >
+                    {link.label}
+                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 transition-all group-hover:w-full bg-purple" />
+                  </a>
+                );
+              }
+              return (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  className="font-serif font-medium transition-colors relative group text-foreground hover:text-purple"
+                >
+                  {link.label}
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 transition-all group-hover:w-full bg-purple" />
+                </a>
+              );
+            })}
           </div>
           <div className="hidden lg:flex items-center gap-8">
             <Button
@@ -85,16 +123,58 @@ export function Navbar() {
 
                   {/* Mobile Navigation */}
                   <div className="flex flex-col space-y-4 mb-8">
-                    {navigationLinks.map((link) => (
-                      <a
-                        key={link.label}
-                        href={link.href}
-                        className="font-serif text-lg font-medium text-foreground hover:text-purple transition-colors py-2"
-                        onClick={() => setIsOpen(false)}
-                      >
-                        {link.label}
-                      </a>
-                    ))}
+                    {navigationLinks.map((link) => {
+                      if (link.label === "Contato") {
+                        return (
+                          <a
+                            key={link.label}
+                            href={link.href}
+                            className="font-serif text-lg font-medium text-foreground hover:text-purple transition-colors py-2"
+                            onClick={e => {
+                              e.preventDefault();
+                              setIsOpen(false);
+                              setTimeout(() => {
+                                const el = document.getElementById("newsletter-section");
+                                if (el) {
+                                  const y = el.getBoundingClientRect().top + window.scrollY - 40;
+                                  window.scrollTo({ top: y, behavior: "smooth" });
+                                }
+                              }, 250);
+                            }}
+                          >
+                            {link.label}
+                          </a>
+                        );
+                      }
+                      if (link.label === "Início") {
+                        return (
+                          <a
+                            key={link.label}
+                            href={link.href}
+                            className="font-serif text-lg font-medium text-foreground hover:text-purple transition-colors py-2"
+                            onClick={e => {
+                              e.preventDefault();
+                              setIsOpen(false);
+                              setTimeout(() => {
+                                window.scrollTo({ top: 0, behavior: "smooth" });
+                              }, 250);
+                            }}
+                          >
+                            {link.label}
+                          </a>
+                        );
+                      }
+                      return (
+                        <a
+                          key={link.label}
+                          href={link.href}
+                          className="font-serif text-lg font-medium text-foreground hover:text-purple transition-colors py-2"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          {link.label}
+                        </a>
+                      );
+                    })}
                   </div>
 
                   {/* Mobile Actions */}

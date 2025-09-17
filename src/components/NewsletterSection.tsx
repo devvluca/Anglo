@@ -16,21 +16,13 @@ export function NewsletterSection() {
   }
 
   return (
-    <motion.section
+    <section
       id="newsletter-section"
       className="py-24 bg-white"
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      transition={{ duration: 0.8 }}
-      viewport={{ once: true, margin: "-100px" }}
     >
       <div className="container mx-auto px-4">
-        <motion.div
+        <div
           className="text-center mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          viewport={{ once: true, margin: "-50px" }}
         >
           <h2 className="font-display text-3xl md:text-4xl font-medium text-purple mb-3">
             Entre em contato
@@ -38,14 +30,10 @@ export function NewsletterSection() {
           <p className="text-base text-gray-600 max-w-lg mx-auto font-light">
             Receba novidades e conteúdos para crescer na fé
           </p>
-        </motion.div>
-        <motion.form
+  </div>
+        <form
           onSubmit={handleSubmit}
           className="max-w-md mx-auto flex flex-col gap-4"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          viewport={{ once: true, margin: "-50px" }}
         >
           <div className="flex gap-3">
             <input
@@ -83,7 +71,7 @@ export function NewsletterSection() {
           >
             {submitted ? "Enviado" : "Enviar"}
           </button>
-        </motion.form>
+  </form>
         {submitted && (
           <motion.div
             className="text-center mt-8 text-purple text-sm font-light"
@@ -95,6 +83,6 @@ export function NewsletterSection() {
           </motion.div>
         )}
       </div>
-    </motion.section>
+  </section>
   );
 }

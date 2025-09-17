@@ -117,34 +117,22 @@ export function TestimonialsSection() {
   const current = testimonials[currentTestimonial];
 
   return (
-    <motion.section 
+    <section 
       className="py-20 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden"
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      transition={{ duration: 0.8 }}
-      viewport={{ once: true, margin: "-100px" }}
     >
       <div className="container mx-auto px-4">
         {/* Título da seção */}
-        <motion.div 
+        <div 
           className="text-center mb-20"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          viewport={{ once: true, margin: "-50px" }}
         >
           <h2 className="font-display text-4xl md:text-5xl font-bold text-gray-800 mb-6">
             Vozes que Transformam
           </h2>
-        </motion.div>
+  </div>
 
         {/* Testemunho atual */}
-        <motion.div 
+        <div 
           className="max-w-4xl mx-auto text-center"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          viewport={{ once: true, margin: "-50px" }}
         >
           {/* Estrelas com cor do testemunho atual */}
           <motion.div 
@@ -199,8 +187,8 @@ export function TestimonialsSection() {
               />
             ))}
           </div>
-        </motion.div>
+  </div>
       </div>
-    </motion.section>
+  </section>
   );
 }

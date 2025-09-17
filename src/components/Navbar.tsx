@@ -21,23 +21,25 @@ export function Navbar() {
   <div className="container mx-auto px-4">
   <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <div className="flex items-center gap-3 pl-4">
+            <div className="flex items-center gap-3" style={{transform: 'translateX(-20px)'}}>
             <img
-              src="/logo_com_nome.png"
+              src="/horizontal_navbar.png"
               alt="Logo Editora Anglo"
-              className="w-24 h-auto object-contain"
+              className="w-48 h-auto object-contain"
             />
           </div>
 
           {/* Desktop Navigation a */}
           <div className="hidden lg:flex items-center gap-10 pl-0">
             {navigationLinks.map((link) => {
+              const style = { transform: 'translateX(-30px)' };
               if (link.label === "Contato") {
                 return (
                   <a
                     key={link.label}
                     href={link.href}
                     className="font-serif font-medium transition-colors relative group text-foreground hover:text-purple"
+                    style={style}
                     onClick={e => {
                       e.preventDefault();
                       const el = document.getElementById("newsletter-section");
@@ -58,6 +60,7 @@ export function Navbar() {
                     key={link.label}
                     href={link.href}
                     className="font-serif font-medium transition-colors relative group text-foreground hover:text-purple"
+                    style={style}
                     onClick={e => {
                       e.preventDefault();
                       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -73,6 +76,7 @@ export function Navbar() {
                   key={link.label}
                   href={link.href}
                   className="font-serif font-medium transition-colors relative group text-foreground hover:text-purple"
+                  style={style}
                 >
                   {link.label}
                   <span className="absolute -bottom-1 left-0 w-0 h-0.5 transition-all group-hover:w-full bg-purple" />
@@ -115,7 +119,7 @@ export function Navbar() {
                   {/* Mobile Logo */}
                   <div className="flex items-center gap-3 mb-8 pt-4">
                     <img
-                      src="/logo_com_nome.png"
+                      src="/horizontal_navbar.png"
                       alt="Logo Editora Anglo"
                       className="w-32 h-auto object-contain"
                     />
@@ -177,33 +181,23 @@ export function Navbar() {
                     })}
                   </div>
 
-                  {/* Mobile Actions */}
+                  {/* Mobile Actions - igual ao desktop, sem ecommerce */}
                   <div className="space-y-4 mt-auto pb-8">
-                    <div className="flex items-center gap-4">
-                      <Button variant="outline" size="icon" className="invisible">
+                    <div className="flex items-center gap-8 justify-center">
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="invisible"
+                      >
                         <MagnifyingGlass className="w-5 h-5" />
                       </Button>
-                      <Button variant="outline" size="icon" className="invisible">
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="invisible"
+                      >
                         <User className="w-5 h-5" />
                       </Button>
-                      <Button variant="outline" size="icon">
-                        <ShoppingCart className="w-5 h-5" />
-                      </Button>
-                    </div>
-                    
-                    <Button variant="spiritual" className="w-full font-serif">
-                      Explorar Livros
-                    </Button>
-                  </div>
-
-                  {/* Trinity Symbol */}
-                  <div className="flex justify-center pb-4">
-                    <div className="flex items-center gap-2">
-                      <div className="flex items-center">
-                        <div className="w-2 h-2 rounded-full bg-beige/60"></div>
-                        <div className="w-2 h-2 rounded-full bg-rose/60 -ml-0.5"></div>
-                        <div className="w-2 h-2 rounded-full bg-blue/60 -ml-0.5"></div>
-                      </div>
                     </div>
                   </div>
                 </div>

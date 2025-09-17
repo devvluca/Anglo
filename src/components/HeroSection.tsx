@@ -86,67 +86,40 @@ export function HeroSection() {
 
       
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 text-center text-white">
+  <div className="relative z-10 container mx-auto px-4 text-center text-white pt-20">
         <div className="max-w-4xl mx-auto">
-          
-          {/* Main Heading - igual ao print */}
-          <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-normal mb-4 leading-tight">
-            <span className="block">
-              {"TRADIÇÃO,".split('').map((letter, index) => (
-                letter.toLowerCase() === 'a' && index === 2 ? (
-                  <span
-                    key={index}
-                    className="inline-block w-[0.8em] h-[1em] align-baseline"
-                    style={{
-                      backgroundImage: 'url(/logo_branco.png)',
-                      backgroundSize: 'contain',
-                      backgroundRepeat: 'no-repeat',
-                      backgroundPosition: 'center',
-                      marginBottom: '0.5rem',
-                      verticalAlign: 'bottom'
-                    }}
-                  />
-                ) : (
-                  <span key={index} className="inline-block">{letter}</span>
-                )
-              ))}
+          <div className="flex flex-col items-center justify-center gap-6">
+            <img src="/logo_branco.png" alt="Logo Anglo" className="mx-auto" style={{ maxWidth: '110px', width: '100%' }} />
+            <span className="font-display text-3xl md:text-4xl lg:text-5xl font-bold tracking-wide text-white drop-shadow-lg text-center">
+              UMA VOZ DE<br />CONVERGÊNCIA CRISTÃ
             </span>
-            <span className="block">PALAVRA</span>
-            <span className="block">& ESPERANÇA.</span>
-          </h1>
-          {/* Subtitle - igual ao print */}
-          <p className="font-serif text-base md:text-lg lg:text-xl mb-4 max-w-xl mx-auto leading-relaxed opacity-90">
-            Promovendo formação teológica e espiritualidade sólida através da publicação de conteúdos que unem tradição cristã e presença transformadora.
-          </p>
-          {/* CTA Button único */}
-          <div className="flex justify-center items-center mb-4">
-            <Button
-              variant={typeof window !== 'undefined' && window.scrollY > 20 ? "spiritual" : "hero"}
-              className="font-serif text-lg px-8 py-2 ml-0"
-              onClick={() => {
-                const missionSection = document.getElementById('mission-section');
-                if (missionSection) {
-                  missionSection.scrollIntoView({ behavior: 'smooth' });
-                }
-              }}
-            >
-              Conheça nossa Missão
-            </Button>
+            <p className="font-serif text-base md:text-lg lg:text-xl max-w-xl mx-auto leading-relaxed opacity-90">
+              Somos uma editora cristã que une tradição e renovação. <br /> Os conteúdos que iremos compartilhar bebem das fontes do evangelicalismo, da liturgia sacramental e da sensibilidade carismática.
+            </p>
+            <div className="flex justify-center items-center">
+              <Button
+                variant="hero"
+                className="font-serif text-lg px-8 py-2 ml-0"
+                onClick={() => {
+                  const missionSection = document.getElementById('mission-section');
+                  if (missionSection) {
+                    missionSection.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+              >
+                Conheça nossa Missão
+              </Button>
+            </div>
           </div>
           
           {/* Color description text between buttons and symbol */}
-          <div className="mt-8 mb-4 h-12 flex items-center justify-center">
+          <div className="mt-16 mb-4 h-12 flex items-center justify-center">
             <div className={`transition-all duration-300 ease-in-out ${
               hoveredColor ? 'opacity-100' : 'opacity-0'
             }`}>
               {hoveredColor && (
                 <div className="text-center">
-                  <div className="font-serif font-bold text-xl mb-1" style={{ 
-                    color: `hsl(var(--${hoveredColor}))`,
-                    textShadow: '2px 2px 8px rgba(0, 0, 0, 0.9), 0 0 20px rgba(0, 0, 0, 0.7)',
-                  }}>
-                    {colorNames[hoveredColor]}
-                  </div>
+                  {/* Nome da cor removido conforme solicitado */}
                   <div className="font-serif text-sm leading-relaxed max-w-md" style={{
                     textShadow: '1px 1px 4px rgba(0, 0, 0, 0.8), 0 0 12px rgba(0, 0, 0, 0.6)',
                     color: '#ffffff'

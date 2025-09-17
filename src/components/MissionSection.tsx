@@ -15,9 +15,9 @@ export function MissionSection() {
         <div className="max-w-8xl mx-auto text-center">
           {/* Title */}
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-thin text-purple mt-20 mb-8 leading-tight" style={{ fontFamily: 'Metamorphous, serif', letterSpacing: '-0.02em', lineHeight: '1.05' }}>
-            <span className="block leading-tight">Uma Voz de</span>
-            <span className="block leading-tight">Convergência</span>
-            <span className="block leading-tight">no Cenário Cristão</span>
+            <span className="block leading-tight">O que cremos?</span>
+            <span className="block leading-tight"></span>
+            <span className="block leading-tight"></span>
           </h1>
           {/* Subtitles/Paragraphs */}
           <div className="space-y-3 text-base md:text-lg text-purple max-w-3xl mx-auto font-normal">

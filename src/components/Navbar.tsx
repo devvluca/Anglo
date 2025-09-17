@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { X, List, ShoppingCart, MagnifyingGlass, User } from "phosphor-react";
 
+
 const navigationLinks = [
   { href: "#", label: "Início" },
   { href: "#", label: "Sobre" },
@@ -131,6 +132,6 @@ export function Navbar() {
           </div>
         </div>
       </div>
-    </nav>
+  </nav>
   );
 }

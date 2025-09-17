@@ -1,8 +1,9 @@
 import { Envelope, Phone, MapPin } from "phosphor-react";
 
+
 export function Footer() {
   return (
-    <footer className="bg-primary text-primary-foreground mt-20">
+  <footer className="bg-primary text-primary-foreground">
       <div className="container mx-auto px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
           
@@ -47,7 +48,7 @@ export function Footer() {
             </div>
           </div>
 
-        </div>
+  </div>
 
         {/* Separador e copyright */}
         <div className="border-t border-primary-foreground/20 pt-8">
@@ -56,6 +57,6 @@ export function Footer() {
           </p>
         </div>
       </div>
-    </footer>
+  </footer>
   );
 }

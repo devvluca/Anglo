@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { Star } from "phosphor-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const testimonials = [
   {
@@ -116,19 +117,43 @@ export function TestimonialsSection() {
   const current = testimonials[currentTestimonial];
 
   return (
-    <section className="py-20 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden">
+    <motion.section 
+      className="py-20 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden"
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ duration: 0.8 }}
+      viewport={{ once: true, margin: "-100px" }}
+    >
       <div className="container mx-auto px-4">
         {/* Título da seção */}
-        <div className="text-center mb-20">
+        <motion.div 
+          className="text-center mb-20"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          viewport={{ once: true, margin: "-50px" }}
+        >
           <h2 className="font-display text-4xl md:text-5xl font-bold text-gray-800 mb-6">
             Vozes que Transformam
           </h2>
-        </div>
+        </motion.div>
 
         {/* Testemunho atual */}
-        <div className="max-w-4xl mx-auto text-center">
+        <motion.div 
+          className="max-w-4xl mx-auto text-center"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          viewport={{ once: true, margin: "-50px" }}
+        >
           {/* Estrelas com cor do testemunho atual */}
-          <div className="flex items-center justify-center gap-1 mb-12">
+          <motion.div 
+            className="flex items-center justify-center gap-1 mb-12"
+            initial={{ opacity: 0, scale: 0.5 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+            viewport={{ once: true }}
+          >
             {[...Array(5)].map((_, index) => (
               <Star 
                 key={index}
@@ -138,21 +163,27 @@ export function TestimonialsSection() {
                 }`}
               />
             ))}
-          </div>
+          </motion.div>
 
-          {/* Conteúdo do testemunho */}
-          <div
-            ref={carouselRef}
-            className="transition-transform duration-300 ease-in-out cursor-grab active:cursor-grabbing min-h-[240px] flex flex-col justify-center"
-          >
-            <p className="font-serif text-xl md:text-2xl text-gray-700 leading-relaxed mb-8 max-w-3xl mx-auto">
-              {current.content}
-            </p>
-            
-            <p className="font-serif text-lg text-gray-600">
-              - {current.name}.
-            </p>
-          </div>
+          {/* Conteúdo do testemunho com animação de transição */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentTestimonial}
+              ref={carouselRef}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -30 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+              className="transition-transform duration-300 ease-in-out cursor-grab active:cursor-grabbing min-h-[240px] flex flex-col justify-center"
+            >
+              <p className="font-serif text-xl md:text-2xl text-gray-700 leading-relaxed mb-8 max-w-3xl mx-auto">
+                {current.content}
+              </p>
+              <p className="font-serif text-lg text-gray-600">
+                - {current.name}.
+              </p>
+            </motion.div>
+          </AnimatePresence>
 
           {/* Indicadores de progresso */}
           <div className="flex items-center justify-center gap-2 mt-12">
@@ -168,8 +199,8 @@ export function TestimonialsSection() {
               />
             ))}
           </div>
-        </div>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 }

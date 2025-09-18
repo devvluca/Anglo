@@ -37,7 +37,7 @@ export function MissionSection() {
             
             {/* First Column - O que cremos? */}
             <motion.div
-              className="relative"
+              className="relative px-6 lg:px-12 xl:px-20 2xl:px-32 max-w-2xl"
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
@@ -82,14 +82,14 @@ export function MissionSection() {
 
             {/* Linha horizontal no desktop, vertical no mobile */}
             <motion.div
-              className="hidden lg:block absolute left-[46.5%] top-[68%] -translate-x-1/2 -translate-y-1/2 z-10"
+              className="hidden lg:block absolute left-[43.8%] top-[68%] -translate-x-1/2 -translate-y-1/2 z-10"
               initial={{ scaleX: 0, opacity: 0 }}
               whileInView={{ scaleX: 1, opacity: 1 }}
               transition={{ duration: 1.0, delay: 1.0, ease: 'easeOut' }}
               style={{ transformOrigin: 'center left' }}
               viewport={{ once: true }}
             >
-              <div className="h-0.5 w-24 bg-purple/40 mx-auto" />
+              <div className="h-0.5 w-40 bg-purple/75 mx-auto" />
             </motion.div>
             {/* Linha vertical para mobile */}
             <motion.div
@@ -105,7 +105,7 @@ export function MissionSection() {
 
             {/* Second Column - O que queremos? */}
             <motion.div
-              className="relative"
+              className="relative px-6 lg:px-12 xl:px-20 2xl:px-32 max-w-2xl"
               initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
@@ -123,7 +123,7 @@ export function MissionSection() {
               </motion.div>
               
               <motion.h2
-                className="font-display text-3xl md:text-4xl lg:text-5xl font-semibold tracking-wide text-purple mb-8 leading-tight drop-shadow-lg"
+                className="font-display text-3xl md:text-4xl lg:text-5xl font-semibold tracking-wide text-purple mb-8 leading-tight drop-shadow-lg whitespace-nowrap"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.6, ease: "easeOut" }}

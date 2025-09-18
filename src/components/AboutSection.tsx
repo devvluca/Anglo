@@ -8,7 +8,7 @@ export function AboutSection() {
         backgroundImage: 'url(/padronagem_aboutus.png)',
         backgroundRepeat: 'repeat',
         backgroundSize: 'auto',
-        opacity: 0.12
+        opacity: 0.10
       }} />
       {/* Efeito gradiente branco extra na base, igual ao MissionSection */}
       <div className="absolute left-0 right-0 bottom-0 h-[20vh] bg-gradient-to-t from-white to-transparent pointer-events-none z-10"></div>
@@ -81,16 +81,16 @@ export function AboutSection() {
               <button
                 className="group inline-flex items-center gap-2 text-primary hover:text-beige transition-colors duration-300 relative"
                 onClick={() => {
-                  const el = document.getElementById('mission-section');
+                  const el = document.getElementById('origin-section');
                   if (el) {
                     const y = el.getBoundingClientRect().top + window.scrollY;
-                    // Suaviza ainda mais o scroll
+                    // Scroll mais rápido
                     const startY = window.scrollY;
                     const distance = y - startY;
                     let start;
                     function step(timestamp) {
                       if (!start) start = timestamp;
-                      const progress = Math.min((timestamp - start) / 1800, 1); // 1.8s
+                      const progress = Math.min((timestamp - start) / 900, 1); // 0.9s
                       window.scrollTo(0, startY + distance * progress);
                       if (progress < 1) {
                         window.requestAnimationFrame(step);
@@ -100,7 +100,7 @@ export function AboutSection() {
                   }
                 }}
               >
-                <span className="text-lg font-medium">Conheça nossa missão</span>
+                <span className="text-lg font-medium">Descubra nossa origem</span>
                 <span className="relative flex items-center justify-center">
                   <svg
                     className="w-6 h-6 text-primary group-hover:text-beige group-hover:animate-bounce-down"

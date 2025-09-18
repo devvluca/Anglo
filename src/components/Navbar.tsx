@@ -71,6 +71,27 @@ export function Navbar() {
                   </a>
                 );
               }
+              if (link.label === "Sobre") {
+                return (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    className="font-serif font-medium transition-colors relative group text-foreground hover:text-purple"
+                    style={style}
+                    onClick={e => {
+                      e.preventDefault();
+                      const el = document.getElementById("about-section");
+                      if (el) {
+                        const y = el.getBoundingClientRect().top + window.scrollY - 40;
+                        window.scrollTo({ top: y, behavior: "smooth" });
+                      }
+                    }}
+                  >
+                    {link.label}
+                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 transition-all group-hover:w-full bg-purple" />
+                  </a>
+                );
+              }
               return (
                 <a
                   key={link.label}
@@ -161,6 +182,28 @@ export function Navbar() {
                               setIsOpen(false);
                               setTimeout(() => {
                                 window.scrollTo({ top: 0, behavior: "smooth" });
+                              }, 250);
+                            }}
+                          >
+                            {link.label}
+                          </a>
+                        );
+                      }
+                      if (link.label === "Sobre") {
+                        return (
+                          <a
+                            key={link.label}
+                            href={link.href}
+                            className="font-serif text-lg font-medium text-foreground hover:text-purple transition-colors py-2"
+                            onClick={e => {
+                              e.preventDefault();
+                              setIsOpen(false);
+                              setTimeout(() => {
+                                const el = document.querySelector("section");
+                                if (el && el.classList.contains("py-20")) {
+                                  const y = el.getBoundingClientRect().top + window.scrollY - 40;
+                                  window.scrollTo({ top: y, behavior: "smooth" });
+                                }
                               }, 250);
                             }}
                           >

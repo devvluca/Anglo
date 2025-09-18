@@ -24,10 +24,12 @@ export function MissionSection() {
       transition={{ duration: 1, ease: "easeOut" }}
       viewport={{ once: true }}
     >
-      {/* Overlay branco semi-transparente */}
-      <div className="absolute inset-0 bg-gradient-to-b from-white/85 via-white/80 to-white/90"></div>
-      {/* Overlay branco extra na base */}
-      <div className="absolute left-0 right-0 bottom-0 h-[20vh] bg-gradient-to-t from-white to-transparent pointer-events-none"></div>
+  {/* Overlay branco semi-transparente */}
+  <div className="absolute inset-0 bg-gradient-to-b from-white/85 via-white/80 to-white/90"></div>
+  {/* Overlay branco extra no topo (invertido) */}
+  <div className="absolute left-0 right-0 top-0 h-[20vh] bg-gradient-to-b from-white to-transparent pointer-events-none"></div>
+  {/* Overlay branco extra na base */}
+  <div className="absolute left-0 right-0 bottom-0 h-[20vh] bg-gradient-to-t from-white to-transparent pointer-events-none"></div>
       <div className="container mx-auto px-4 relative z-10">
         <div className="w-full md:max-w-8xl mx-auto">
           {/* Two-column layout for desktop, stacked for mobile */}

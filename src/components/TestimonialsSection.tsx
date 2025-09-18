@@ -168,7 +168,7 @@ export function TestimonialsSection() {
                 {current.content}
               </p>
               <p className="font-serif text-lg text-gray-600">
-                - {current.name}.
+                - {current.name}
               </p>
             </motion.div>
           </AnimatePresence>

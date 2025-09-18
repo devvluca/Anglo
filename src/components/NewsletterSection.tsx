@@ -18,43 +18,39 @@ export function NewsletterSection() {
   return (
     <section
       id="newsletter-section"
-      className="py-24 bg-white"
+      className="py-10 bg-white"
     >
       <div className="container mx-auto px-4">
-        <div
-          className="text-center mb-16"
-        >
-          <h2 className="font-display text-3xl md:text-4xl font-medium text-purple mb-3">
-            Entre em contato
+        <div className="text-center mb-8">
+          <h2 className="font-display text-2xl md:text-3xl font-medium text-purple mb-2">
+            Inscreva-se na nossa newsletter
           </h2>
-          <p className="text-base text-gray-600 w-full md:max-w-lg mx-auto font-light">
+          <p className="text-base text-gray-600 font-light">
             Receba novidades e conteúdos para crescer na fé
           </p>
-  </div>
+        </div>
         <form
           onSubmit={handleSubmit}
-          className="w-full md:max-w-md mx-auto flex flex-col gap-4"
+          className="w-full max-w-4xl mx-auto flex flex-col md:flex-row gap-3 items-center justify-center"
         >
-          <div className="flex gap-3">
-            <input
-              type="text"
-              name="nome"
-              placeholder="Nome"
-              value={form.nome}
-              onChange={handleChange}
-              required
-              className="flex-1 px-3 py-2 border-b border-gray-300 focus:border-purple focus:outline-none bg-transparent text-gray-800 placeholder-gray-400"
-            />
-            <input
-              type="text"
-              name="sobrenome"
-              placeholder="Sobrenome"
-              value={form.sobrenome}
-              onChange={handleChange}
-              required
-              className="flex-1 px-3 py-2 border-b border-gray-300 focus:border-purple focus:outline-none bg-transparent text-gray-800 placeholder-gray-400"
-            />
-          </div>
+          <input
+            type="text"
+            name="nome"
+            placeholder="Nome"
+            value={form.nome}
+            onChange={handleChange}
+            required
+            className="flex-1 min-w-[120px] px-4 py-3 border-b border-gray-300 focus:border-purple focus:outline-none bg-transparent text-gray-800 placeholder-gray-400"
+          />
+          <input
+            type="text"
+            name="sobrenome"
+            placeholder="Sobrenome"
+            value={form.sobrenome}
+            onChange={handleChange}
+            required
+            className="flex-1 min-w-[120px] px-4 py-3 border-b border-gray-300 focus:border-purple focus:outline-none bg-transparent text-gray-800 placeholder-gray-400"
+          />
           <input
             type="email"
             name="email"
@@ -62,19 +58,19 @@ export function NewsletterSection() {
             value={form.email}
             onChange={handleChange}
             required
-            className="px-3 py-2 border-b border-gray-300 focus:border-purple focus:outline-none bg-transparent text-gray-800 placeholder-gray-400"
+            className="flex-1 min-w-[180px] px-4 py-3 border-b border-gray-300 focus:border-purple focus:outline-none bg-transparent text-gray-800 placeholder-gray-400"
           />
           <button
             type="submit"
-            className="mt-6 px-8 py-2 bg-purple text-white font-normal text-sm tracking-wide hover:bg-purple/90 transition-colors"
+            className="w-full md:w-auto px-8 py-3 bg-purple text-white font-display font-medium text-base tracking-wide hover:bg-purple/90 transition-colors"
             disabled={submitted}
           >
-            {submitted ? "Enviado" : "Enviar"}
+            {submitted ? "Enviado" : "Assinar"}
           </button>
-  </form>
+        </form>
         {submitted && (
           <motion.div
-            className="text-center mt-8 text-purple text-sm font-light"
+            className="text-center mt-6 text-purple text-sm font-light"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
@@ -83,6 +79,6 @@ export function NewsletterSection() {
           </motion.div>
         )}
       </div>
-  </section>
+    </section>
   );
 }

@@ -29,7 +29,7 @@ export function MissionSection() {
       {/* Overlay branco extra na base */}
       <div className="absolute left-0 right-0 bottom-0 h-[20vh] bg-gradient-to-t from-white to-transparent pointer-events-none"></div>
       <div className="container mx-auto px-4 relative z-10">
-        <div className="max-w-8xl mx-auto text-center">
+        <div className="w-full md:max-w-8xl mx-auto text-center">
           {/* Title */}
           <motion.h1
             className="font-display text-4xl md:text-5xl lg:text-6xl font-semibold tracking-wide text-purple mt-20 mb-12 leading-tight drop-shadow-lg"
@@ -41,14 +41,14 @@ export function MissionSection() {
             O que cremos?
           </motion.h1>
           <motion.div 
-            className="space-y-6 text-base md:text-lg text-purple max-w-3xl mx-auto font-normal"
+            className="space-y-6 text-base md:text-lg text-purple w-full md:max-w-3xl mx-auto font-normal"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
             viewport={{ once: true, margin: "-50px" }}
           >
             <div
-              className="text-center mx-auto px-8 md:px-20 lg:px-32"
+              className="text-center mx-auto px-4 md:px-20 lg:px-32"
               style={{ fontFamily: 'Cormorant Infant, serif', lineHeight: '1.7' }}
             >
               Acreditamos que a fé cristã floresce quando caminha em unidade. Buscamos uma espiritualidade bíblica que honra o passado, proclama o evangelho com clareza e permanece sensível à ação do Espírito hoje. Nossa missão é celebrar a riqueza das tradições cristãs, encontrando na unidade do Espírito a base para uma fé profunda e transformadora.
@@ -64,14 +64,14 @@ export function MissionSection() {
             O que queremos?
           </motion.h2>
           <motion.div 
-            className="space-y-6 text-base md:text-lg text-purple max-w-3xl mx-auto font-normal mb-2"
+            className="space-y-6 text-base md:text-lg text-purple w-full md:max-w-3xl mx-auto font-normal mb-2"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
             viewport={{ once: true, margin: "-50px" }}
           >
             <div
-              className="text-center mx-auto px-8 md:px-20 lg:px-32"
+              className="text-center mx-auto px-4 md:px-20 lg:px-32"
               style={{ fontFamily: 'Cormorant Infant, serif', lineHeight: '1.7' }}
             >
               Ser uma voz de convergência no cenário cristão brasileiro, promovendo formação teológica e espiritualidade sólida através da publicação de conteúdos que unem tradição, Palavra e presença. Queremos inspirar uma caminhada cristã que valorize tanto o legado quanto a renovação, nutrindo a alma e fortalecendo a fé.

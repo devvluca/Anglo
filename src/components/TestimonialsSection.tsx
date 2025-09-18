@@ -131,8 +131,8 @@ export function TestimonialsSection() {
   </div>
 
         {/* Testemunho atual */}
-        <div 
-          className="max-w-4xl mx-auto text-center"
+        <div
+          className="w-full md:max-w-4xl mx-auto text-center"
         >
           {/* Estrelas com cor do testemunho atual */}
           <motion.div 
@@ -164,7 +164,7 @@ export function TestimonialsSection() {
               transition={{ duration: 0.4, ease: "easeOut" }}
               className="transition-transform duration-300 ease-in-out cursor-grab active:cursor-grabbing min-h-[240px] flex flex-col justify-center"
             >
-              <p className="font-serif text-xl md:text-2xl text-gray-700 leading-relaxed mb-8 max-w-3xl mx-auto">
+              <p className="font-serif text-xl md:text-2xl text-gray-700 leading-relaxed mb-8 w-full md:max-w-3xl mx-auto">
                 {current.content}
               </p>
               <p className="font-serif text-lg text-gray-600">

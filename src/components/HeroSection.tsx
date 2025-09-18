@@ -88,7 +88,7 @@ export function HeroSection() {
       
       {/* Content */}
   <div className="relative z-10 container mx-auto px-4 text-center text-white pt-4">
-        <div className="max-w-4xl mx-auto">
+        <div className="w-full md:max-w-4xl mx-auto">
           <div className="flex flex-col items-center justify-center gap-4">
             <motion.img 
               src="/logo_branco.png" 

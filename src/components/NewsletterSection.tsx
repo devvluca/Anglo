@@ -27,13 +27,13 @@ export function NewsletterSection() {
           <h2 className="font-display text-3xl md:text-4xl font-medium text-purple mb-3">
             Entre em contato
           </h2>
-          <p className="text-base text-gray-600 max-w-lg mx-auto font-light">
+          <p className="text-base text-gray-600 w-full md:max-w-lg mx-auto font-light">
             Receba novidades e conteúdos para crescer na fé
           </p>
   </div>
         <form
           onSubmit={handleSubmit}
-          className="max-w-md mx-auto flex flex-col gap-4"
+          className="w-full md:max-w-md mx-auto flex flex-col gap-4"
         >
           <div className="flex gap-3">
             <input

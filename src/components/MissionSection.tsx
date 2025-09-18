@@ -150,7 +150,7 @@ export function MissionSection() {
           </div>
           {/* Venn Diagram - Centralizado e mais abaixo */}
           <motion.div 
-            className="flex justify-center items-center w-full mt-40 mb-24"
+            className="flex justify-center items-center w-auto mt-40 mb-24"
             initial={{ opacity: 0, scale: 0.5 }}
             whileInView={{ opacity: 1, scale: 1 }}
             animate={{ rotate: rotation }}

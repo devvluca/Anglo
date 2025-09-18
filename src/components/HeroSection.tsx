@@ -125,13 +125,31 @@ export function HeroSection() {
                 variant="hero"
                 className="font-serif text-lg px-8 py-2 ml-0 rounded-full bg-purple/80 hover:bg-purple/90 hover:scale-105 transition-all duration-700 shadow-lg border-2 border-white/20"
                 onClick={() => {
-                  const missionSection = document.getElementById('mission-section');
-                  if (missionSection) {
-                    missionSection.scrollIntoView({ behavior: 'smooth' });
+                  const aboutSection = document.getElementById('about-section');
+                  if (aboutSection) {
+                    const rect = aboutSection.getBoundingClientRect();
+                    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                    const targetY = rect.top + scrollTop - 180; // 180px antes do topo
+                    // Scroll suave customizado, ainda mais devagar
+                    const startY = window.scrollY;
+                    const distance = targetY - startY;
+                    const duration = 4000; // ms, ainda mais devagar
+                    let startTime: number | null = null;
+                    function animateScroll(currentTime: number) {
+                      if (!startTime) startTime = currentTime;
+                      const elapsed = currentTime - startTime;
+                      const progress = Math.min(elapsed / duration, 1);
+                      const ease = 1 - Math.pow(1 - progress, 3); // easeOut cubic
+                      window.scrollTo(0, startY + distance * ease);
+                      if (progress < 1) {
+                        requestAnimationFrame(animateScroll);
+                      }
+                    }
+                    requestAnimationFrame(animateScroll);
                   }
                 }}
               >
-                Conheça nossa Missão
+                Saiba mais sobre a Anglo
               </Button>
             </motion.div>
           </div>

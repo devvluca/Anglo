@@ -176,74 +176,76 @@ export function CategoriesSection() {
         </div>
 
         {/* Categories Carousel - Mobile */}
-        <motion.div 
-          className="md:hidden bg-transparent"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          viewport={{ once: true, margin: "-100px" }}
-        >
-          <Swiper
-            modules={[Navigation, Pagination, Autoplay]}
-            spaceBetween={20}
-            slidesPerView={1.2}
-            centeredSlides={true}
-            autoplay={{
-              delay: 3000,
-              disableOnInteraction: false,
-            }}
-            pagination={{
-              clickable: true,
-              dynamicBullets: true,
-            }}
-            className="categories-swiper pb-12 px-4"
-            style={{ touchAction: 'pan-y', backgroundColor: 'transparent' }}
+  <div className="w-full overflow-x-hidden pb-8 md:hidden">
+          <motion.div 
+            className="bg-transparent"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            viewport={{ once: true, margin: "-100px" }}
           >
-            {categories.map((category, index) => {
-              const colors = colorClasses[category.color as keyof typeof colorClasses];
-              const Icon = category.icon;
-              return (
-                <SwiperSlide key={index} style={{ background: 'none', backgroundColor: 'transparent', border: 'none', outline: 'none' }}>
-                  <motion.div 
-                    className="w-full h-full bg-transparent p-0 m-0"
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ 
-                      opacity: 1, 
-                      y: 0,
-                      transition: {
-                        duration: 0.5,
-                        delay: index * 0.1,
-                        ease: "easeOut"
-                      }
-                    }}
-                    viewport={{ once: true }}
-                  >
-                    <div className={`group cursor-pointer rounded-2xl ${colors.bg} shadow-2xl hover:shadow-[0_18px_36px_rgba(0,0,0,0.22)] relative h-[18rem] w-full font-display overflow-hidden border-0`}>
-                      <div className={`absolute inset-0 pointer-events-none ${colors.overlay} transition-opacity duration-300`} />
-                      <div className="relative p-4 pb-6 h-full flex flex-col">
-                        {/* Header icon (no background) */}
-                        <div className="mb-4 relative z-10">
-                          <Icon weight="thin" className={`w-6 h-6 ${colors.text}`} />
-                        </div>
-                        {/* Simplified content - moved up */}
-                        <div className="flex-1 flex flex-col justify-start relative z-10 -mt-1">
-                          <div className="space-y-5">
-                            <h3 className={`text-2xl font-bold capitalize ${colors.text} leading-tight`}>
-                              {category.title}
-                            </h3>
-                            <p className={`${colors.text} leading-relaxed text-base font-normal`} style={{ textTransform: 'lowercase' }}>
-                              {category.description}
-                            </p>
+            <Swiper
+              modules={[Navigation, Pagination, Autoplay]}
+              spaceBetween={20}
+              slidesPerView={1.2}
+              centeredSlides={true}
+              autoplay={{
+                delay: 3000,
+                disableOnInteraction: false,
+              }}
+              pagination={{
+                clickable: true,
+                dynamicBullets: true,
+              }}
+              className="categories-swiper pb-12 px-4"
+              style={{ touchAction: 'pan-y', backgroundColor: 'transparent' }}
+            >
+              {categories.map((category, index) => {
+                const colors = colorClasses[category.color as keyof typeof colorClasses];
+                const Icon = category.icon;
+                return (
+                  <SwiperSlide key={index} style={{ background: 'none', backgroundColor: 'transparent', border: 'none', outline: 'none' }}>
+                    <motion.div 
+                      className="w-full h-full bg-transparent p-0 m-0"
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ 
+                        opacity: 1, 
+                        y: 0,
+                        transition: {
+                          duration: 0.5,
+                          delay: index * 0.1,
+                          ease: "easeOut"
+                        }
+                      }}
+                      viewport={{ once: true }}
+                    >
+                      <div className={`group cursor-pointer rounded-2xl ${colors.bg} shadow-2xl hover:shadow-[0_18px_36px_rgba(0,0,0,0.22)] relative h-[18rem] w-full font-display overflow-hidden border-0`}>
+                        <div className={`absolute inset-0 pointer-events-none ${colors.overlay} transition-opacity duration-300`} />
+                        <div className="relative p-4 pb-6 h-full flex flex-col">
+                          {/* Header icon (no background) */}
+                          <div className="mb-4 relative z-10">
+                            <Icon weight="thin" className={`w-6 h-6 ${colors.text}`} />
+                          </div>
+                          {/* Simplified content - moved up */}
+                          <div className="flex-1 flex flex-col justify-start relative z-10 -mt-1">
+                            <div className="space-y-5">
+                              <h3 className={`text-2xl font-bold capitalize ${colors.text} leading-tight`}>
+                                {category.title}
+                              </h3>
+                              <p className={`${colors.text} leading-relaxed text-base font-normal`} style={{ textTransform: 'lowercase' }}>
+                                {category.description}
+                              </p>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </motion.div>
-                </SwiperSlide>
-              );
-            })}
-          </Swiper>
-        </motion.div>
+                    </motion.div>
+                  </SwiperSlide>
+                );
+              })}
+            </Swiper>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -93,11 +93,12 @@ export function HeroSection() {
             <motion.img 
               src="/logo_branco.png" 
               alt="Logo Anglo" 
-              className="mx-auto mb-5" 
+              className="mx-auto mb-5 cursor-pointer" 
               style={{ maxWidth: '110px', width: '100%' }}
               initial={{ opacity: 0, scale: 0.5 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
+              whileHover={{ scale: 1.08 }}
             />
             <motion.span 
               className="font-display text-3xl md:text-4xl lg:text-5xl font-bold tracking-wide text-white drop-shadow-lg text-center mb-2"
@@ -133,7 +134,7 @@ export function HeroSection() {
                     // Scroll suave customizado, ainda mais devagar
                     const startY = window.scrollY;
                     const distance = targetY - startY;
-                    const duration = 4000; // ms, ainda mais devagar
+                    const duration = 1200; // ms, mais rápido
                     let startTime: number | null = null;
                     function animateScroll(currentTime: number) {
                       if (!startTime) startTime = currentTime;
@@ -154,81 +155,8 @@ export function HeroSection() {
             </motion.div>
           </div>
           
-          {/* Color description text between buttons and symbol */}
-          <div className="mt-8 mb-8 h-12 flex items-center justify-center">
-            <div className={`transition-all duration-300 ease-in-out ${
-              hoveredColor ? 'opacity-100' : 'opacity-0'
-            }`}>
-              {hoveredColor && (
-                <div className="text-center">
-                  {/* Nome da cor removido conforme solicitado */}
-                  <div className="font-serif text-sm leading-relaxed max-w-md" style={{
-                    textShadow: '1px 1px 4px rgba(0, 0, 0, 0.8), 0 0 12px rgba(0, 0, 0, 0.6)',
-                    color: '#ffffff'
-                  }}>
-                    {colorMeanings[hoveredColor]}
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-          
-          {/* Trinity Symbol - Interactive 5 Colors */}
-          <div className="-mt-16 mb-6 flex justify-center">
-            <div className="relative h-24 flex items-center justify-center">
-              <div 
-                className={`bg-white/10 backdrop-blur-sm border border-white/30 flex items-center justify-center cursor-pointer transition-all duration-700 ease-in-out ${
-                  isHovered ? 'w-40 h-10 rounded-full' : 'w-20 h-20 rounded-full'
-                }`}
-                onMouseEnter={handleMouseEnterBall}
-                onMouseLeave={handleMouseLeaveBall}
-              >
-                <div className="relative flex items-center justify-center">
-                  {/* Convergent state - all colors together forming a circle */}
-                  <div className={`flex items-center justify-center transition-all duration-700 ease-in-out ${
-                    isHovered ? 'gap-3' : 'gap-0'
-                  }`}>
-                    <div 
-                      className={`rounded-full bg-purple cursor-pointer transition-all duration-700 ease-in-out ${
-                        isHovered ? 'w-4 h-4' : 'w-3 h-3 -mr-1'
-                      } ${hoveredColor === 'purple' ? 'scale-125 ring-2 ring-white/50' : ''}`}
-                      onMouseEnter={() => setHoveredColor('purple')}
-                      onMouseLeave={() => setHoveredColor(null)}
-                    />
-                    <div 
-                      className={`rounded-full bg-beige cursor-pointer transition-all duration-700 ease-in-out ${
-                        isHovered ? 'w-4 h-4' : 'w-3 h-3 -mr-1'
-                      } ${hoveredColor === 'beige' ? 'scale-125 ring-2 ring-white/50' : ''}`}
-                      onMouseEnter={() => setHoveredColor('beige')}
-                      onMouseLeave={() => setHoveredColor(null)}
-                    />
-                    <div 
-                      className={`rounded-full bg-rose cursor-pointer transition-all duration-700 ease-in-out ${
-                        isHovered ? 'w-4 h-4' : 'w-3 h-3 -mr-1'
-                      } ${hoveredColor === 'rose' ? 'scale-125 ring-2 ring-white/50' : ''}`}
-                      onMouseEnter={() => setHoveredColor('rose')}
-                      onMouseLeave={() => setHoveredColor(null)}
-                    />
-                    <div 
-                      className={`rounded-full bg-blue cursor-pointer transition-all duration-700 ease-in-out ${
-                        isHovered ? 'w-4 h-4' : 'w-3 h-3 -mr-1'
-                      } ${hoveredColor === 'blue' ? 'scale-125 ring-2 ring-white/50' : ''}`}
-                      onMouseEnter={() => setHoveredColor('blue')}
-                      onMouseLeave={() => setHoveredColor(null)}
-                    />
-                    <div 
-                      className={`rounded-full bg-green cursor-pointer transition-all duration-700 ease-in-out ${
-                        isHovered ? 'w-4 h-4' : 'w-3 h-3'
-                      } ${hoveredColor === 'green' ? 'scale-125 ring-2 ring-white/50' : ''}`}
-                      onMouseEnter={() => setHoveredColor('green')}
-                      onMouseLeave={() => setHoveredColor(null)}
-                    />
-                  </div>
-                </div>
-              </div>
-              
-            </div>
-          </div>
+          {/* Espaço extra para descer os elementos */}
+          <div className="mt-24" />
         </div>
       </div>
 

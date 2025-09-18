@@ -21,7 +21,7 @@ export function Navbar() {
   <div className="container mx-auto px-4">
   <div className="flex items-center justify-between h-20">
           {/* Logo */}
-            <div className="flex items-center gap-3 lg:translate-x-[-30px]">
+            <div className="flex items-center gap-3 lg:translate-x-[-10px]">
             <img
               src="/horizontal_navbar.png"
               alt="Logo Editora Anglo"

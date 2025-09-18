@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 export function OriginSection() {
   return (
-  <section id="origin-section" className="py-24 pb-4 relative overflow-hidden bg-white">
+  <section id="origin-section" className="py-24 pb-0 relative overflow-hidden bg-white">
       <div className="container mx-auto px-6 relative z-20">
         {/* Título central */}
         <motion.div 

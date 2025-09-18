@@ -104,7 +104,7 @@ const colorClasses = {
 
 export function CategoriesSection() {
   return (
-  <section className="py-20 bg-gradient-to-br from-gray-50 to-white font-display">
+  <section className="py-20 bg-white font-display">
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <motion.div 
@@ -176,7 +176,7 @@ export function CategoriesSection() {
         </div>
 
         {/* Categories Carousel - Mobile */}
-  <div className="w-full overflow-x-hidden pb-8 md:hidden">
+  <div className="w-full pb-8 md:hidden">
           <motion.div 
             className="bg-transparent"
             initial={{ opacity: 0, y: 50 }}
@@ -197,7 +197,7 @@ export function CategoriesSection() {
                 clickable: true,
                 dynamicBullets: true,
               }}
-              className="categories-swiper pb-12 px-4"
+              className="categories-swiper pb-12"
               style={{ touchAction: 'pan-y', backgroundColor: 'transparent' }}
             >
               {categories.map((category, index) => {

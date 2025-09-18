@@ -214,7 +214,7 @@ export function ColorsSection() {
             transition={{ duration: 0.8, delay: 1.0 }}
             viewport={{ once: true }}
           >
-            Passe o mouse sobre as cores para descobrir seus significados
+            Clique sobre as cores para descobrir seus significados
           </motion.p>
         </motion.div>
 

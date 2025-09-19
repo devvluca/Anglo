@@ -157,14 +157,16 @@ export function CategoriesSection() {
                     <Icon weight="thin" className={`w-7 h-7 ${colors.text}`} />
                   </div>
                   {/* Simplified content - moved up */}
-                  <div className="flex-1 flex flex-col justify-start relative z-10 -mt-2">
-                    <div className="space-y-4">
-                      <h3 className={`text-2xl font-bold capitalize ${colors.text} leading-tight group-hover:scale-105 transition-transform duration-75`}>
-                        {category.title}
-                      </h3>
-                      <p className={`${colors.text} leading-relaxed text-sm font-normal group-hover:opacity-100 transition-opacity duration-75`} style={{ textTransform: 'lowercase' }}>
-                        {category.description}
-                      </p>
+                  <div className="flex-1 flex flex-col relative z-10 -mt-2">
+                    <h3 className={`text-2xl font-bold ${colors.text} leading-tight group-hover:scale-105 transition-transform duration-75 text-left mb-2`}>
+                      {category.title}
+                    </h3>
+                    <div className="flex-1 flex flex-col justify-end">
+                      <div className={`text-left`}>
+                        {category.description.split('. ').map((sentence, idx, arr) => (
+                          <span key={idx} className={`${colors.text} text-sm font-normal leading-normal`}>{sentence.trim()}{(idx < arr.length - 1) ? <br /> : null}</span>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -227,14 +229,16 @@ export function CategoriesSection() {
                             <Icon weight="thin" className={`w-6 h-6 ${colors.text}`} />
                           </div>
                           {/* Simplified content - moved up */}
-                          <div className="flex-1 flex flex-col justify-start relative z-10 -mt-1">
-                            <div className="space-y-5">
-                              <h3 className={`text-2xl font-bold capitalize ${colors.text} leading-tight`}>
-                                {category.title}
-                              </h3>
-                              <p className={`${colors.text} leading-relaxed text-base font-normal`} style={{ textTransform: 'lowercase' }}>
-                                {category.description}
-                              </p>
+                          <div className="flex-1 flex flex-col relative z-10 -mt-1">
+                            <h3 className={`text-2xl font-bold ${colors.text} leading-tight text-left mb-2`}>
+                              {category.title}
+                            </h3>
+                            <div className="flex-1 flex flex-col justify-end">
+                              <div className={`text-left`}>
+                                {category.description.split('. ').map((sentence, idx, arr) => (
+                                  <span key={idx} className={`${colors.text} text-sm font-normal leading-normal`}>{sentence.trim()}{(idx < arr.length - 1) ? <br /> : null}</span>
+                                ))}
+                              </div>
                             </div>
                           </div>
                         </div>

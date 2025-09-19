@@ -9,10 +9,20 @@ export function NewsletterSection() {
     setForm({ ...form, [e.target.name]: e.target.value });
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setSubmitted(true);
-    // Aqui você pode adicionar lógica de envio para backend ou serviço de newsletter
+    try {
+      await fetch("https://script.google.com/macros/s/AKfycbxKz2lUVwSyG780637b5IUZWFctfiC-bzCRuAjrcXhTE54ndJVbxWpVkh7cv-spwtiI/exec", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(form)
+      });
+      setSubmitted(true);
+    } catch (err) {
+      alert("Erro ao enviar. Tente novamente mais tarde.");
+    }
   }
 
   return (

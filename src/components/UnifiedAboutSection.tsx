@@ -117,7 +117,7 @@ export function UnifiedAboutSection() {
   return (
     <section 
       id="unified-about-section" 
-      className="py-20 relative overflow-hidden bg-white"
+      className="pt-20 pb-2 relative overflow-hidden bg-white"
     >
       {/* Background pattern for all tabs */}
       <AnimatePresence>
@@ -216,8 +216,12 @@ export function UnifiedAboutSection() {
 
           {/* Content Section - altura fixa responsiva */}
           <motion.div
-            className="space-y-8"
-            style={{ minHeight: '480px', height: '480px', maxHeight: '100%', overflowY: 'auto', overflowX: 'hidden' }}
+            className="space-y-8 overflow-y-hidden md:overflow-y-auto overflow-x-hidden"
+            style={{
+              minHeight: '480px',
+              height: '480px',
+              maxHeight: '100%'
+            }}
           >
             <AnimatePresence mode="wait">
               {activeTab === "about" ? (
@@ -351,10 +355,10 @@ export function UnifiedAboutSection() {
         </div>
 
         {/* Tabs Navigation */}
-        <div className="mt-20 mb-12 flex flex-col items-center space-y-8 px-4">
+  <div className="mt-2 mb-0 flex flex-col items-center space-y-8 px-4">
           {/* Tab Icons */}
           <div 
-            className="flex items-center space-x-10 py-4 px-2"
+            className="flex items-center space-x-10 py-0 px-2"
             role="tablist"
             aria-label="Seções sobre a Editora Anglo"
           >
@@ -392,7 +396,7 @@ export function UnifiedAboutSection() {
 
           {/* Progress Bar */}
           {(!isPaused && !userInteracted) && (
-            <div className="w-40 h-1 bg-gray-200 rounded-full overflow-hidden mb-0" style={{ transform: 'translateY(-22px)' }}>
+            <div className="w-40 h-1 bg-gray-200 rounded-full overflow-hidden mb-0" style={{ transform: 'translateY(-25px)' }}>
               <motion.div
                 className="h-full bg-primary rounded-full"
                 initial={{ width: "0%" }}

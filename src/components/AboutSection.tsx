@@ -39,9 +39,9 @@ export function AboutSection() {
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
             <motion.img
-              src="/logo_principal.png"
+              src="/logo_aboutus.png"
               alt="Logo Editora Anglo"
-              className="w-40 md:w-56 lg:w-64 h-auto"
+              className="w-56 md:w-72 lg:w-96 h-auto"
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5 }}

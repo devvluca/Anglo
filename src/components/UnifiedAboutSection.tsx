@@ -18,6 +18,25 @@ const tabs: TabData[] = [
     id: "origin",
     icon: BookOpen,
     label: "Nossa Origem"
+  },
+  {
+    id: "symbol",
+    icon: (props: IconProps) => (
+      <img
+        src="/logo_principal.png"
+        alt="Logo Anglo"
+        style={{
+          width: props.size ?? 32,
+          height: props.size ?? 32,
+          objectFit: 'contain',
+          filter: props.className?.includes('text-primary')
+            ? 'none'
+            : 'grayscale(100%) opacity(0.5)',
+          transition: 'filter 0.3s',
+        }}
+      />
+    ),
+    label: "Nosso Símbolo"
   }
 ];
 
@@ -42,7 +61,11 @@ export function UnifiedAboutSection() {
       setProgress(newProgress);
 
       if (elapsed >= AUTO_ROTATE_INTERVAL && elapsed % AUTO_ROTATE_INTERVAL < 100) {
-        setActiveTab(prev => prev === "about" ? "origin" : "about");
+        setActiveTab(prev => {
+          if (prev === "about") return "origin";
+          if (prev === "origin") return "symbol";
+          return "about";
+        });
       }
     }, 50);
 
@@ -71,15 +94,10 @@ export function UnifiedAboutSection() {
     setProgress(0);
   };
 
-  const handleMouseEnter = () => {
-    if (!userInteracted) setIsPaused(true);
-  };
 
-  const handleMouseLeave = () => {
-    if (!userInteracted) {
-      setIsPaused(false);
-    }
-  };
+  // Remove mouse enter/leave logic for progress bar
+  // Progress bar should always show when auto-rotate is active
+  // Section events no longer affect isPaused
 
   const handleKeyDown = (event: React.KeyboardEvent, tabId: string) => {
     if (event.key === 'Enter' || event.key === ' ') {
@@ -100,12 +118,14 @@ export function UnifiedAboutSection() {
     <section 
       id="unified-about-section" 
       className="py-20 relative overflow-hidden bg-white"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
     >
-      {/* Background pattern for both tabs */}
+      {/* Background pattern for all tabs */}
       <AnimatePresence>
-        {(activeTab === "about" || activeTab === "origin") && (
+        {(
+          activeTab === "about" ||
+          activeTab === "origin" ||
+          activeTab === "symbol"
+        ) && (
           <motion.div 
             className="absolute inset-0 z-0 pointer-events-none"
             initial={{ opacity: 0 }}
@@ -121,9 +141,13 @@ export function UnifiedAboutSection() {
         )}
       </AnimatePresence>
 
-      {/* Gradient overlay for both tabs */}
+      {/* Gradient overlay for all tabs */}
       <AnimatePresence>
-        {(activeTab === "about" || activeTab === "origin") && (
+        {(
+          activeTab === "about" ||
+          activeTab === "origin" ||
+          activeTab === "symbol"
+        ) && (
           <motion.div 
             className="absolute left-0 right-0 bottom-0 h-[20vh] bg-gradient-to-t from-white to-transparent pointer-events-none z-10"
             initial={{ opacity: 0 }}
@@ -145,7 +169,7 @@ export function UnifiedAboutSection() {
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
             <AnimatePresence mode="wait">
-              {activeTab === "about" ? (
+              {activeTab === "about" && (
                 <motion.img
                   key="logo-about"
                   src="/logo_principal.png"
@@ -158,9 +182,24 @@ export function UnifiedAboutSection() {
                   whileHover={{ scale: 1.04, y: -6 }}
                   style={{ filter: 'none' }}
                 />
-              ) : (
+              )}
+              {activeTab === "origin" && (
                 <motion.img
                   key="logo-origin"
+                  src="/logo_principal.png"
+                  alt="Logo Editora Anglo"
+                  className="w-40 md:w-56 lg:w-64 h-auto"
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.5 }}
+                  whileHover={{ scale: 1.04, y: -6 }}
+                  style={{ filter: 'none' }}
+                />
+              )}
+              {activeTab === "symbol" && (
+                <motion.img
+                  key="logo-symbol"
                   src="/logo_principal.png"
                   alt="Logo Editora Anglo"
                   className="w-40 md:w-56 lg:w-64 h-auto"
@@ -178,7 +217,7 @@ export function UnifiedAboutSection() {
           {/* Content Section - altura fixa responsiva */}
           <motion.div
             className="space-y-8"
-            style={{ minHeight: '420px', height: '420px', maxHeight: '100%', overflow: 'auto' }}
+            style={{ minHeight: '480px', height: '480px', maxHeight: '100%', overflowY: 'auto', overflowX: 'hidden' }}
           >
             <AnimatePresence mode="wait">
               {activeTab === "about" ? (
@@ -219,7 +258,7 @@ export function UnifiedAboutSection() {
                     </p>
                   </div>
                 </motion.div>
-              ) : (
+              ) : activeTab === "origin" ? (
                 <motion.div
                   key="origin-content"
                   initial={{ opacity: 0, x: 50 }}
@@ -262,6 +301,50 @@ export function UnifiedAboutSection() {
                     </div>
                   </div>
                 </motion.div>
+              ) : (
+                <motion.div
+                  key="symbol-content"
+                  initial={{ opacity: 0, x: 50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -50 }}
+                  transition={{ duration: 0.5 }}
+                  className="space-y-8"
+                >
+                  {/* Symbol Title */}
+                  <div className="space-y-4">
+                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif text-primary font-bold">
+                      Nosso{' '}
+                      <span className="text-beige font-bold">Símbolo</span>
+                    </h2>
+                    <motion.div
+                      className="w-40 h-1 bg-beige rounded-full"
+                      initial={{ scaleX: 0 }}
+                      animate={{ scaleX: 1 }}
+                      transition={{ duration: 2.2, ease: 'easeOut' }}
+                      style={{ transformOrigin: 'left' }}
+                    />
+                  </div>
+
+                  {/* Symbol Text */}
+                  <div className="space-y-6 text-gray-700 leading-relaxed break-words">
+                    <div className="grid grid-cols-1 gap-6">
+                      <div>
+                        <h3 className="text-2xl font-serif text-primary font-semibold mb-4">
+                          Identidade Visual
+                        </h3>
+                        <p className="text-base md:text-lg mb-4 break-words">
+                          A identidade visual da Anglo resgata a tradição e a história da Igreja Inglesa, conectando-se à realeza inglesa e à arquitetura das igrejas antigas.
+                        </p>
+                        <p className="text-base md:text-lg mb-4 break-words">
+                          O vitral foi escolhido como símbolo central da marca por representar a espiritualidade, a tradição e a beleza presentes nas igrejas medievais.
+                        </p>
+                        <p className="text-base md:text-lg break-words">
+                          Para reforçar a identidade única da marca, o vitral assume a forma da letra "A", remetendo diretamente ao nome Anglo. Essa escolha não apenas fortalece a presença da marca, mas também cria um símbolo memorável e significativo.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
               )}
             </AnimatePresence>
           </motion.div>
@@ -299,7 +382,8 @@ export function UnifiedAboutSection() {
                   onClick={() => handleTabClick(tab.id)}
                   onKeyDown={(e) => handleKeyDown(e, tab.id)}
                 >
-                  <Icon weight={isActive ? "fill" : "regular"} size={32} className={`transition-colors duration-300 ${isActive ? '' : 'hover:scale-110 hover:text-purple'}`} />
+                  {/* Ícone sempre regular, exceto para a logo que já tem filtro customizado */}
+                  <Icon weight="regular" size={32} className={`transition-colors duration-300 ${isActive ? 'text-primary' : 'text-gray-400 hover:scale-110 hover:text-purple'}`} />
                   <span className="text-sm font-medium mt-1">{tab.label}</span>
                 </button>
               );
@@ -307,8 +391,8 @@ export function UnifiedAboutSection() {
           </div>
 
           {/* Progress Bar */}
-          {!userInteracted && !isPaused && (
-            <div className="w-40 h-1 bg-gray-200 rounded-full overflow-hidden mt-2">
+          {(!isPaused && !userInteracted) && (
+            <div className="w-40 h-1 bg-gray-200 rounded-full overflow-hidden mb-0" style={{ transform: 'translateY(-22px)' }}>
               <motion.div
                 className="h-full bg-primary rounded-full"
                 initial={{ width: "0%" }}

@@ -58,7 +58,7 @@ export function HeroSection() {
   return (
   <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-32 pb-0">
     {/* Overlay branco sutil na base do HeroSection, cobrindo toda a largura */}
-  <div className="pointer-events-none absolute left-0 right-0 bottom-0 w-full h-[1.5vh] bg-gradient-to-t from-white to-transparent z-10" />
+  <div className="pointer-events-none absolute left-0 right-0 bottom-0 w-full h-[1.2vh] bg-gradient-to-t from-white to-transparent z-10" />
       {/* Bolas decorativas com efeito prisma */}
       <div className="absolute top-1/4 left-8 w-16 h-16 opacity-30 pointer-events-none animate-pulse">
         <div className="w-full h-full rounded-full bg-gradient-to-br from-purple/40 via-rose/30 to-blue/40 filter blur-sm animate-bounce" style={{animationDuration: '4s'}} />
@@ -104,7 +104,7 @@ export function HeroSection() {
               whileHover={{ scale: 1.08 }}
             />
             <motion.span 
-              className="font-display text-4xl md:text-5xl lg:text-6xl font-light tracking-wide text-white drop-shadow-lg text-center mb-2 mt-2"
+            className="font-display text-4xl md:text-5xl lg:text-6xl font-light tracking-wide text-white drop-shadow-lg text-center mb-2 mt-2"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
@@ -198,7 +198,7 @@ export function HeroSection() {
               </div>
               
               <div className="space-y-6 text-white leading-relaxed">
-                <p className="text-lg md:text-xl font-modern opacity-90">
+                <p className="text-base md:text-lg font-modern opacity-90">
                   A <span className="font-semibold text-beige">Editora Anglo</span> nasceu com a missão de promover literatura
                   espiritual e formação cristã de qualidade, sendo um farol de conhecimento e fé para leitores em busca
                   de crescimento pessoal e espiritual.

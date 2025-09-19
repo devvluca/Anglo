@@ -186,7 +186,7 @@ export function HeroSection() {
             <div className="space-y-8">
               <div className="space-y-4">
                 <h2 className="text-4xl md:text-5xl lg:text-6xl font-display text-beige font-light">
-                  Sobre Nós
+                  Nossa Missão
                 </h2>
                 <motion.div
                   className="w-40 h-0.5 bg-beige rounded-full mx-auto"

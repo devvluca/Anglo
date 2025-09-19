@@ -126,11 +126,11 @@ export function HeroSection() {
                 variant="hero"
                 className="font-serif text-lg px-8 py-2 ml-0 rounded-full bg-purple/80 hover:bg-purple/90 hover:scale-105 transition-all duration-700 shadow-lg border-2 border-white/20"
                 onClick={() => {
-                  const aboutSection = document.getElementById('about-section');
-                  if (aboutSection) {
-                    const rect = aboutSection.getBoundingClientRect();
+                  const unifiedAboutSection = document.getElementById('unified-about-section');
+                  if (unifiedAboutSection) {
+                    const rect = unifiedAboutSection.getBoundingClientRect();
                     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                    const targetY = rect.top + scrollTop - 180; // 180px antes do topo
+                    const targetY = rect.top + scrollTop - 80; // 120px antes do topo
                     // Scroll suave customizado, ainda mais devagar
                     const startY = window.scrollY;
                     const distance = targetY - startY;

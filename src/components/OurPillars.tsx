@@ -178,7 +178,7 @@ export function CategoriesSection() {
         </div>
 
         {/* Categories Carousel - Mobile */}
-  <div className="w-full pb-8 md:hidden">
+  <div className="w-screen pb-8 md:hidden overflow-hidden -ml-4">
           <motion.div 
             className="bg-transparent"
             initial={{ opacity: 0, y: 50 }}
@@ -189,7 +189,7 @@ export function CategoriesSection() {
             <Swiper
               modules={[Navigation, Pagination, Autoplay]}
               spaceBetween={20}
-              slidesPerView={1.2}
+              slidesPerView={1.4}
               centeredSlides={true}
               autoplay={{
                 delay: 3000,
@@ -199,7 +199,7 @@ export function CategoriesSection() {
                 clickable: true,
                 dynamicBullets: true,
               }}
-              className="categories-swiper pb-12"
+              className="categories-swiper pb-12 px-4"
               style={{ touchAction: 'pan-y', backgroundColor: 'transparent' }}
             >
               {categories.map((category, index) => {

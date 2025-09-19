@@ -105,7 +105,7 @@ export function ColorsSection() {
       <div className="container mx-auto px-4 relative z-10">
         {/* Section Header */}
         <motion.div 
-          className="text-center mb-20"
+          className="text-center mb-8"
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
@@ -135,13 +135,13 @@ export function ColorsSection() {
 
         {/* Interactive Color Ball - Center */}
         <motion.div 
-          className="flex flex-col items-center justify-center"
+          className="flex flex-col items-center justify-center mt-0"
           initial={{ opacity: 0, scale: 0.8 }}
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
           viewport={{ once: true }}
         >
-          <div className="relative flex items-center justify-center mb-8">
+          <div className="relative flex items-center justify-center mb-2">
             <motion.div 
               className={`bg-white/20 backdrop-blur-sm border-2 border-gray-200/50 shadow-2xl flex items-center justify-center cursor-pointer transition-all duration-700 ease-in-out ${
                 isHovered ? 'w-96 h-24 rounded-full' : 'w-56 h-56 rounded-full'
@@ -221,7 +221,7 @@ export function ColorsSection() {
         {/* Color Information Display - Bottom */}
         <motion.div
           ref={infoDisplayRef}
-          className="mt-16 min-h-[200px] flex items-center justify-center"
+          className="mt-12 min-h-[200px] flex items-center justify-center"
           initial={{ opacity: 0 }}
           animate={hoveredColor && !firstReveal ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: "easeOut" }}

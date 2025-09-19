@@ -340,10 +340,10 @@ export function UnifiedAboutSection() {
                           A identidade visual da Anglo resgata a tradição e a história da Igreja Inglesa, conectando-se à realeza inglesa e à arquitetura das igrejas antigas.
                         </p>
                         <p className="text-base md:text-lg mb-4 break-words">
-                          O vitral foi escolhido como símbolo central da marca por representar a espiritualidade, a tradição e a beleza presentes nas igrejas medievais.
+                          O <span className="font-bold text-purple">vitral</span> foi escolhido como símbolo central da marca por representar a espiritualidade, a tradição e a beleza presentes nas igrejas medievais.
                         </p>
                         <p className="text-base md:text-lg break-words">
-                          Para reforçar a identidade única da marca, o vitral assume a forma da letra "A", remetendo diretamente ao nome Anglo. Essa escolha não apenas fortalece a presença da marca, mas também cria um símbolo memorável e significativo.
+                          Para reforçar a identidade única da marca, o vitral assume a forma da letra <span className="font-bold text-purple">"A"</span>, remetendo diretamente ao nome Anglo. Essa escolha não apenas fortalece a presença da marca, mas também cria um símbolo memorável e significativo.
                         </p>
                       </div>
                     </div>

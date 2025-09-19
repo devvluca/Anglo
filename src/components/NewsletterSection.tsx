@@ -33,33 +33,37 @@ export function NewsletterSection() {
           onSubmit={handleSubmit}
           className="w-full max-w-4xl mx-auto flex flex-col md:flex-row gap-3 items-center justify-center"
         >
-          <input
-            type="text"
-            name="nome"
-            placeholder="Nome"
-            value={form.nome}
-            onChange={handleChange}
-            required
-            className="flex-1 min-w-[120px] px-4 py-3 border-b border-gray-300 focus:border-purple focus:outline-none bg-transparent text-gray-800 placeholder-gray-400"
-          />
-          <input
-            type="text"
-            name="sobrenome"
-            placeholder="Sobrenome"
-            value={form.sobrenome}
-            onChange={handleChange}
-            required
-            className="flex-1 min-w-[120px] px-4 py-3 border-b border-gray-300 focus:border-purple focus:outline-none bg-transparent text-gray-800 placeholder-gray-400"
-          />
-          <input
-            type="email"
-            name="email"
-            placeholder="E-mail"
-            value={form.email}
-            onChange={handleChange}
-            required
-            className="flex-1 min-w-[180px] px-4 py-3 border-b border-gray-300 focus:border-purple focus:outline-none bg-transparent text-gray-800 placeholder-gray-400"
-          />
+          <div className="w-full flex flex-row gap-3 mb-3 md:mb-0">
+            <input
+              type="text"
+              name="nome"
+              placeholder="Nome"
+              value={form.nome}
+              onChange={handleChange}
+              required
+              className="flex-1 min-w-[120px] px-4 py-3 border-b border-gray-300 focus:border-purple focus:outline-none bg-transparent text-gray-800 placeholder-gray-400"
+            />
+            <input
+              type="text"
+              name="sobrenome"
+              placeholder="Sobrenome"
+              value={form.sobrenome}
+              onChange={handleChange}
+              required
+              className="flex-1 min-w-[120px] px-4 py-3 border-b border-gray-300 focus:border-purple focus:outline-none bg-transparent text-gray-800 placeholder-gray-400"
+            />
+          </div>
+          <div className="w-full flex flex-row gap-3 mb-3 md:mb-0">
+            <input
+              type="email"
+              name="email"
+              placeholder="E-mail"
+              value={form.email}
+              onChange={handleChange}
+              required
+              className="flex-1 min-w-[180px] px-4 py-3 border-b border-gray-300 focus:border-purple focus:outline-none bg-transparent text-gray-800 placeholder-gray-400"
+            />
+          </div>
           <button
             type="submit"
             className="w-full md:w-auto px-8 py-3 bg-purple text-white font-display font-medium text-base tracking-wide hover:bg-purple/90 transition-colors"

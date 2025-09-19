@@ -121,7 +121,7 @@ export function CategoriesSection() {
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
             viewport={{ once: true }}
           >
-            Nossos <span className="text-purple hover:text-rose transition-colors duration-500">pilares</span>
+            Nossos <span className="text-purple hover:text-rose transition-colors duration-500">Pilares</span>
           </motion.h2>
         </motion.div>
         

@@ -60,7 +60,7 @@ export function AboutSection() {
           >
             {/* Origin Title */}
             <div className="space-y-4">
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-display text-primary font-normal">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-display text-primary font-light">
                 De onde vem o nome <span className="text-purple font-bold">Anglo</span>?
               </h2>
               <motion.div

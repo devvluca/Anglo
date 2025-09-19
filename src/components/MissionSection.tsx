@@ -77,7 +77,7 @@ export function MissionSection() {
               >
                 <div
                   className="text-left"
-                  style={{ fontFamily: 'Cormorant Infant, serif', lineHeight: '1.7' }}
+                  style={{ fontFamily: 'Lato, sans-serif', lineHeight: '1.7' }}
                 >
                   Acreditamos que a fé cristã floresce quando caminha em unidade. Buscamos uma espiritualidade bíblica que honra o passado, proclama o evangelho com clareza e permanece sensível à ação do Espírito hoje. Nossa missão é celebrar a riqueza das tradições cristãs, encontrando na unidade do Espírito a base para uma fé profunda e transformadora.
                 </div>
@@ -127,7 +127,7 @@ export function MissionSection() {
               >
                 <div
                   className="text-left"
-                  style={{ fontFamily: 'Cormorant Infant, serif', lineHeight: '1.7' }}
+                  style={{ fontFamily: 'Lato, sans-serif', lineHeight: '1.7' }}
                 >
                   Ser uma voz de convergência no cenário cristão brasileiro, promovendo formação teológica e espiritualidade sólida através da publicação de conteúdos que unem tradição, Palavra e presença. Queremos inspirar uma caminhada cristã que valorize tanto o legado quanto a renovação, nutrindo a alma e fortalecendo a fé.
                 </div>

@@ -17,7 +17,7 @@ export function MissionSection() {
   return (
     <motion.section
       id="mission-section"
-      className="min-h-[100vh] relative overflow-hidden bg-center bg-cover flex items-start justify-center pt-20"
+  className="min-h-[100vh] relative overflow-hidden bg-center bg-cover flex items-start justify-center pt-20 pb-2"
       style={{ backgroundImage: `url(/nossa-missao.jpg)` }}
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
@@ -33,7 +33,7 @@ export function MissionSection() {
       <div className="container mx-auto px-4 relative z-10">
         <div className="w-full md:max-w-8xl mx-auto">
           {/* Two-column layout for desktop, stacked for mobile */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-40 mt-20 mb-16 relative">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-6 mt-20 mb-4 relative">
             
             {/* First Column - O que cremos? */}
             <motion.div
@@ -43,19 +43,17 @@ export function MissionSection() {
               transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
               viewport={{ once: true, margin: "-100px" }}
             >
-              {/* Reading indicator - number 1 */}
               <motion.div 
-                className="inline-flex items-center justify-center w-10 h-10 bg-purple text-white rounded-full text-lg font-bold mb-6 shadow-lg font-display"
+                className="inline-flex items-center justify-center w-10 h-10 bg-purple text-white rounded-full text-lg font-bold mb-4 shadow-lg font-display"
                 initial={{ scale: 0 }}
                 whileInView={{ scale: 1 }}
-                transition={{ duration: 0.5, delay: 0.5 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
                 viewport={{ once: true }}
               >
                 1
               </motion.div>
-              
               <motion.h1
-                className="font-display text-3xl md:text-4xl lg:text-5xl font-semibold tracking-wide text-purple mb-8 leading-tight drop-shadow-lg"
+                className="font-display text-2xl md:text-3xl lg:text-4xl font-medium tracking-wide text-purple mb-2 leading-tight"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
@@ -63,7 +61,13 @@ export function MissionSection() {
               >
                 O que cremos?
               </motion.h1>
-              
+              <motion.div
+                className="h-0.5 w-full bg-purple/60 mb-4 rounded-full origin-left"
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: 1 }}
+                transition={{ duration: 0.4, ease: 'easeOut' }}
+                style={{ display: 'block' }}
+              />
               <motion.div 
                 className="text-base md:text-lg text-purple font-normal"
                 initial={{ opacity: 0, y: 20 }}
@@ -80,28 +84,6 @@ export function MissionSection() {
               </motion.div>
             </motion.div>
 
-            {/* Linha horizontal no desktop, vertical no mobile */}
-            <motion.div
-              className="hidden lg:block absolute left-[43.8%] top-[68%] -translate-x-1/2 -translate-y-1/2 z-10"
-              initial={{ scaleX: 0, opacity: 0 }}
-              whileInView={{ scaleX: 1, opacity: 1 }}
-              transition={{ duration: 1.0, delay: 1.0, ease: 'easeOut' }}
-              style={{ transformOrigin: 'center left' }}
-              viewport={{ once: true }}
-            >
-              <div className="h-0.5 w-40 bg-purple/75 mx-auto" />
-            </motion.div>
-            {/* Linha vertical para mobile */}
-            <motion.div
-              className="lg:hidden w-full flex justify-center"
-              initial={{ scaleY: 0, opacity: 0 }}
-              whileInView={{ scaleY: 1, opacity: 1 }}
-              transition={{ duration: 1.0, delay: 0.8, ease: 'easeOut' }}
-              style={{ transformOrigin: 'top center' }}
-              viewport={{ once: true }}
-            >
-              <div className="w-0.5 h-16 bg-purple/40 my-8" />
-            </motion.div>
 
             {/* Second Column - O que queremos? */}
             <motion.div
@@ -111,19 +93,17 @@ export function MissionSection() {
               transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
               viewport={{ once: true, margin: "-100px" }}
             >
-              {/* Reading indicator - number 2 */}
               <motion.div 
-                className="inline-flex items-center justify-center w-10 h-10 bg-purple text-white rounded-full text-lg font-bold mb-6 shadow-lg font-display"
+                className="inline-flex items-center justify-center w-10 h-10 bg-purple text-white rounded-full text-lg font-bold mb-4 shadow-lg font-display"
                 initial={{ scale: 0 }}
                 whileInView={{ scale: 1 }}
-                transition={{ duration: 0.5, delay: 0.7 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
                 viewport={{ once: true }}
               >
                 2
               </motion.div>
-              
               <motion.h2
-                className="font-display text-3xl md:text-4xl lg:text-5xl font-semibold tracking-wide text-purple mb-8 leading-tight drop-shadow-lg whitespace-nowrap"
+                className="font-display text-2xl md:text-3xl lg:text-4xl font-medium tracking-wide text-purple mb-2 leading-tight whitespace-nowrap"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.6, ease: "easeOut" }}
@@ -131,7 +111,13 @@ export function MissionSection() {
               >
                 O que queremos?
               </motion.h2>
-              
+              <motion.div
+                className="h-0.5 w-full bg-purple/60 mb-4 rounded-full origin-left"
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: 1 }}
+                transition={{ duration: 0.4, ease: 'easeOut' }}
+                style={{ display: 'block' }}
+              />
               <motion.div 
                 className="text-base md:text-lg text-purple font-normal"
                 initial={{ opacity: 0, y: 20 }}
@@ -148,49 +134,6 @@ export function MissionSection() {
               </motion.div>
             </motion.div>
           </div>
-          {/* Venn Diagram - Centralizado e mais abaixo */}
-          <motion.div 
-            className="flex justify-center items-center w-auto mt-40 mb-24"
-            initial={{ opacity: 0, scale: 0.5 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            animate={{ rotate: rotation }}
-            whileHover={{ rotate: rotation + 30, scale: 1.08 }}
-            transition={{ type: "spring", stiffness: 60, damping: 20 }}
-            viewport={{ once: true, margin: "-100px" }}
-          >
-            <svg
-              width="150"
-              height="120"
-              viewBox="0 0 150 120"
-              className="text-purple drop-shadow-lg"
-            >
-              {/* Three interlocking circles */}
-              <circle
-                cx="75"
-                cy="40"
-                r="30"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-              />
-              <circle
-                cx="55"
-                cy="75"
-                r="30"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-              />
-              <circle
-                cx="95"
-                cy="75"
-                r="30"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-              />
-            </svg>
-          </motion.div>
         </div>
       </div>
     </motion.section>

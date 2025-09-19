@@ -164,10 +164,10 @@ export function TestimonialsSection() {
               transition={{ duration: 0.4, ease: "easeOut" }}
               className="transition-transform duration-300 ease-in-out cursor-grab active:cursor-grabbing min-h-[240px] flex flex-col justify-center"
             >
-              <p className="font-serif text-xl md:text-2xl text-gray-700 leading-relaxed mb-8 w-full md:max-w-3xl mx-auto">
+              <p className="font-modern text-xl md:text-2xl text-gray-700 leading-relaxed mb-8 w-full md:max-w-3xl mx-auto">
                 {current.content}
               </p>
-              <p className="font-serif text-lg text-gray-600">
+              <p className="font-modern text-lg text-gray-600">
                 - {current.name}
               </p>
             </motion.div>

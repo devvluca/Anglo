@@ -121,7 +121,7 @@ export function ColorsSection() {
             Nossas <span className="text-purple hover:text-rose transition-colors duration-500">cores</span>
           </motion.h2>
           <motion.p 
-            className="font-serif text-lg md:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed mb-12"
+            className="font-modern text-lg md:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed mb-12"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
@@ -208,7 +208,7 @@ export function ColorsSection() {
           </div>
           
           <motion.p 
-            className="text-center text-gray-500 font-serif text-sm"
+            className="text-center text-gray-500 font-modern text-sm"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 1.0 }}
@@ -251,7 +251,7 @@ export function ColorsSection() {
                 <h3 className="font-display text-3xl md:text-4xl font-bold text-foreground">
                   {colorMeanings[hoveredColor as keyof typeof colorMeanings]}
                 </h3>
-                <p className="font-serif text-lg md:text-xl text-gray-600 leading-relaxed">
+                <p className="font-modern text-lg md:text-xl text-gray-600 leading-relaxed">
                   {colorDescriptions[hoveredColor as keyof typeof colorDescriptions]}
                 </p>
               </div>

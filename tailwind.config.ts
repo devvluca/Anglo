@@ -67,8 +67,9 @@ export default {
         },
       },
       fontFamily: {
-        'serif': ['Cormorant Garamond', 'serif'],
-        'display': ['Cinzel', 'serif'],
+        'sans': ['Lato', 'sans-serif'],
+        'serif': ['Lato', 'sans-serif'],
+        'display': ['Lato', 'sans-serif'],
       },
       backgroundImage: {
         'gradient-primary': 'var(--gradient-primary)',

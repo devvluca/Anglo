@@ -80,7 +80,7 @@ export function Navbar() {
                     style={style}
                     onClick={e => {
                       e.preventDefault();
-                      const el = document.getElementById("about-section");
+                      const el = document.querySelector("section[id='about-section'], section#about, #about, .about-section");
                       if (el) {
                         const y = el.getBoundingClientRect().top + window.scrollY - 40;
                         window.scrollTo({ top: y, behavior: "smooth" });
@@ -199,8 +199,8 @@ export function Navbar() {
                               e.preventDefault();
                               setIsOpen(false);
                               setTimeout(() => {
-                                const el = document.querySelector("section");
-                                if (el && el.classList.contains("py-20")) {
+                                const el = document.querySelector("section[id='about-section'], section#about, #about, .about-section");
+                                if (el) {
                                   const y = el.getBoundingClientRect().top + window.scrollY - 40;
                                   window.scrollTo({ top: y, behavior: "smooth" });
                                 }

@@ -18,14 +18,14 @@ export function NewsletterSection() {
   return (
     <section
       id="newsletter-section"
-      className="pt-10 pb-20 bg-white"
+      className="pt-20 pb-20 bg-beige/70 rounded-t-[0rem]"
     >
       <div className="container mx-auto px-4">
         <div className="text-center mb-8">
           <h2 className="font-display text-2xl md:text-3xl font-medium text-purple mb-2">
             Inscreva-se na nossa newsletter
           </h2>
-          <p className="text-base text-gray-600 font-light">
+          <p className="text-base text-foreground font-modern font-light">
             Receba novidades e conteúdos para crescer na fé
           </p>
         </div>
@@ -41,7 +41,7 @@ export function NewsletterSection() {
               value={form.nome}
               onChange={handleChange}
               required
-              className="flex-1 min-w-[120px] px-4 py-3 border-b border-gray-300 focus:border-purple focus:outline-none bg-transparent text-gray-800 placeholder-gray-400"
+              className="flex-1 min-w-[120px] px-4 py-3 border-b border-purple focus:border-purple focus:outline-none bg-transparent text-foreground placeholder-purple"
             />
             <input
               type="text"
@@ -50,7 +50,7 @@ export function NewsletterSection() {
               value={form.sobrenome}
               onChange={handleChange}
               required
-              className="flex-1 min-w-[120px] px-4 py-3 border-b border-gray-300 focus:border-purple focus:outline-none bg-transparent text-gray-800 placeholder-gray-400"
+              className="flex-1 min-w-[120px] px-4 py-3 border-b border-purple focus:border-purple focus:outline-none bg-transparent text-foreground placeholder-purple"
             />
           </div>
           <div className="w-full flex flex-row gap-3 mb-3 md:mb-0">
@@ -61,7 +61,7 @@ export function NewsletterSection() {
               value={form.email}
               onChange={handleChange}
               required
-              className="flex-1 min-w-[180px] px-4 py-3 border-b border-gray-300 focus:border-purple focus:outline-none bg-transparent text-gray-800 placeholder-gray-400"
+              className="flex-1 min-w-[180px] px-4 py-3 border-b border-purple focus:border-purple focus:outline-none bg-transparent text-foreground placeholder-purple"
             />
           </div>
           <button
@@ -74,7 +74,7 @@ export function NewsletterSection() {
         </form>
         {submitted && (
           <motion.div
-            className="text-center mt-6 text-purple text-sm font-light"
+            className="text-center mt-6 text-purple text-sm font-modern font-light"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}

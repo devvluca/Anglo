@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, BookOpen, Heart } from "phosphor-react";
+import { motion as m } from "framer-motion";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 // Imagens de fundo para desktop e mobile
@@ -56,6 +57,8 @@ export function HeroSection() {
 
   return (
   <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-32 pb-0">
+    {/* Overlay branco sutil na base do HeroSection, cobrindo toda a largura */}
+  <div className="pointer-events-none absolute left-0 right-0 bottom-0 w-full h-[1.8vh] bg-gradient-to-t from-white to-transparent z-10" />
       {/* Bolas decorativas com efeito prisma */}
       <div className="absolute top-1/4 left-8 w-16 h-16 opacity-30 pointer-events-none animate-pulse">
         <div className="w-full h-full rounded-full bg-gradient-to-br from-purple/40 via-rose/30 to-blue/40 filter blur-sm animate-bounce" style={{animationDuration: '4s'}} />
@@ -88,8 +91,8 @@ export function HeroSection() {
       
       {/* Content */}
   <div className="relative z-10 container mx-auto px-4 text-center text-white pt-4">
-        <div className="w-full md:max-w-4xl mx-auto">
-          <div className="flex flex-col items-center justify-center gap-4">
+        <div className="w-full md:max-w-4xl mx-auto pb-20">
+          <div className="flex flex-col items-center justify-center gap-4 mt-16">
             <motion.img 
               src="/logo_branco.png" 
               alt="Logo Anglo" 
@@ -101,7 +104,7 @@ export function HeroSection() {
               whileHover={{ scale: 1.08 }}
             />
             <motion.span 
-              className="font-display text-3xl md:text-4xl lg:text-5xl font-bold tracking-wide text-white drop-shadow-lg text-center mb-2"
+              className="font-display text-3xl md:text-4xl lg:text-5xl font-bold tracking-wide text-white drop-shadow-lg text-center mb-2 mt-2"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
@@ -109,7 +112,7 @@ export function HeroSection() {
               UMA VOZ DE<br />CONVERGÊNCIA CRISTÃ
             </motion.span>
             <motion.p 
-              className="font-serif text-base md:text-lg lg:text-xl max-w-xl mx-auto leading-relaxed opacity-90"
+              className="font-modern text-base md:text-lg lg:text-xl max-w-xl mx-auto leading-relaxed opacity-90 mt-2"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
@@ -122,38 +125,90 @@ export function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.9, ease: "easeOut" }}
             >
-              <Button
-                variant="hero"
-                className="font-serif text-lg px-8 py-2 ml-0 rounded-full bg-purple/80 hover:bg-purple/90 hover:scale-105 transition-all duration-700 shadow-lg border-2 border-white/20"
-                onClick={() => {
-                  const unifiedAboutSection = document.getElementById('unified-about-section');
-                  if (unifiedAboutSection) {
-                    const rect = unifiedAboutSection.getBoundingClientRect();
-                    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                    const targetY = rect.top + scrollTop - 80; // 120px antes do topo
-                    // Scroll suave customizado, ainda mais devagar
-                    const startY = window.scrollY;
-                    const distance = targetY - startY;
-                    const duration = 1200; // ms, mais rápido
-                    let startTime: number | null = null;
-                    function animateScroll(currentTime: number) {
-                      if (!startTime) startTime = currentTime;
-                      const elapsed = currentTime - startTime;
-                      const progress = Math.min(elapsed / duration, 1);
-                      const ease = 1 - Math.pow(1 - progress, 3); // easeOut cubic
-                      window.scrollTo(0, startY + distance * ease);
-                      if (progress < 1) {
-                        requestAnimationFrame(animateScroll);
-                      }
-                    }
-                    requestAnimationFrame(animateScroll);
-                  }
-                }}
+              <motion.div
+                className="flex flex-col items-center"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1.2, delay: 1.2, ease: "easeOut" }}
               >
-                Saiba mais sobre a Anglo
-              </Button>
+{/* Arrow animation */}
+<button
+  aria-label="Ir para a próxima seção"
+  className="block cursor-pointer bg-transparent border-none p-0"
+  onClick={() => {
+    const el = document.getElementById("about");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+  }}
+>
+  <m.div
+    animate={{ y: [0, 8, 0] }}
+    transition={{ repeat: Infinity, duration: 3.5, ease: "easeInOut", delay: 1.7 }}
+    className="mt-2"
+  >
+    <m.svg
+      width="32"
+      height="48"
+      viewBox="0 0 32 48"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <m.path
+        d="M16 8V40"
+        stroke="#fff"
+        strokeWidth="1.2"
+        strokeLinecap="round"
+        initial={{ pathLength: 0 }}
+        animate={{ pathLength: 1 }}
+        transition={{ duration: 1.1, ease: "easeInOut" }}
+      />
+      <m.path
+        d="M8 32L16 40L24 32"
+        stroke="#fff"
+        strokeWidth="1.2"
+        strokeLinecap="round"
+        initial={{ pathLength: 0 }}
+        animate={{ pathLength: 1 }}
+        transition={{ duration: 0.5, ease: "easeInOut", delay: 1.1 }}
+      />
+    </m.svg>
+  </m.div>
+</button>
+              </motion.div>
             </motion.div>
           </div>
+          
+          {/* Sobre Nós Section */}
+          <motion.div 
+            className="mt-4 text-center max-w-4xl mx-auto"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 2.0, ease: "easeOut" }}
+          >
+            <div className="space-y-8">
+              <div className="space-y-4">
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-display text-white font-bold">
+                  Sobre Nós
+                </h2>
+                <motion.div
+                  className="w-40 h-1 bg-beige rounded-full mx-auto"
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ duration: 2.2, ease: 'easeOut', delay: 2.2 }}
+                  style={{ transformOrigin: 'center' }}
+                />
+              </div>
+              
+              <div className="space-y-6 text-white leading-relaxed">
+                <p className="text-lg md:text-xl font-modern opacity-90">
+                  A <span className="font-semibold text-beige">Editora Anglo</span> nasceu com a missão de promover literatura
+                  espiritual e formação cristã de qualidade, sendo um farol de conhecimento e fé para leitores em busca
+                  de crescimento pessoal e espiritual.
+                </p>
+              </div>
+            </div>
+          </motion.div>
           
           {/* Espaço extra para descer os elementos */}
           <div className="mt-24" />

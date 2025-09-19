@@ -30,31 +30,31 @@ const categories = [
   {
     icon: VennIcon,
     title: "Convergência",
-    description: "valorizamos a herança dos três rios da fé cristã: o carismático, o evangelical e o sacramental.",
+    description: "Valorizamos a herança dos três rios da fé cristã: o carismático, o evangelical e o sacramental.",
     color: "purple"
   },
   {
     icon: Heart,
     title: "Fidelidade",
-    description: "nosso compromisso é com a verdade bíblica, a ortodoxia histórica e a missão do reino.",
+    description: "Nosso compromisso é com a verdade bíblica, a ortodoxia histórica e a missão do reino.",
     color: "beige"
   },
   {
     icon: Users,
     title: "Unidade",
-    description: "publicamos com o coração voltado à reconciliação e à edificação da igreja.",
+    description: "Publicamos com o coração voltado à reconciliação e à edificação da igreja.",
     color: "blue"
   },
   {
     icon: PaletteIcon,
     title: "Beleza",
-    description: "acreditamos que a estética comunica o sagrado e nos ajuda a perceber a glória de deus.",
+    description: "Acreditamos que a estética comunica o sagrado e nos ajuda a perceber a glória de Deus.",
     color: "rose"
   },
   {
     icon: BookOpen,
     title: "Formação",
-    description: "buscamos formar leitores e líderes que compreendam e vivam uma espiritualidade bíblica, profunda e prática.",
+    description: "Buscamos formar leitores e líderes que compreendam e vivam uma espiritualidade bíblica, profunda e prática.",
     color: "green"
   }
 ];
@@ -104,7 +104,7 @@ const colorClasses = {
 
 export function CategoriesSection() {
   return (
-  <section className="py-20 bg-white font-display">
+  <section className="pt-20 pb-32 bg-white font-display">
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <motion.div 
@@ -164,7 +164,7 @@ export function CategoriesSection() {
                     <div className="flex-1 flex flex-col justify-end">
                       <div className={`text-left`}>
                         {category.description.split('. ').map((sentence, idx, arr) => (
-                          <span key={idx} className={`${colors.text} text-sm font-normal leading-normal`}>{sentence.trim()}{(idx < arr.length - 1) ? <br /> : null}</span>
+                          <span key={idx} className={`${colors.text} text-base font-normal leading-normal`}>{sentence.trim()}{(idx < arr.length - 1) ? <br /> : null}</span>
                         ))}
                       </div>
                     </div>
@@ -236,7 +236,7 @@ export function CategoriesSection() {
                             <div className="flex-1 flex flex-col justify-end">
                               <div className={`text-left`}>
                                 {category.description.split('. ').map((sentence, idx, arr) => (
-                                  <span key={idx} className={`${colors.text} text-sm font-normal leading-normal`}>{sentence.trim()}{(idx < arr.length - 1) ? <br /> : null}</span>
+                                  <span key={idx} className={`${colors.text} text-base font-normal leading-normal`}>{sentence.trim()}{(idx < arr.length - 1) ? <br /> : null}</span>
                                 ))}
                               </div>
                             </div>

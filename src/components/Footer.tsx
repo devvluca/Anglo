@@ -87,7 +87,7 @@ export function Footer() {
                   transition={{ type: 'spring', stiffness: 220, damping: 18 }}
                   onClick={e => {
                     e.preventDefault();
-                    const el = document.getElementById("unified-about-section");
+                    const el = document.querySelector("section[id='about-section'], section#about, #about, .about-section");
                     if (el) {
                       const y = el.getBoundingClientRect().top + window.scrollY - 40;
                       window.scrollTo({ top: y, behavior: "smooth" });

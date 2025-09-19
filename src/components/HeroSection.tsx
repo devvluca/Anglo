@@ -136,10 +136,7 @@ export function HeroSection() {
   aria-label="Ir para a próxima seção"
   className="block cursor-pointer bg-transparent border-none p-0"
   onClick={() => {
-    const el = document.getElementById("about");
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
-    }
+    window.scrollBy({ top: 350, left: 0, behavior: "smooth" });
   }}
 >
   <m.div
@@ -181,7 +178,7 @@ export function HeroSection() {
           
           {/* Sobre Nós Section */}
           <motion.div 
-            className="mt-4 text-center max-w-4xl mx-auto"
+            className="mt-12 text-center max-w-4xl mx-auto"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 2.0, ease: "easeOut" }}

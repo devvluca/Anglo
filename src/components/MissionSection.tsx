@@ -17,7 +17,7 @@ export function MissionSection() {
   return (
     <motion.section
       id="mission-section"
-  className="min-h-[100vh] relative overflow-hidden bg-center bg-cover flex items-start justify-center pt-20 pb-2"
+  className="min-h-[100vh] relative overflow-hidden bg-center bg-cover flex items-start justify-center pt-20 pb-0"
       style={{ backgroundImage: `url(/nossa-missao.jpg)` }}
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}

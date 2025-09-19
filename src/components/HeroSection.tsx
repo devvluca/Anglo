@@ -185,11 +185,11 @@ export function HeroSection() {
           >
             <div className="space-y-8">
               <div className="space-y-4">
-                <h2 className="text-4xl md:text-5xl lg:text-6xl font-display text-beige font-bold">
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-display text-beige font-light">
                   Sobre Nós
                 </h2>
                 <motion.div
-                  className="w-40 h-1 bg-beige rounded-full mx-auto"
+                  className="w-40 h-0.5 bg-beige rounded-full mx-auto"
                   initial={{ scaleX: 0 }}
                   animate={{ scaleX: 1 }}
                   transition={{ duration: 2.2, ease: 'easeOut', delay: 2.2 }}

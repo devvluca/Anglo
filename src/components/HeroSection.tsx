@@ -185,9 +185,9 @@ export function HeroSection() {
           >
             <div className="space-y-8">
               <div className="space-y-4">
-                <h2 className="text-3xl md:text-4xl lg:text-5xl font-display text-beige font-light">
-                  Nossa Missão
-                </h2>
+                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-display text-beige font-light">
+                      Nossa Missão
+                    </h2>
                 <motion.div
                   className="w-40 h-0.5 bg-beige rounded-full mx-auto"
                   initial={{ scaleX: 0 }}

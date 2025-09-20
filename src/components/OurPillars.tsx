@@ -191,16 +191,33 @@ export function CategoriesSection() {
               spaceBetween={20}
               slidesPerView={1.4}
               centeredSlides={true}
-              autoplay={{
-                delay: 3000,
-                disableOnInteraction: false,
-              }}
+              autoplay={false}
               pagination={{
                 clickable: true,
                 dynamicBullets: true,
               }}
               className="categories-swiper pb-12 px-4"
               style={{ touchAction: 'pan-y', backgroundColor: 'transparent' }}
+              onSwiper={(swiper) => {
+                // Start autoplay only when the first card is visible
+                const observer = new IntersectionObserver((entries) => {
+                  if (entries[0].isIntersecting) {
+                    swiper.params.autoplay = { delay: 3000, disableOnInteraction: true };
+                    swiper.autoplay.start();
+                    observer.disconnect();
+                  }
+                }, { threshold: 0.7 });
+                if (swiper.el) {
+                  observer.observe(swiper.el);
+                }
+                // Stop autoplay if user interacts
+                swiper.on('touchStart', () => {
+                  if (swiper.autoplay.running) swiper.autoplay.stop();
+                });
+                swiper.on('slideChange', () => {
+                  if (swiper.autoplay.running && swiper.activeIndex !== 0) swiper.autoplay.stop();
+                });
+              }}
             >
               {categories.map((category, index) => {
                 const colors = colorClasses[category.color as keyof typeof colorClasses];

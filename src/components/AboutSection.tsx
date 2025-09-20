@@ -8,10 +8,23 @@ export function AboutSection() {
       className="pt-20 pb-2 relative overflow-hidden bg-white"
     >
       {/* Background pattern */}
+      {/* Desktop & tablet pattern */}
       <motion.div 
-        className="absolute inset-0 z-0 pointer-events-none"
+        className="absolute inset-0 z-0 pointer-events-none hidden md:block"
         initial={{ opacity: 0 }}
         animate={{ opacity: 0.10 }}
+        transition={{ duration: 0.5 }}
+        style={{
+          backgroundImage: 'url(/padronagem_aboutus.png)',
+          backgroundRepeat: 'repeat',
+          backgroundSize: 'auto',
+        }}
+      />
+      {/* Mobile pattern with lower opacity */}
+      <motion.div 
+        className="absolute inset-0 z-0 pointer-events-none md:hidden"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.04 }}
         transition={{ duration: 0.5 }}
         style={{
           backgroundImage: 'url(/padronagem_aboutus.png)',
@@ -60,11 +73,11 @@ export function AboutSection() {
           >
             {/* Origin Title */}
             <div className="space-y-4">
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-display text-primary font-light">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-display text-primary font-light text-center md:text-left">
                 De onde vem o nome <span className="text-purple font-bold">Anglo</span>?
               </h2>
               <motion.div
-                className="w-40 h-1 bg-purple rounded-full"
+                className="w-40 h-1 bg-purple rounded-full mx-auto md:mx-0 translate-y-[-0.5rem] md:translate-y-0"
                 initial={{ scaleX: 0 }}
                 whileInView={{ scaleX: 1 }}
                 viewport={{ once: true }}

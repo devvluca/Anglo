@@ -60,24 +60,6 @@ export function HeroSection() {
   <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-32 pb-0">
     {/* Overlay branco sutil na base do HeroSection, cobrindo toda a largura */}
   <div className="pointer-events-none absolute left-0 right-0 bottom-0 w-full h-[1.2vh] bg-gradient-to-t from-white to-transparent z-10" />
-      {/* Bolas decorativas com efeito prisma */}
-      <div className="absolute top-1/4 left-8 w-16 h-16 opacity-30 pointer-events-none animate-pulse">
-        <div className="w-full h-full rounded-full bg-gradient-to-br from-purple/40 via-rose/30 to-blue/40 filter blur-sm animate-bounce" style={{animationDuration: '4s'}} />
-      </div>
-      <div className="absolute bottom-1/3 right-12 w-12 h-12 opacity-25 pointer-events-none">
-        <div className="w-full h-full rounded-full bg-gradient-to-br from-beige/50 via-green/30 to-purple/40 filter blur-sm animate-pulse" style={{animationDuration: '3s', animationDelay: '1s'}} />
-      </div>
-      <div className="absolute top-2/3 left-16 w-8 h-8 opacity-35 pointer-events-none">
-        <div className="w-full h-full rounded-full bg-gradient-to-br from-blue/40 via-rose/30 to-beige/40 filter blur-sm animate-bounce" style={{animationDuration: '5s', animationDelay: '2s'}} />
-      </div>
-      <div className="absolute top-1/5 right-20 w-10 h-10 opacity-30 pointer-events-none animate-pulse">
-        <div className="w-full h-full rounded-full bg-gradient-to-br from-green/40 via-purple/30 to-rose/40 filter blur-sm" style={{animationDuration: '3.5s', animationDelay: '0.5s'}} />
-      </div>
-      
-      {/* Prisma sutil original */}
-      <div className="absolute top-1/3 right-1/4 w-32 h-32 opacity-20 pointer-events-none">
-        <div className="w-full h-full rounded-lg bg-gradient-to-br from-purple/30 via-rose/30 to-blue/30 filter blur-sm" />
-      </div>
       {/* Background Image responsiva */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -103,7 +85,7 @@ export function HeroSection() {
                   style={{ maxWidth: '110px', width: '100%' }}
                   onLoad={() => {
                     // Troca para o frame estático após a duração da animação
-                    setTimeout(() => setShowStaticLogo(true), 4400); // ajuste 4200ms conforme duração real do webp
+                    setTimeout(() => setShowStaticLogo(true), 4900); // ajuste 4200ms conforme duração real do webp
                   }}
                 />
               ) : (

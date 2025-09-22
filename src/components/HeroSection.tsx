@@ -77,22 +77,20 @@ export function HeroSection() {
         <div className="w-full md:max-w-4xl mx-auto pb-20">
           <div className="flex flex-col items-center justify-center gap-4 mt-16">
             <div className="relative w-full h-32 flex items-end justify-center">
-              {!showStaticLogo ? (
-                <img
-                  src="/LogoAnimada-EditoraAngloMono-Alfa.webp"
-                  alt="Logo Anglo animada"
-                  className="absolute bottom-1 mb-5 cursor-pointer translate-y-8"
-                  style={{ maxWidth: '110px', width: '100%' }}
-                  onLoad={() => {
-                    // Troca para o frame estático após a duração da animação
-                    setTimeout(() => setShowStaticLogo(true), 5000); // ajuste 4200ms conforme duração real do webp
-                  }}
-                />
-              ) : (
+              <img
+                src="/LogoAnimada-EditoraAngloMono-Alfa.webp"
+                alt="Logo Anglo animada"
+                className={`absolute bottom-1 mb-5 cursor-pointer translate-y-8${showStaticLogo ? ' hidden' : ''}`}
+                style={{ maxWidth: '110px', width: '100%' }}
+                onLoad={() => {
+                  setTimeout(() => setShowStaticLogo(true), 4500);
+                }}
+              />
+              {showStaticLogo && (
                 <img
                   src="/frame_099.png"
                   alt="Logo Anglo estática"
-                  className="absolute bottom-1 mb-5 cursor-pointer translate-y-8"
+                  className="absolute bottom-1 mb-5 cursor-pointer translate-y-8 transition-transform duration-300 hover:scale-110"
                   style={{ maxWidth: '110px', width: '100%' }}
                 />
               )}

@@ -24,6 +24,9 @@ const colorNames = {
 };
 
 export function HeroSection() {
+  // Detecta se é mobile
+  const isMobile = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(max-width: 767px)').matches;
+  const [showMobileStaticLogo, setShowMobileStaticLogo] = useState(false);
   // Preload da imagem estática para evitar bipada
   if (typeof window !== 'undefined') {
     const preloadId = 'preload-static-logo';
@@ -89,29 +92,57 @@ export function HeroSection() {
         <div className="w-full md:max-w-4xl mx-auto pb-20">
           <div className="flex flex-col items-center justify-center gap-4 mt-16">
             <div className="relative w-full h-32 flex items-end justify-center">
-              <img
-                src="/LogoAnimada-EditoraAngloMono-Alfa.webp"
-                alt="Logo Anglo animada"
-                className={`absolute bottom-1 mb-5 cursor-pointer translate-y-8${showStaticLogo ? ' hidden' : ''}`}
-                style={{ maxWidth: '110px', width: '100%' }}
-                onLoad={() => {
-                  setTimeout(() => {
-                    // Oculta animada, espera 50ms, mostra estática
-                    setShowStaticLogo(true);
-                  }, 4500);
-                }}
-              />
-              {showStaticLogo && (
-                <img
-                  src="/frame_099.png"
-                  alt="Logo Anglo estática"
-                  className="absolute bottom-1 mb-5 cursor-pointer translate-y-8 transition-transform duration-300 hover:scale-110"
-                  style={{ maxWidth: '110px', width: '100%' }}
-                />
+              {/* Mobile: GIF animado, depois estática */}
+              {isMobile ? (
+                <>
+                  {!showMobileStaticLogo && (
+                    <img
+                      src="/anim_frames/anim_final_noloop.gif"
+                      alt="Logo Anglo animada"
+                      className="absolute bottom-1 mb-5 cursor-pointer translate-y-8"
+                      style={{ maxWidth: '110px', width: '100%' }}
+                      onLoad={() => {
+                        setTimeout(() => {
+                          setShowMobileStaticLogo(true);
+                        }, 4800);
+                      }}
+                    />
+                  )}
+                  {showMobileStaticLogo && (
+                    <img
+                      src="/frame_099.png"
+                      alt="Logo Anglo estática"
+                      className="absolute bottom-1 mb-5 cursor-pointer translate-y-8 transition-transform duration-300 hover:scale-110"
+                      style={{ maxWidth: '110px', width: '100%' }}
+                    />
+                  )}
+                </>
+              ) : (
+                <>
+                  <img
+                    src="/LogoAnimada-EditoraAngloMono-Alfa.webp"
+                    alt="Logo Anglo animada"
+                    className={`absolute bottom-1 mb-5 cursor-pointer translate-y-8${showStaticLogo ? ' hidden' : ''}`}
+                    style={{ maxWidth: '110px', width: '100%' }}
+                    onLoad={() => {
+                      setTimeout(() => {
+                        setShowStaticLogo(true);
+                      }, 4500);
+                    }}
+                  />
+                  {showStaticLogo && (
+                    <img
+                      src="/frame_099.png"
+                      alt="Logo Anglo estática"
+                      className="absolute bottom-1 mb-5 cursor-pointer translate-y-8 transition-transform duration-300 hover:scale-110"
+                      style={{ maxWidth: '110px', width: '100%' }}
+                    />
+                  )}
+                </>
               )}
             </div>
             <motion.span 
-            className="font-display text-4xl md:text-5xl lg:text-6xl font-light tracking-wide text-white drop-shadow-lg text-center mb-2 mt-2"
+              className="font-display text-4xl md:text-5xl lg:text-6xl font-light tracking-wide text-white drop-shadow-lg text-center mb-2 mt-2"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}

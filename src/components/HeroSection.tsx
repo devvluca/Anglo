@@ -28,6 +28,7 @@ export function HeroSection() {
   const [isHovered, setIsHovered] = useState(false);
   const [currentColorIndex, setCurrentColorIndex] = useState(0);
   const [hoverTimeout, setHoverTimeout] = useState(null);
+  const [showStaticLogo, setShowStaticLogo] = useState(false);
   
   const colors = ['purple', 'beige', 'rose', 'blue', 'green'];
   
@@ -93,16 +94,27 @@ export function HeroSection() {
   <div className="relative z-10 container mx-auto px-4 text-center text-white pt-4">
         <div className="w-full md:max-w-4xl mx-auto pb-20">
           <div className="flex flex-col items-center justify-center gap-4 mt-16">
-            <motion.img 
-              src="/logo_branco.png" 
-              alt="Logo Anglo" 
-              className="mx-auto mb-5 cursor-pointer" 
-              style={{ maxWidth: '110px', width: '100%' }}
-              initial={{ opacity: 0, scale: 0.5 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              whileHover={{ scale: 1.08 }}
-            />
+            <div className="relative w-full h-32 flex items-end justify-center">
+              {!showStaticLogo ? (
+                <img
+                  src="/LogoAnimada-EditoraAngloMono-Alfa.webp"
+                  alt="Logo Anglo animada"
+                  className="absolute bottom-1 mb-5 cursor-pointer translate-y-8"
+                  style={{ maxWidth: '110px', width: '100%' }}
+                  onLoad={() => {
+                    // Troca para o frame estático após a duração da animação
+                    setTimeout(() => setShowStaticLogo(true), 4500); // ajuste 4500ms conforme duração real do webp
+                  }}
+                />
+              ) : (
+                <img
+                  src="/frame_099.png"
+                  alt="Logo Anglo estática"
+                  className="absolute bottom-1 mb-5 cursor-pointer translate-y-8"
+                  style={{ maxWidth: '110px', width: '100%' }}
+                />
+              )}
+            </div>
             <motion.span 
             className="font-display text-4xl md:text-5xl lg:text-6xl font-light tracking-wide text-white drop-shadow-lg text-center mb-2 mt-2"
               initial={{ opacity: 0, y: 30 }}

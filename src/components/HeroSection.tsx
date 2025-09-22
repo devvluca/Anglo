@@ -24,6 +24,18 @@ const colorNames = {
 };
 
 export function HeroSection() {
+  // Preload da imagem estática para evitar bipada
+  if (typeof window !== 'undefined') {
+    const preloadId = 'preload-static-logo';
+    if (!document.getElementById(preloadId)) {
+      const link = document.createElement('link');
+      link.rel = 'preload';
+      link.as = 'image';
+      link.href = '/frame_099.png';
+      link.id = preloadId;
+      document.head.appendChild(link);
+    }
+  }
   const [hoveredColor, setHoveredColor] = useState(null);
   const [isHovered, setIsHovered] = useState(false);
   const [currentColorIndex, setCurrentColorIndex] = useState(0);
@@ -83,7 +95,10 @@ export function HeroSection() {
                 className={`absolute bottom-1 mb-5 cursor-pointer translate-y-8${showStaticLogo ? ' hidden' : ''}`}
                 style={{ maxWidth: '110px', width: '100%' }}
                 onLoad={() => {
-                  setTimeout(() => setShowStaticLogo(true), 4500);
+                  setTimeout(() => {
+                    // Oculta animada, espera 50ms, mostra estática
+                    setShowStaticLogo(true);
+                  }, 4500);
                 }}
               />
               {showStaticLogo && (

@@ -85,7 +85,7 @@ export function HeroSection() {
                   style={{ maxWidth: '110px', width: '100%' }}
                   onLoad={() => {
                     // Troca para o frame estático após a duração da animação
-                    setTimeout(() => setShowStaticLogo(true), 4900); // ajuste 4200ms conforme duração real do webp
+                    setTimeout(() => setShowStaticLogo(true), 3955); // ajuste 4200ms conforme duração real do webp
                   }}
                 />
               ) : (

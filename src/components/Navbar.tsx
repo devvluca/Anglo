@@ -22,12 +22,21 @@ export function Navbar() {
   <div className="flex items-center justify-between h-20">
           {/* Logo */}
             <div className="flex items-center gap-3 lg:translate-x-[-10px]">
-            <img
-              src="/horizontal_navbar.png"
-              alt="Logo Editora Anglo"
-              className="w-48 h-auto object-contain"
-            />
-          </div>
+              <button
+                aria-label="Ir para o início"
+                className="focus:outline-none"
+                style={{ background: 'none', border: 'none', padding: 0, margin: 0 }}
+                onClick={() => {
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
+              >
+                <img
+                  src="/horizontal_navbar.png"
+                  alt="Logo Editora Anglo"
+                  className="w-48 h-auto object-contain cursor-pointer"
+                />
+              </button>
+            </div>
 
           {/* Desktop Navigation a */}
           <div className="hidden lg:flex items-center gap-10 pl-0">
@@ -139,11 +148,23 @@ export function Navbar() {
                 <div className="flex flex-col h-full">
                   {/* Mobile Logo */}
                   <div className="flex items-center gap-3 mb-8 pt-4">
-                    <img
-                      src="/horizontal_navbar.png"
-                      alt="Logo Editora Anglo"
-                      className="w-32 h-auto object-contain"
-                    />
+                    <button
+                      aria-label="Ir para o início"
+                      className="focus:outline-none"
+                      style={{ background: 'none', border: 'none', padding: 0, margin: 0 }}
+                      onClick={() => {
+                        setIsOpen(false);
+                        setTimeout(() => {
+                          window.scrollTo({ top: 0, behavior: "smooth" });
+                        }, 250);
+                      }}
+                    >
+                      <img
+                        src="/horizontal_navbar.png"
+                        alt="Logo Editora Anglo"
+                        className="w-32 h-auto object-contain cursor-pointer"
+                      />
+                    </button>
                   </div>
 
                   {/* Mobile Navigation */}

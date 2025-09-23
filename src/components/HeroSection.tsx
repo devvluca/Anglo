@@ -24,6 +24,7 @@ const colorNames = {
 };
 
 export function HeroSection() {
+  const [animateStaticLogo, setAnimateStaticLogo] = useState(false);
   // Detecta se é mobile
   const isMobile = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(max-width: 767px)').matches;
   const [showMobileStaticLogo, setShowMobileStaticLogo] = useState(false);
@@ -112,8 +113,13 @@ export function HeroSection() {
                     <img
                       src="/frame_099.png"
                       alt="Logo Anglo estática"
-                      className="absolute bottom-1 mb-5 cursor-pointer translate-y-8 transition-transform duration-300 hover:scale-110"
+                      className={`absolute bottom-1 mb-5 cursor-pointer translate-y-8 transition-transform duration-700${animateStaticLogo ? ' scale-110' : ''}`}
                       style={{ maxWidth: '110px', width: '100%' }}
+                      onLoad={() => {
+                        setTimeout(() => {
+                          setAnimateStaticLogo(true);
+                        }, 120);
+                      }}
                     />
                   )}
                 </>
@@ -134,8 +140,13 @@ export function HeroSection() {
                     <img
                       src="/frame_099.png"
                       alt="Logo Anglo estática"
-                      className="absolute bottom-1 mb-5 cursor-pointer translate-y-8 transition-transform duration-300 hover:scale-110"
+                      className={`absolute bottom-1 mb-5 cursor-pointer translate-y-8 transition-transform duration-700${animateStaticLogo ? ' scale-110' : ''}`}
                       style={{ maxWidth: '110px', width: '100%' }}
+                      onLoad={() => {
+                        setTimeout(() => {
+                          setAnimateStaticLogo(true);
+                        }, 120);
+                      }}
                     />
                   )}
                 </>

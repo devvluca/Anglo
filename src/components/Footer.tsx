@@ -139,7 +139,7 @@ export function Footer() {
                   variants={hoverVariant}
                   whileHover={{ color: '#F5F5F5', scale: 1.08 }}
                   transition={{ type: 'spring', stiffness: 220, damping: 18 }}
-                >editoraanglo@gmail.com</motion.a>
+                >faleconosco@editoraanglo.com</motion.a>
               </motion.div>
               <motion.div className="flex items-center gap-3 justify-center md:justify-start group" initial="rest" whileHover="hover" animate="rest">
                 <motion.span variants={hoverVariant} transition={{ type: 'spring', stiffness: 220, damping: 18 }}>

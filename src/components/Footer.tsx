@@ -141,19 +141,21 @@ export function Footer() {
                   transition={{ type: 'spring', stiffness: 220, damping: 18 }}
                 >faleconosco@editoraanglo.com</motion.a>
               </motion.div>
+              {/* Instagram */}
               <motion.div className="flex items-center gap-3 justify-center md:justify-start group" initial="rest" whileHover="hover" animate="rest">
                 <motion.span variants={hoverVariant} transition={{ type: 'spring', stiffness: 220, damping: 18 }}>
-                  <Phone className="w-5 h-5 text-beige" />
+                  {/* Ícone Instagram SVG */}
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-beige"><path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5A4.25 4.25 0 0 0 20.5 16.25v-8.5A4.25 4.25 0 0 0 16.25 3.5h-8.5zm4.25 3.25a5.25 5.25 0 1 1 0 10.5 5.25 5.25 0 0 1 0-10.5zm0 1.5a3.75 3.75 0 1 0 0 7.5 3.75 3.75 0 0 0 0-7.5zm5.25.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0z" fill="currentColor"/></svg>
                 </motion.span>
                 <motion.a
-                  href="https://wa.me/558199733520"
+                  href="https://instagram.com/editoraanglo"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-white cursor-pointer text-base md:text-sm"
                   variants={hoverVariant}
                   whileHover={{ color: '#F5F5F5', scale: 1.08 }}
                   transition={{ type: 'spring', stiffness: 220, damping: 18 }}
-                >(81) 9973-3520</motion.a>
+                >@editoraanglo</motion.a>
               </motion.div>
               <motion.div className="flex items-center gap-3 justify-center md:justify-start group" initial="rest" whileHover="hover" animate="rest">
                 <motion.span variants={hoverVariant} transition={{ type: 'spring', stiffness: 220, damping: 18 }}>

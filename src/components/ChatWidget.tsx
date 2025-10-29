@@ -24,6 +24,8 @@ function convertCustomTagsToMarkdown(text: string): string {
   text = text.replace(/<azul>(.*?)<\/azul>/g, '$1');
   text = text.replace(/<verde>(.*?)<\/verde>/g, '$1');
   text = text.replace(/<rosa>(.*?)<\/rosa>/g, '$1');
+  // Remove aspas duplas do início e fim do texto
+  text = text.replace(/^"|"$/g, '');
   // Remove títulos markdown (#, ##, ###) do início das linhas, inclusive colados ao texto
   text = text.replace(/(^|\n)\s*#{1,6}\s*/g, '$1');
   // Remove todos os hashtags (#) do texto
@@ -112,8 +114,8 @@ export function ChatWidget() {
     setIsLoading(true);
 
     try {
-      // Chamar API da IA da Editora Anglo
-      const response = await fetch('/api/chat', {
+      // Chamar API da IA da Editora Anglo (URL fixa)
+      const response = await fetch('https://ia.editoraanglo.com/api/chat?page=chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -128,29 +130,29 @@ export function ChatWidget() {
       }
 
       const data = await response.json();
-      
+
       const botMessage: Message = {
         id: (Date.now() + 1).toString(),
         text: data.response || 'Desculpe, não consegui gerar uma resposta.',
         sender: 'bot',
         timestamp: new Date(),
       };
-      
+
       setMessages((prev) => [...prev, botMessage]);
-      
+
       // Carregar sugestões após a resposta
       await loadSuggestions(data.response);
     } catch (error) {
       console.error('Erro ao enviar mensagem:', error);
       setSuggestions([]);
-      
+
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
         text: 'Desculpe, ocorreu um erro ao processar sua mensagem. Tente novamente.',
         sender: 'bot',
         timestamp: new Date(),
       };
-      
+
       setMessages((prev) => [...prev, errorMessage]);
     } finally {
       setIsLoading(false);

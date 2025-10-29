@@ -6,7 +6,7 @@ export function ProductsSection() {
   const { products, loading, error, hasNextPage, loadMore } = useProducts(12);
 
   return (
-    <section className="py-16 md:py-24 bg-background">
+  <section className="pt-16 md:pt-24 pb-8 md:pb-12 bg-background relative overflow-hidden">
       <div className="container mx-auto px-4 md:px-8">
         {/* Título */}
         <motion.div
@@ -17,10 +17,10 @@ export function ProductsSection() {
           className="text-center mb-12 md:mb-16"
         >
           <h2 className="text-3xl md:text-4xl font-serif font-bold text-primary mb-3">
-            Nossos Produtos
+            Nossos Livros
           </h2>
           <p className="text-gray-600 text-base md:text-lg max-w-2xl mx-auto">
-            Explore nossa seleção de livros espirituais e materiais de formação cristã
+            Conheça nossa seleção de obras que edificam a fé e transformam vidas
           </p>
         </motion.div>
 
@@ -66,6 +66,8 @@ export function ProductsSection() {
                 <div className="inline-flex items-center justify-center">
                   <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
                 </div>
+  {/* Overlay de gradiente para transição suave */}
+  <div className="pointer-events-none absolute left-0 right-0 bottom-0 h-24 md:h-32 bg-gradient-to-t from-white/90 via-white/60 to-transparent z-20" />
                 <p className="text-gray-600 mt-4">Carregando produtos...</p>
               </motion.div>
             )}

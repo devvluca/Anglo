@@ -65,16 +65,10 @@ export function ProductCard({ product }: ProductCardProps) {
         )}
 
         {/* Badge de disponibilidade */}
-        {firstVariant && (
+        {firstVariant && !firstVariant.availableForSale && (
           <div className="absolute top-3 right-3">
-            <span
-              className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                firstVariant.availableForSale
-                  ? 'bg-green-100 text-green-800'
-                  : 'bg-red-100 text-red-800'
-              }`}
-            >
-              {firstVariant.availableForSale ? 'Disponível' : 'Indisponível'}
+            <span className="px-3 py-1 rounded-full text-xs font-semibold bg-red-100 text-red-800">
+              Indisponível
             </span>
           </div>
         )}

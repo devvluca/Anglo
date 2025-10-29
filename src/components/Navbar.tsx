@@ -19,9 +19,19 @@ export function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const handleLogoClick = () => {
+    if (location.pathname !== '/') {
+      navigate('/');
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }, 150);
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
   const handleNavigation = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
     e.preventDefault();
-    
     const scrollToSection = () => {
       if (sectionId === 'top') {
         window.scrollTo({ top: 0, behavior: "smooth" });
@@ -40,7 +50,6 @@ export function Navbar() {
         }
       }
     };
-    
     // Se estamos em página diferente da home, navegar para home primeiro
     if (location.pathname !== '/') {
       navigate('/');
@@ -67,9 +76,7 @@ export function Navbar() {
                 aria-label="Ir para o início"
                 className="focus:outline-none"
                 style={{ background: 'none', border: 'none', padding: 0, margin: 0 }}
-                onClick={() => {
-                  window.scrollTo({ top: 0, behavior: "smooth" });
-                }}
+                onClick={handleLogoClick}
               >
                 <img
                   src="/horizontal_navbar.png"
@@ -171,9 +178,7 @@ export function Navbar() {
                       style={{ background: 'none', border: 'none', padding: 0, margin: 0 }}
                       onClick={() => {
                         setIsOpen(false);
-                        setTimeout(() => {
-                          window.scrollTo({ top: 0, behavior: "smooth" });
-                        }, 250);
+                        handleLogoClick();
                       }}
                     >
                       <img

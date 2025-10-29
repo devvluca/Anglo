@@ -1,17 +1,58 @@
 import { useState, useEffect, useRef } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { X, List, ShoppingCart, MagnifyingGlass, User } from "phosphor-react";
+import { X, List } from "phosphor-react";
+import { SearchBar } from "./SearchBar";
+import { CartIcon } from "./CartIcon";
+import { AccountIcon } from "./AccountIcon";
 
 
 const navigationLinks = [
-  { href: "#", label: "Início" },
-  { href: "#", label: "Sobre" },
-  { href: "#newsletter-section", label: "Contato" }
+  { href: "/", label: "Início" },
+  { href: "/", label: "Sobre" },
+  { href: "/#newsletter-section", label: "Contato" }
 ];
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleNavigation = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
+    e.preventDefault();
+    
+    const scrollToSection = () => {
+      if (sectionId === 'top') {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else if (sectionId === 'newsletter-section') {
+        const el = document.getElementById(sectionId);
+        if (el) {
+          const y = el.getBoundingClientRect().top + window.scrollY - 40;
+          window.scrollTo({ top: y, behavior: "smooth" });
+        }
+      } else if (sectionId === 'about-section') {
+        // Procurar por vários possíveis seletores da seção About
+        const el = document.querySelector("section[id='about-section'], section#about, #about, .about-section, [data-section='about']");
+        if (el) {
+          const y = el.getBoundingClientRect().top + window.scrollY - 40;
+          window.scrollTo({ top: y, behavior: "smooth" });
+        }
+      }
+    };
+    
+    // Se estamos em página diferente da home, navegar para home primeiro
+    if (location.pathname !== '/') {
+      navigate('/');
+      // Usar timeout para scroll após navegação
+      setTimeout(() => {
+        scrollToSection();
+      }, 150);
+    } else {
+      // Já estamos na home, apenas scroll
+      scrollToSection();
+    }
+  };
 
   return (
             <nav 
@@ -49,14 +90,7 @@ export function Navbar() {
                     href={link.href}
                     className="font-serif font-medium transition-colors relative group text-foreground hover:text-purple"
                     style={style}
-                    onClick={e => {
-                      e.preventDefault();
-                      const el = document.getElementById("newsletter-section");
-                      if (el) {
-                        const y = el.getBoundingClientRect().top + window.scrollY - 40;
-                        window.scrollTo({ top: y, behavior: "smooth" });
-                      }
-                    }}
+                    onClick={e => handleNavigation(e, 'newsletter-section')}
                   >
                     {link.label}
                     <span className="absolute -bottom-1 left-0 w-0 h-0.5 transition-all group-hover:w-full bg-purple" />
@@ -70,10 +104,7 @@ export function Navbar() {
                     href={link.href}
                     className="font-serif font-medium transition-colors relative group text-foreground hover:text-purple"
                     style={style}
-                    onClick={e => {
-                      e.preventDefault();
-                      window.scrollTo({ top: 0, behavior: "smooth" });
-                    }}
+                    onClick={e => handleNavigation(e, 'top')}
                   >
                     {link.label}
                     <span className="absolute -bottom-1 left-0 w-0 h-0.5 transition-all group-hover:w-full bg-purple" />
@@ -87,14 +118,7 @@ export function Navbar() {
                     href={link.href}
                     className="font-serif font-medium transition-colors relative group text-foreground hover:text-purple"
                     style={style}
-                    onClick={e => {
-                      e.preventDefault();
-                      const el = document.querySelector("section[id='about-section'], section#about, #about, .about-section");
-                      if (el) {
-                        const y = el.getBoundingClientRect().top + window.scrollY - 40;
-                        window.scrollTo({ top: y, behavior: "smooth" });
-                      }
-                    }}
+                    onClick={e => handleNavigation(e, 'about-section')}
                   >
                     {link.label}
                     <span className="absolute -bottom-1 left-0 w-0 h-0.5 transition-all group-hover:w-full bg-purple" />
@@ -114,21 +138,10 @@ export function Navbar() {
               );
             })}
           </div>
-          <div className="hidden lg:flex items-center gap-8">
-            <Button
-              variant="ghost"
-              size="icon"
-              className="invisible"
-            >
-              <MagnifyingGlass className="w-5 h-5" />
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="invisible"
-            >
-              <User className="w-5 h-5" />
-            </Button>
+          <div className="hidden lg:flex items-center gap-4">
+            <SearchBar />
+            <CartIcon />
+            <AccountIcon />
           </div>
 
           {/* Mobile Menu */}
@@ -177,15 +190,8 @@ export function Navbar() {
                             href={link.href}
                             className="font-serif text-lg font-medium text-foreground hover:text-purple transition-colors py-2"
                             onClick={e => {
-                              e.preventDefault();
+                              handleNavigation(e, 'newsletter-section');
                               setIsOpen(false);
-                              setTimeout(() => {
-                                const el = document.getElementById("newsletter-section");
-                                if (el) {
-                                  const y = el.getBoundingClientRect().top + window.scrollY - 40;
-                                  window.scrollTo({ top: y, behavior: "smooth" });
-                                }
-                              }, 250);
                             }}
                           >
                             {link.label}
@@ -199,11 +205,8 @@ export function Navbar() {
                             href={link.href}
                             className="font-serif text-lg font-medium text-foreground hover:text-purple transition-colors py-2"
                             onClick={e => {
-                              e.preventDefault();
+                              handleNavigation(e, 'top');
                               setIsOpen(false);
-                              setTimeout(() => {
-                                window.scrollTo({ top: 0, behavior: "smooth" });
-                              }, 250);
                             }}
                           >
                             {link.label}
@@ -217,15 +220,8 @@ export function Navbar() {
                             href={link.href}
                             className="font-serif text-lg font-medium text-foreground hover:text-purple transition-colors py-2"
                             onClick={e => {
-                              e.preventDefault();
+                              handleNavigation(e, 'about-section');
                               setIsOpen(false);
-                              setTimeout(() => {
-                                const el = document.querySelector("section[id='about-section'], section#about, #about, .about-section");
-                                if (el) {
-                                  const y = el.getBoundingClientRect().top + window.scrollY - 40;
-                                  window.scrollTo({ top: y, behavior: "smooth" });
-                                }
-                              }, 250);
                             }}
                           >
                             {link.label}
@@ -245,23 +241,12 @@ export function Navbar() {
                     })}
                   </div>
 
-                  {/* Mobile Actions - igual ao desktop, sem ecommerce */}
+                  {/* Mobile Actions */}
                   <div className="space-y-4 mt-auto pb-8">
-                    <div className="flex items-center gap-8 justify-center">
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="invisible"
-                      >
-                        <MagnifyingGlass className="w-5 h-5" />
-                      </Button>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="invisible"
-                      >
-                        <User className="w-5 h-5" />
-                      </Button>
+                    <div className="flex items-center gap-4 justify-center">
+                      <SearchBar onClose={() => setIsOpen(false)} />
+                      <CartIcon />
+                      <AccountIcon />
                     </div>
                   </div>
                 </div>

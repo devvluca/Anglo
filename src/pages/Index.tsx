@@ -7,12 +7,15 @@ import { ColorsSection } from "@/components/ColorsSection";
 import { TestimonialsSection } from "@/components/TestimonialsSection";
 import { NewsletterSection } from "@/components/NewsletterSection";
 import { Footer } from "@/components/Footer";
+import { ProductsSection } from "@/components/ProductsSection";
+import { ChatWidget } from "@/components/ChatWidget";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
       <HeroSection />
+      <ProductsSection />
       <AboutSection />
       <MissionSection />
       <CategoriesSection /> 
@@ -20,6 +23,7 @@ const Index = () => {
       {/* <TestimonialsSection /> */}
       <NewsletterSection />
       <Footer />
+      <ChatWidget />
     </div>
   );
 };

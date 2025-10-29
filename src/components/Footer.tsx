@@ -1,11 +1,45 @@
 import { Envelope, Phone, MapPin } from "phosphor-react";
 import { motion } from "framer-motion";
+import { useNavigate, useLocation } from "react-router-dom";
 
 
 export function Footer() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   // Função para scroll suave ao topo
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleNavigation = (sectionId: string) => {
+    const scrollToSection = () => {
+      if (sectionId === 'top') {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else if (sectionId === 'newsletter-section') {
+        const el = document.getElementById(sectionId);
+        if (el) {
+          const y = el.getBoundingClientRect().top + window.scrollY - 40;
+          window.scrollTo({ top: y, behavior: "smooth" });
+        }
+      } else if (sectionId === 'about-section') {
+        const el = document.querySelector("section[id='about-section'], section#about, #about, .about-section, [data-section='about']");
+        if (el) {
+          const y = el.getBoundingClientRect().top + window.scrollY - 40;
+          window.scrollTo({ top: y, behavior: "smooth" });
+        }
+      }
+    };
+    
+    // Se estamos em página diferente da home, navegar para home primeiro
+    if (location.pathname !== '/') {
+      navigate('/');
+      setTimeout(() => {
+        scrollToSection();
+      }, 150);
+    } else {
+      scrollToSection();
+    }
   };
 
   // Variants para animação de hover em grupo
@@ -68,7 +102,7 @@ export function Footer() {
                   transition={{ type: 'spring', stiffness: 220, damping: 18 }}
                   onClick={e => {
                     e.preventDefault();
-                    window.scrollTo({ top: 0, behavior: "smooth" });
+                    handleNavigation('top');
                   }}
                 >Início</motion.a>
               </motion.li>
@@ -87,11 +121,7 @@ export function Footer() {
                   transition={{ type: 'spring', stiffness: 220, damping: 18 }}
                   onClick={e => {
                     e.preventDefault();
-                    const el = document.querySelector("section[id='about-section'], section#about, #about, .about-section");
-                    if (el) {
-                      const y = el.getBoundingClientRect().top + window.scrollY - 40;
-                      window.scrollTo({ top: y, behavior: "smooth" });
-                    }
+                    handleNavigation('about-section');
                   }}
                 >Sobre Nós</motion.a>
               </motion.li>
@@ -110,13 +140,7 @@ export function Footer() {
                   transition={{ type: 'spring', stiffness: 220, damping: 18 }}
                   onClick={e => {
                     e.preventDefault();
-                    const el = document.getElementById("newsletter-section");
-                    if (el) {
-                      // Subir menos para mobile, pois já está colado no topo
-                      const offset = window.innerWidth < 768 ? 120 : 40;
-                      const y = el.getBoundingClientRect().top + window.scrollY - offset;
-                      window.scrollTo({ top: y, behavior: "smooth" });
-                    }
+                    handleNavigation('newsletter-section');
                   }}
                 >Contato</motion.a>
               </motion.li>

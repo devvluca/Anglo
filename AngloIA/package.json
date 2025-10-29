@@ -1,0 +1,16 @@
+{
+  "name": "anglo-ai-chat",
+  "version": "1.0.0",
+  "description": "Chat IA para Editora Anglo",
+  "scripts": {
+    "start": "node api/chat.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.0"
+  },
+  "engines": {
+    "node": "22.x"
+  },
+  "type": "module"
+}

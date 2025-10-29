@@ -231,6 +231,19 @@ export const REMOVE_FROM_CART_MUTATION = `
                     amount
                     currencyCode
                   }
+                  product {
+                    id
+                    title
+                    handle
+                    images(first: 1) {
+                      edges {
+                        node {
+                          url
+                          altText
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -269,6 +282,19 @@ export const UPDATE_CART_MUTATION = `
                   price {
                     amount
                     currencyCode
+                  }
+                  product {
+                    id
+                    title
+                    handle
+                    images(first: 1) {
+                      edges {
+                        node {
+                          url
+                          altText
+                        }
+                      }
+                    }
                   }
                 }
               }

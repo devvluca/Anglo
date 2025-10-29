@@ -146,18 +146,22 @@ export function Navbar() {
 
           {/* Mobile Menu */}
           <div className="lg:hidden">
-            <Sheet open={isOpen} onOpenChange={setIsOpen}>
-              <SheetTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="transition-colors text-foreground hover:text-purple hover:bg-purple/10"
-                >
-                  <List className="w-6 h-6" />
-                </Button>
-              </SheetTrigger>
-              
-              <SheetContent side="right" className="w-80 bg-background/95 backdrop-blur-md">
+            <div className="flex items-center gap-2 justify-between w-full">
+              <SearchBar />
+              <div className="flex-1 flex justify-center">
+                <CartIcon />
+              </div>
+              <Sheet open={isOpen} onOpenChange={setIsOpen}>
+                <SheetTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="transition-colors text-foreground hover:text-purple hover:bg-purple/10"
+                  >
+                    <List className="w-6 h-6" />
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="right" className="w-80 bg-background/95 backdrop-blur-md">
                 <div className="flex flex-col h-full">
                   {/* Mobile Logo */}
                   <div className="flex items-center gap-3 mb-8 pt-4">
@@ -255,6 +259,7 @@ export function Navbar() {
           </div>
         </div>
       </div>
+    </div>
   </nav>
   );
 }

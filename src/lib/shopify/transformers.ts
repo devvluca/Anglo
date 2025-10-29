@@ -47,7 +47,24 @@ export function transformProducts(rawProducts: any[]) {
 export function transformCart(rawCart: any) {
   return {
     ...rawCart,
-    lines: transformEdgesToArray(rawCart.lines?.edges),
+    lines: transformEdgesToArray(rawCart.lines?.edges).map((line: any) => {
+      // Garante que merchandise.product seja transformado corretamente
+      if (line.merchandise && line.merchandise.product) {
+        return {
+          ...line,
+          merchandise: {
+            ...line.merchandise,
+            product: line.merchandise.product.images
+              ? {
+                  ...line.merchandise.product,
+                  images: transformEdgesToArray(line.merchandise.product.images?.edges),
+                }
+              : line.merchandise.product,
+          },
+        };
+      }
+      return line;
+    }),
   };
 }
 

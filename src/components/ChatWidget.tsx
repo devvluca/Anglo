@@ -35,14 +35,38 @@ function convertCustomTagsToMarkdown(text: string): string {
 
 export function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: '1',
-      text: 'Olá! Como posso ajudá-lo hoje? 👋',
-      sender: 'bot',
-      timestamp: new Date(),
-    },
-  ]);
+  const [messages, setMessages] = useState<Message[]>(() => {
+    const saved = localStorage.getItem('chat-messages');
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        // Converter timestamp para Date
+        return parsed.map((msg: any) => ({ ...msg, timestamp: new Date(msg.timestamp) }));
+      } catch {
+        // Se falhar, retorna mensagem padrão
+        return [
+          {
+            id: '1',
+            text: 'Olá! Como posso ajudá-lo hoje? 👋',
+            sender: 'bot',
+            timestamp: new Date(),
+          },
+        ];
+      }
+    }
+    return [
+      {
+        id: '1',
+        text: 'Olá! Como posso ajudá-lo hoje? 👋',
+        sender: 'bot',
+        timestamp: new Date(),
+      },
+    ];
+  });
+  // Salvar mensagens no localStorage sempre que mudarem
+  useEffect(() => {
+    localStorage.setItem('chat-messages', JSON.stringify(messages));
+  }, [messages]);
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);

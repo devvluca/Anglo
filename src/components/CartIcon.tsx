@@ -6,7 +6,14 @@ import { useCart } from '@/contexts/CartContext';
 export function CartIcon() {
   const [isOpen, setIsOpen] = useState(false);
   const { cart, cartItemCount, removeFromCart, getCheckoutUrl, loading } = useCart();
-  const [quantities, setQuantities] = useState<Record<string, number>>({});
+  // Quantidade sempre sincronizada com Shopify
+  const { updateQuantity } = useCart();
+
+  const handleQuantityChange = async (lineId: string, newQuantity: number) => {
+    if (newQuantity > 0) {
+      await updateQuantity(lineId, newQuantity);
+    }
+  };
 
   const handleCheckout = () => {
     const checkoutUrl = getCheckoutUrl();
@@ -30,14 +37,6 @@ export function CartIcon() {
     });
   };
 
-  const handleQuantityChange = (lineId: string, newQuantity: number) => {
-    if (newQuantity > 0) {
-      setQuantities(prev => ({
-        ...prev,
-        [lineId]: newQuantity
-      }));
-    }
-  };
 
   return (
     <>
@@ -104,7 +103,7 @@ export function CartIcon() {
                 {cart && cart.lines && cart.lines.length > 0 ? (
                   <div className="p-4 space-y-4">
                     {cart.lines.map((line, index) => {
-                      const quantity = quantities[line.id] || line.quantity;
+                      const quantity = line.quantity;
                       return (
                         <motion.div
                           key={line.id}
@@ -112,65 +111,77 @@ export function CartIcon() {
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: index * 0.05 }}
                           exit={{ opacity: 0, x: 20 }}
-                          className="flex gap-4 p-4 border-b border-gray-200 last:border-b-0 transition-colors group"
+                          className="flex gap-3 p-3 border-b border-gray-200 last:border-b-0 transition-colors group items-center"
                         >
-                          {/* Imagem */}
-                          {line.merchandise.product?.images?.[0]?.url && (
-                            <motion.div
-                              className="w-20 h-20 rounded-lg overflow-hidden bg-background flex-shrink-0"
-                              whileHover={{ scale: 1.05 }}
-                              transition={{ type: 'spring', damping: 20, stiffness: 300 }}
-                            >
+                          {/* Miniatura pequena do produto, sempre tenta pegar do array transformado, fallback seguro */}
+                          <motion.div
+                            className="w-16 h-16 rounded-lg overflow-hidden bg-background flex-shrink-0 border border-gray-200 flex items-start justify-center mr-2"
+                            style={{ alignSelf: 'flex-start', marginTop: '2px' }}
+                            whileHover={{ scale: 1.08 }}
+                            transition={{ type: 'spring', damping: 20, stiffness: 300 }}
+                          >
+                            {Array.isArray(line.merchandise.product?.images) && line.merchandise.product.images.length > 0 && line.merchandise.product.images[0]?.url ? (
                               <img
                                 src={line.merchandise.product.images[0].url}
-                                alt={line.merchandise.title}
+                                alt={line.merchandise.product?.title || 'Produto'}
                                 className="w-full h-full object-cover"
                               />
-                            </motion.div>
-                          )}
+                            ) : (
+                              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" className="text-muted-foreground mt-2" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="3" y="3" width="18" height="18" rx="4" fill="#f3f3f3" />
+                                <path d="M8 15L11 12L14 15L17 12" stroke="#bbb" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                <circle cx="8.5" cy="9" r="1.5" fill="#bbb" />
+                              </svg>
+                            )}
+                          </motion.div>
 
                           {/* Detalhes */}
                           <div className="flex-1 min-w-0 flex flex-col">
                             <motion.a
-                              href={`/produto/${line.merchandise.product?.handle}`}
+                              href={`/produto/${line.merchandise.product?.handle || ''}`}
                               onClick={() => setIsOpen(false)}
                               className="font-medium text-sm text-foreground hover:text-primary transition-colors line-clamp-2"
                               whileHover={{ x: 4 }}
                             >
-                              {line.merchandise.product?.title}
+                              {line.merchandise.product?.title || 'Produto sem título'}
                             </motion.a>
-                            <p className="text-xs text-muted-foreground mt-1">
-                              {line.merchandise.title}
-                            </p>
-                            
-                            {/* Quantity Controls */}
+                            {/* Só mostra variante se não for 'Default Title' */}
+                            {line.merchandise.title && line.merchandise.title !== 'Default Title' && (
+                              <p className="text-xs text-muted-foreground mt-1">
+                                {line.merchandise.title}
+                              </p>
+                            )}
+                            {/* Quantity Controls - sempre sincronizado com Shopify */}
                             <div className="flex items-center gap-2 mt-3">
                               <motion.button
                                 onClick={() => handleQuantityChange(line.id, quantity - 1)}
                                 className="p-1 hover:bg-primary/20 rounded transition-colors"
                                 whileHover={{ scale: 1.1 }}
                                 whileTap={{ scale: 0.9 }}
+                                disabled={loading || quantity <= 1}
                               >
                                 <Minus size={14} className="text-foreground" weight="bold" />
                               </motion.button>
                               <motion.input
                                 type="number"
                                 value={quantity}
+                                min={1}
                                 onChange={(e) => handleQuantityChange(line.id, parseInt(e.target.value) || 1)}
                                 className="w-8 text-center bg-white border border-gray-300 rounded text-sm text-foreground font-medium"
                                 whileFocus={{ scale: 1.05 }}
+                                disabled={loading}
                               />
                               <motion.button
                                 onClick={() => handleQuantityChange(line.id, quantity + 1)}
                                 className="p-1 hover:bg-primary/20 rounded transition-colors"
                                 whileHover={{ scale: 1.1 }}
                                 whileTap={{ scale: 0.9 }}
+                                disabled={loading}
                               >
                                 <Plus size={14} className="text-foreground" weight="bold" />
                               </motion.button>
-                              <span className="text-xs text-muted-foreground ml-auto">Qtd</span>
+                              <span className="text-xs text-muted-foreground ml-auto">Quantidade</span>
                             </div>
-
                             {/* Price and Remove */}
                             <div className="flex items-center justify-between mt-3 pt-3">
                               <p className="font-semibold text-primary">
@@ -219,7 +230,7 @@ export function CartIcon() {
                         transition={{ type: 'spring', damping: 20, stiffness: 300 }}
                       >
                         {cart.lines.reduce((total, line) => {
-                          const quantity = quantities[line.id] || line.quantity;
+                          const quantity = line.quantity;
                           const lineTotal = parseFloat(line.merchandise.price.amount) * quantity;
                           return total + lineTotal;
                         }, 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
@@ -240,7 +251,7 @@ export function CartIcon() {
                         transition={{ type: 'spring', damping: 20, stiffness: 300 }}
                       >
                         {cart.lines.reduce((total, line) => {
-                          const quantity = quantities[line.id] || line.quantity;
+                          const quantity = line.quantity;
                           const lineTotal = parseFloat(line.merchandise.price.amount) * quantity;
                           return total + lineTotal;
                         }, 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}

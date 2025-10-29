@@ -5,6 +5,9 @@ import {
   ShoppingCart,
   Heart,
   Share,
+  Copy,
+  WhatsappLogo,
+  InstagramLogo,
   Minus,
   Plus,
   Camera,
@@ -26,6 +29,7 @@ import { Footer } from '@/components/Footer';
 import { ChatWidget } from '@/components/ChatWidget';
 
 export default function ProductDetailsPage() {
+  const [buyNowHovered, setBuyNowHovered] = useState(false);
   const { handle } = useParams<{ handle: string }>();
   const navigate = useNavigate();
   const { addToCart, loading: cartLoading, cart } = useCart();
@@ -37,12 +41,46 @@ export default function ProductDetailsPage() {
   const [quantity, setQuantity] = useState(1);
   const [isAddingToCart, setIsAddingToCart] = useState(false);
   const [selectedVariantIndex, setSelectedVariantIndex] = useState(0);
-  const [isWishlisted, setIsWishlisted] = useState(false);
+  // const [isWishlisted, setIsWishlisted] = useState(false);
   const [isRelatedExpanded, setIsRelatedExpanded] = useState(false);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [showZoom, setShowZoom] = useState(false);
   const imageRef = useRef<HTMLDivElement>(null);
 
+  // Compartilhar produto - modal
+  const [showShareModal, setShowShareModal] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const url = typeof window !== 'undefined' ? window.location.href : '';
+
+  const handleShare = () => {
+    setShowShareModal(true);
+    setCopied(false);
+  };
+
+  const handleCopyLink = () => {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(url)
+        .then(() => {
+          setCopied(true);
+        })
+        .catch(() => {
+          setCopied(false);
+        });
+    } else {
+      // Fallback para navegadores antigos
+      const textArea = document.createElement('textarea');
+      textArea.value = url;
+      document.body.appendChild(textArea);
+      textArea.select();
+      try {
+        document.execCommand('copy');
+        setCopied(true);
+      } catch (err) {
+        setCopied(false);
+      }
+      document.body.removeChild(textArea);
+    }
+  };
   useEffect(() => {
     if (!handle) {
       setError('Produto não encontrado');
@@ -289,18 +327,7 @@ export default function ProductDetailsPage() {
                 <h1 className="text-3xl md:text-4xl font-bold text-foreground leading-tight">
                   {product.title}
                 </h1>
-                <motion.button
-                  onClick={() => setIsWishlisted(!isWishlisted)}
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="p-3 hover:bg-secondary/30 rounded-full transition-colors flex-shrink-0"
-                >
-                  <Heart
-                    size={20}
-                    weight={isWishlisted ? 'fill' : 'regular'}
-                    className={isWishlisted ? 'text-rose' : 'text-foreground'}
-                  />
-                </motion.button>
+                {/* Botão de coração removido */}
               </motion.div>
             </div>
 
@@ -395,26 +422,168 @@ export default function ProductDetailsPage() {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="p-3 border border-gray-300 hover:border-gray-400 hover:bg-gray-50 rounded-lg transition-colors"
+                  onClick={handleShare}
+                  title="Compartilhar produto"
                 >
                   <Share size={18} weight="regular" className="text-foreground" />
                 </motion.button>
+      {/* Modal de Compartilhamento */}
+      {showShareModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          {/* Fundo desfocado */}
+          <div
+            className="fixed inset-0 bg-black/40 backdrop-blur-sm"
+            onClick={() => setShowShareModal(false)}
+          />
+          {/* Modal minimalista horizontal com ícones Phosphor e cores do tema */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.97 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.97 }}
+            transition={{ duration: 0.35, ease: 'easeInOut' }}
+            className="relative z-10 bg-white rounded-2xl shadow-xl px-7 py-7 w-full max-w-xs flex flex-col items-center border border-gray-100"
+          >
+            <h3 className="text-base font-semibold text-primary mb-4">Compartilhar produto</h3>
+            <div className="flex flex-row gap-6 w-full justify-center mb-3">
+              <motion.a
+                href={`https://wa.me/?text=${encodeURIComponent(url)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.07 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: 'tween', duration: 0.38, ease: 'easeInOut' }}
+                className="rounded-full bg-white text-primary flex items-center justify-center w-12 h-12 shadow border border-primary/30 group focus:outline-none focus:ring-2 focus:ring-primary/40"
+                title="WhatsApp"
+              >
+                <WhatsappLogo size={28} weight="thin" className="text-primary" />
+              </motion.a>
+              <motion.a
+                href={`https://www.instagram.com/?url=${encodeURIComponent(url)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.07 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: 'tween', duration: 0.38, ease: 'easeInOut' }}
+                className="rounded-full bg-white text-primary flex items-center justify-center w-12 h-12 shadow border border-primary/30 group focus:outline-none focus:ring-2 focus:ring-primary/40"
+                title="Instagram"
+              >
+                <InstagramLogo size={28} weight="thin" className="text-primary" />
+              </motion.a>
+              <motion.button
+                onClick={handleCopyLink}
+                whileHover={{ scale: 1.07 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: 'tween', duration: 0.38, ease: 'easeInOut' }}
+                className={`rounded-full bg-muted text-primary flex items-center justify-center w-12 h-12 shadow border ${copied ? 'border-primary' : 'border-gray-200'} relative group focus:outline-none focus:ring-2 focus:ring-primary/40`}
+                title="Copiar link"
+                aria-label="Copiar link"
+              >
+                <motion.div
+                  initial={false}
+                  animate={copied ? { rotate: 360, scale: 1.1 } : { rotate: 0, scale: 1 }}
+                  transition={{ type: 'spring', stiffness: 160, damping: 20 }}
+                >
+                  {copied ? (
+                    <motion.svg
+                      key="check"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width={26}
+                      height={26}
+                      viewBox="0 0 256 256"
+                      fill="none"
+                      className="text-primary"
+                      initial={{ scale: 0.7, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      exit={{ scale: 0.7, opacity: 0 }}
+                    >
+                      <motion.path
+                        d="M216 72l-104 112-48-48"
+                        stroke="#7c3aed"
+                        strokeWidth="3"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        initial={{ pathLength: 0 }}
+                        animate={{ pathLength: 1 }}
+                        transition={{ duration: 0.4, ease: 'easeInOut' }}
+                      />
+                    </motion.svg>
+                  ) : (
+                    <Copy size={26} weight="regular" className="text-primary" />
+                  )}
+                </motion.div>
+                {copied && (
+                  <motion.span
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 8 }}
+                    transition={{ duration: 0.25, ease: 'easeOut' }}
+                    className="absolute left-1/2 -translate-x-1/2 top-14 text-xs font-medium text-primary bg-white/90 rounded-lg px-3 py-1 shadow border border-primary/30"
+                  >Copiado!</motion.span>
+                )}
+              </motion.button>
+            </div>
+            {/* Link visível abaixo */}
+            <div className="w-full flex flex-col items-center mt-2">
+              <span className="text-xs text-muted-foreground mb-1">Link do produto:</span>
+              <div className="text-sm font-mono bg-muted/60 rounded-lg px-3 py-1 text-primary break-all select-all border border-primary/10 max-w-full" style={{maxWidth:'100%'}}>{url}</div>
+            </div>
+            <button
+              onClick={() => setShowShareModal(false)}
+              className="absolute top-3 right-3 text-muted-foreground hover:text-primary transition-colors"
+              title="Fechar"
+            >
+              <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </motion.div>
+        </div>
+      )}
               </div>
 
               {/* Add to Cart Button */}
-              <motion.button
-                onClick={handleAddToCart}
-                disabled={!selectedVariant?.availableForSale || isAddingToCart || cartLoading}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="w-full py-4 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary disabled:bg-muted disabled:cursor-not-allowed text-primary-foreground font-bold rounded-lg transition-all duration-300 flex items-center justify-center gap-2 text-lg"
-              >
-                <ShoppingCart size={20} weight="regular" />
-                {isAddingToCart || cartLoading 
-                  ? 'Adicionando...' 
-                  : selectedVariant?.availableForSale 
-                  ? 'Adicionar ao Carrinho' 
-                  : 'Indisponível'}
-              </motion.button>
+              <div className="flex flex-col md:flex-row gap-3 w-full">
+                <motion.button
+                  onClick={handleAddToCart}
+                  disabled={!selectedVariant?.availableForSale || isAddingToCart || cartLoading}
+                  whileHover={{ scale: 1.005, y: -1 }}
+                  whileTap={{ scale: 0.98 }}
+                  transition={{ duration: 0.8, ease: 'easeInOut' }}
+                  className="w-full md:w-auto flex-1 py-4 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary disabled:bg-muted disabled:cursor-not-allowed text-primary-foreground font-bold rounded-lg transition-all duration-300 flex items-center justify-center gap-2 text-lg"
+                >
+                  <ShoppingCart size={20} weight="regular" />
+                  {isAddingToCart || cartLoading 
+                    ? 'Adicionando...' 
+                    : selectedVariant?.availableForSale 
+                    ? 'Adicionar ao Carrinho' 
+                    : 'Indisponível'}
+                </motion.button>
+                <motion.button
+                  onClick={async () => {
+                    if (selectedVariant?.id && selectedVariant?.availableForSale) {
+                      await addToCart(selectedVariant.id, quantity);
+                      setTimeout(() => {
+                        if (typeof cart?.checkoutUrl === 'string') {
+                          window.open(cart.checkoutUrl, '_blank');
+                        }
+                      }, 400);
+                    }
+                  }}
+                  disabled={!selectedVariant?.availableForSale}
+                  whileHover={{ scale: 1.008 }}
+                  whileTap={{ scale: 0.98 }}
+                  onMouseEnter={() => setBuyNowHovered(true)}
+                  onMouseLeave={() => setBuyNowHovered(false)}
+                  className="w-full md:w-auto flex-1 py-4 bg-white border border-primary text-primary font-bold rounded-lg transition-all duration-300 flex items-center justify-center gap-2 text-lg hover:bg-primary/5 disabled:bg-muted disabled:cursor-not-allowed group"
+                >
+                  <motion.span
+                    animate={buyNowHovered ? { x: [0, 4, 0] } : { x: 0 }}
+                    transition={buyNowHovered ? { duration: 0.7, ease: 'easeInOut' } : { duration: 0.3, ease: 'easeInOut' }}
+                    className="flex items-center gap-2"
+                  >
+                    <ArrowRight size={20} weight="bold" />
+                  </motion.span>
+                  Compre já
+                </motion.button>
+              </div>
             </motion.div>
 
             {/* Info Cards */}
@@ -466,7 +635,8 @@ export default function ProductDetailsPage() {
           </motion.div>
         </motion.div>
 
-        {/* Produtos Relacionados */}
+        {/* Produtos Relacionados - comentado temporariamente */}
+        {/**
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -520,6 +690,7 @@ export default function ProductDetailsPage() {
             </div>
           </motion.div>
         </motion.div>
+        */}
         </div>
       </div>
       <ChatWidget />

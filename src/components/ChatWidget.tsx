@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, PaperPlaneTilt, ChatTeardrop } from 'phosphor-react';
+import { Trash, CaretUp, CaretDown } from 'phosphor-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
@@ -35,38 +36,87 @@ function convertCustomTagsToMarkdown(text: string): string {
 
 export function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
+  // Abrir chat automaticamente após 10s de rolagem
+  useEffect(() => {
+    let timer: NodeJS.Timeout | null = null;
+    let scrolled = false;
+    const onScroll = () => {
+      scrolled = true;
+    };
+    window.addEventListener('scroll', onScroll);
+    timer = setTimeout(() => {
+      if (scrolled && !isOpen) {
+        setIsOpen(true);
+      }
+    }, 10000);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      if (timer) clearTimeout(timer);
+    };
+  }, [isOpen]);
+  const [suggestionsCollapsed, setSuggestionsCollapsed] = useState(false);
   const [messages, setMessages] = useState<Message[]>(() => {
     const saved = localStorage.getItem('chat-messages');
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
-        // Converter timestamp para Date
         return parsed.map((msg: any) => ({ ...msg, timestamp: new Date(msg.timestamp) }));
       } catch {
-        // Se falhar, retorna mensagem padrão
-        return [
-          {
-            id: '1',
-            text: 'Olá! Como posso ajudá-lo hoje? 👋',
-            sender: 'bot',
-            timestamp: new Date(),
-          },
-        ];
+        // Se falhar, retorna mensagem inicial personalizada
+          return [
+            {
+              id: '1',
+              text: 'Olá! Eu sou Iris, inteligência artificial da Editora Anglo. Posso te ajudar a conhecer nossa história, livros, autores, políticas e tudo sobre o universo Anglo. Como posso te ajudar hoje?',
+              sender: 'bot',
+              timestamp: new Date(),
+            },
+          ];
       }
     }
     return [
       {
         id: '1',
-        text: 'Olá! Como posso ajudá-lo hoje? 👋',
+        text: 'Olá! Eu sou Iris, a inteligência artificial da Editora Anglo. Posso te ajudar a conhecer nossa história, nossos livros, autores, políticas e tudo sobre o universo Anglo. Como posso te ajudar hoje?',
         sender: 'bot',
         timestamp: new Date(),
       },
     ];
   });
+  // Abrir chat automaticamente após 10s de rolagem
+  useEffect(() => {
+    let timer: NodeJS.Timeout | null = null;
+    let scrolled = false;
+    const onScroll = () => {
+      scrolled = true;
+    };
+    window.addEventListener('scroll', onScroll);
+    timer = setTimeout(() => {
+      if (scrolled && !isOpen) {
+        setIsOpen(true);
+      }
+    }, 10000);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      if (timer) clearTimeout(timer);
+    };
+  }, [isOpen]);
   // Salvar mensagens no localStorage sempre que mudarem
   useEffect(() => {
     localStorage.setItem('chat-messages', JSON.stringify(messages));
   }, [messages]);
+
+  // Função para limpar o chat
+  const handleClearChat = () => {
+    setMessages([
+      {
+        id: '1',
+        text: 'Chat limpo! Se quiser conversar, é só perguntar. 😊',
+        sender: 'bot',
+        timestamp: new Date(),
+      },
+    ]);
+    setSuggestions([]);
+  };
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
@@ -81,18 +131,20 @@ export function ChatWidget() {
   const loadSuggestions = async (lastBotMessage: string) => {
     try {
       setIsLoadingSuggestions(true);
+      const body = {
+        message: lastBotMessage,
+        conversationHistory: messages.map(msg => ({
+          role: msg.sender === 'user' ? 'user' : 'assistant',
+          content: msg.text,
+        })),
+      };
+      console.log('[Sugestões] Corpo enviado para /api/suggestions:', body);
       const response = await fetch('/api/suggestions', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          message: lastBotMessage,
-          conversationHistory: messages.map(msg => ({
-            role: msg.sender === 'user' ? 'user' : 'assistant',
-            content: msg.text,
-          })),
-        }),
+        body: JSON.stringify(body),
       });
 
       if (!response.ok) {
@@ -100,6 +152,7 @@ export function ChatWidget() {
       }
 
       const data = await response.json();
+      console.log('[Sugestões] Resposta recebida:', data);
       if (data.suggestions && Array.isArray(data.suggestions)) {
         setSuggestions(
           data.suggestions.map((text: string, index: number) => ({
@@ -139,14 +192,14 @@ export function ChatWidget() {
 
     try {
       // Chamar API da IA da Editora Anglo (URL fixa)
+      const iaBody = { message: inputValue };
+      console.log('[IA] Corpo enviado para https://ia.editoraanglo.com/api/chat?page=chat:', iaBody);
       const response = await fetch('https://ia.editoraanglo.com/api/chat?page=chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          message: inputValue,
-        }),
+        body: JSON.stringify(iaBody),
       });
 
       if (!response.ok) {
@@ -154,6 +207,7 @@ export function ChatWidget() {
       }
 
       const data = await response.json();
+      console.log('[IA] Resposta recebida:', data);
 
       const botMessage: Message = {
         id: (Date.now() + 1).toString(),
@@ -205,13 +259,38 @@ export function ChatWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            className="fixed bottom-24 right-6 z-40 w-96 max-w-[calc(100vw-24px)] bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-200"
+            className="fixed bottom-24 right-6 z-40 w-96 max-w-[calc(100vw-24px)] bg-white rounded-2xl shadow-2xl overflow-hidden"
           >
             {/* Header */}
             <div className="bg-gradient-to-r from-primary to-primary/80 text-primary-foreground p-4 flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
-                  <ChatTeardrop size={20} weight="fill" className="text-beige" />
+                <div
+                  className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center group cursor-pointer relative"
+                  onClick={handleClearChat}
+                  title="Excluir chat"
+                  style={{ overflow: 'hidden' }}
+                >
+                  {/* Ícone ChatTeardrop (visível quando não está em hover) */}
+                  <span
+                    className="absolute left-0 top-0 w-full h-full flex items-center justify-center transition-opacity duration-200 group-hover:opacity-0 group-hover:pointer-events-none"
+                  >
+                    <ChatTeardrop size={20} weight="fill" className="text-beige" />
+                  </span>
+                  {/* Ícone Trash (visível apenas no hover) */}
+                  <span
+                    className="absolute left-0 top-0 w-full h-full flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-200 group-hover:opacity-100 group-hover:pointer-events-auto"
+                  >
+                    <Trash size={20} weight="bold" className="text-beige" />
+                  </span>
+                  {/* Tooltip */}
+                  <motion.span
+                    initial={{ opacity: 0, y: 8 }}
+                    whileHover={{ opacity: 1, y: 0 }}
+                    transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                    className="absolute left-1/2 -translate-x-1/2 top-full mt-1 text-xs bg-white/90 text-beige px-2 py-1 rounded shadow pointer-events-none"
+                  >
+                    Excluir chat
+                  </motion.span>
                 </div>
                 <div>
                   <h3 className="font-bold text-sm">Editora Anglo</h3>
@@ -235,9 +314,7 @@ export function ChatWidget() {
                   key={message.id}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className={`flex ${
-                    message.sender === 'user' ? 'justify-end' : 'justify-start'
-                  }`}
+                  className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
                   <div
                     className={`max-w-xs px-4 py-3 rounded-xl text-sm leading-relaxed ${
@@ -259,56 +336,35 @@ export function ChatWidget() {
                 </motion.div>
               ))}
 
-              {isLoading && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="flex justify-start"
-                >
-                  <div className="bg-white border border-gray-200 px-4 py-3 rounded-xl rounded-bl-none">
-                    <div className="flex gap-2">
-                      <motion.div
-                        animate={{ y: [0, -6, 0] }}
-                        transition={{ duration: 0.6, repeat: Infinity }}
-                        className="w-2 h-2 rounded-full bg-gray-400"
-                      />
-                      <motion.div
-                        animate={{ y: [0, -6, 0] }}
-                        transition={{ duration: 0.6, repeat: Infinity, delay: 0.1 }}
-                        className="w-2 h-2 rounded-full bg-gray-400"
-                      />
-                      <motion.div
-                        animate={{ y: [0, -6, 0] }}
-                        transition={{ duration: 0.6, repeat: Infinity, delay: 0.2 }}
-                        className="w-2 h-2 rounded-full bg-gray-400"
-                      />
-                    </div>
-                  </div>
-                </motion.div>
-              )}
-
               <div ref={messagesEndRef} />
             </div>
 
             {/* Suggestions Area */}
             {suggestions.length > 0 && (
               <div className="px-4 py-3 border-t border-gray-200 bg-white space-y-2">
-                <p className="text-xs text-gray-500 font-medium">Sugestões:</p>
-                <div className="flex flex-wrap gap-2">
-                  {suggestions.map((suggestion) => (
-                    <motion.button
-                      key={suggestion.id}
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      onClick={() => handleSuggestionClick(suggestion.text)}
-                      className="px-3 py-1.5 text-xs bg-gray-100 hover:bg-primary/10 hover:text-primary border border-gray-200 rounded-full transition-colors cursor-pointer font-medium"
-                    >
-                      {suggestion.text}
-                    </motion.button>
-                  ))}
+                <div className="flex items-center justify-between cursor-pointer" onClick={() => setSuggestionsCollapsed(v => !v)}>
+                  <p className="text-xs text-gray-500 font-medium">Sugestões:</p>
+                  <span className="text-primary text-xs font-bold flex items-center">
+                    {suggestionsCollapsed ? <CaretDown size={18} /> : <CaretUp size={18} />}
+                  </span>
                 </div>
+                {!suggestionsCollapsed && (
+                  <div className="flex flex-wrap gap-2 mt-2">
+                    {suggestions.map((suggestion) => (
+                      <motion.button
+                        key={suggestion.id}
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => handleSuggestionClick(suggestion.text)}
+                        className="px-3 py-1.5 text-xs bg-gray-100 hover:bg-primary/10 hover:text-primary border border-gray-200 rounded-full transition-colors cursor-pointer font-medium"
+                      >
+                        {suggestion.text}
+                      </motion.button>
+                    ))}
+                  </div>
+                )}
               </div>
             )}
 

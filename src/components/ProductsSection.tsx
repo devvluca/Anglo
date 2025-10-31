@@ -6,7 +6,7 @@ export function ProductsSection() {
   const { products, loading, error, hasNextPage, loadMore } = useProducts(12);
 
   return (
-  <section className="pt-16 md:pt-24 pb-8 md:pb-12 bg-background relative overflow-hidden">
+  <section className="pt-16 md:pt-24 pb-8 md:pb-12 bg-background relative overflow-hidden" id="products-section">
       <div className="container mx-auto px-4 md:px-8">
         {/* Título */}
         <motion.div

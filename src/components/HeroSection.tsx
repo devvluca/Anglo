@@ -115,6 +115,10 @@ export function HeroSection() {
                       alt="Logo Anglo estática"
                       className={`absolute bottom-1 mb-5 cursor-pointer translate-y-8 transition-transform duration-700${animateStaticLogo ? ' scale-110' : ''}`}
                       style={{ maxWidth: '110px', width: '100%' }}
+                      onClick={() => {
+                        const el = document.getElementById('products-section');
+                        if (el) el.scrollIntoView({ behavior: 'smooth' });
+                      }}
                       onLoad={() => {
                         setTimeout(() => {
                           setAnimateStaticLogo(true);
@@ -142,6 +146,10 @@ export function HeroSection() {
                       alt="Logo Anglo estática"
                       className={`absolute bottom-1 mb-5 cursor-pointer translate-y-8 transition-transform duration-700${animateStaticLogo ? ' scale-110' : ''}`}
                       style={{ maxWidth: '110px', width: '100%' }}
+                      onClick={() => {
+                        const el = document.getElementById('products-section');
+                        if (el) el.scrollIntoView({ behavior: 'smooth' });
+                      }}
                       onLoad={() => {
                         setTimeout(() => {
                           setAnimateStaticLogo(true);

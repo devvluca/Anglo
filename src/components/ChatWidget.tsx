@@ -36,6 +36,7 @@ function convertCustomTagsToMarkdown(text: string): string {
 
 export function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
+  const [hasBeenClosed, setHasBeenClosed] = useState(false);
   // Abrir chat automaticamente após 10s de rolagem
   useEffect(() => {
     let timer: NodeJS.Timeout | null = null;
@@ -45,7 +46,7 @@ export function ChatWidget() {
     };
     window.addEventListener('scroll', onScroll);
     timer = setTimeout(() => {
-      if (scrolled && !isOpen) {
+      if (scrolled && !isOpen && !hasBeenClosed) {
         setIsOpen(true);
       }
     }, 10000);
@@ -53,7 +54,7 @@ export function ChatWidget() {
       window.removeEventListener('scroll', onScroll);
       if (timer) clearTimeout(timer);
     };
-  }, [isOpen]);
+  }, [isOpen, hasBeenClosed]);
   const [suggestionsCollapsed, setSuggestionsCollapsed] = useState(false);
   const [messages, setMessages] = useState<Message[]>(() => {
     const saved = localStorage.getItem('chat-messages');
@@ -82,24 +83,6 @@ export function ChatWidget() {
       },
     ];
   });
-  // Abrir chat automaticamente após 10s de rolagem
-  useEffect(() => {
-    let timer: NodeJS.Timeout | null = null;
-    let scrolled = false;
-    const onScroll = () => {
-      scrolled = true;
-    };
-    window.addEventListener('scroll', onScroll);
-    timer = setTimeout(() => {
-      if (scrolled && !isOpen) {
-        setIsOpen(true);
-      }
-    }, 10000);
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      if (timer) clearTimeout(timer);
-    };
-  }, [isOpen]);
   // Salvar mensagens no localStorage sempre que mudarem
   useEffect(() => {
     localStorage.setItem('chat-messages', JSON.stringify(messages));
@@ -300,7 +283,10 @@ export function ChatWidget() {
               <motion.button
                 whileHover={{ rotate: 90 }}
                 whileTap={{ scale: 0.9 }}
-                onClick={() => setIsOpen(false)}
+                onClick={() => {
+                  setIsOpen(false);
+                  setHasBeenClosed(true);
+                }}
                 className="p-1 hover:bg-white/20 rounded-lg transition-colors"
               >
                 <X size={20} weight="bold" />

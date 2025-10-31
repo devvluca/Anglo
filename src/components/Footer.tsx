@@ -63,24 +63,21 @@ export function Footer() {
       <div className="container mx-auto px-4 md:px-8 py-10 md:py-16 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 mb-10 md:mb-12">
           {/* Coluna 1: Logo e descrição */}
-          <motion.div className="space-y-4 md:space-y-6 flex flex-col items-center md:items-start text-center md:text-left" initial="rest" whileHover="hover" animate="rest">
+          <motion.div className="space-y-4 md:space-y-6 flex flex-col items-center md:items-start text-center md:text-left">
             <motion.img
               src="/logo_com_nome_bege.png"
               alt="Editora Anglo"
               className="w-32 md:w-40 h-auto cursor-pointer"
-              variants={{ rest: { scale: 1, y: 0 }, hover: { scale: 1.015, y: -4 } }}
+              whileHover={{ scale: 1.05, y: -4 }}
               whileTap={{ scale: 0.98 }}
               transition={{ type: 'spring', stiffness: 120, damping: 22 }}
               onClick={scrollToTop}
             />
-            <motion.p
+            <p
               className="text-white text-xs md:text-sm leading-relaxed cursor-pointer"
-              variants={{ rest: { scale: 1, y: 0 }, hover: { scale: 1.01, y: -2, color: '#F5F5F5' } }}
-              whileHover={{ color: '#F5F5F5', scale: 1.01, y: -2 }}
-              transition={{ type: 'spring', stiffness: 120, damping: 22 }}
             >
               Editora Anglo - Tradição em literatura espiritual e formação cristã.
-            </motion.p>
+            </p>
           </motion.div>
 
           {/* Coluna 2: Links rápidos */}

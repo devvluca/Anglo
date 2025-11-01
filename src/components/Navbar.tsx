@@ -11,7 +11,8 @@ import { AccountIcon } from "./AccountIcon";
 const navigationLinks = [
   { href: "/", label: "Início" },
   { href: "/", label: "Sobre" },
-  { href: "/#newsletter-section", label: "Contato" }
+  { href: "/#newsletter-section", label: "Contato" },
+  { href: "/blog", label: "Blog" }
 ];
 
 export function Navbar() {
@@ -90,6 +91,23 @@ export function Navbar() {
           <div className="hidden lg:flex items-center gap-10 pl-0">
             {navigationLinks.map((link) => {
               const style = { transform: 'translateX(-30px)' };
+              if (link.label === "Blog") {
+                return (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    className="font-serif font-medium transition-colors relative group text-foreground hover:text-purple"
+                    style={style}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigate('/blog');
+                    }}
+                  >
+                    {link.label}
+                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 transition-all group-hover:w-full bg-purple" />
+                  </a>
+                );
+              }
               if (link.label === "Contato") {
                 return (
                   <a
@@ -192,6 +210,22 @@ export function Navbar() {
                   {/* Mobile Navigation */}
                   <div className="flex flex-col space-y-4 mb-8">
                     {navigationLinks.map((link) => {
+                      if (link.label === "Blog") {
+                        return (
+                          <a
+                            key={link.label}
+                            href={link.href}
+                            className="font-serif text-lg font-medium text-foreground hover:text-purple transition-colors py-2"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              navigate('/blog');
+                              setIsOpen(false);
+                            }}
+                          >
+                            {link.label}
+                          </a>
+                        );
+                      }
                       if (link.label === "Contato") {
                         return (
                           <a

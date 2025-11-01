@@ -101,6 +101,9 @@ export function Navbar() {
                     onClick={(e) => {
                       e.preventDefault();
                       navigate('/blog');
+                      setTimeout(() => {
+                        window.scrollTo({ top: 0, behavior: "smooth" });
+                      }, 150);
                     }}
                   >
                     {link.label}
@@ -220,6 +223,9 @@ export function Navbar() {
                               e.preventDefault();
                               navigate('/blog');
                               setIsOpen(false);
+                              setTimeout(() => {
+                                window.scrollTo({ top: 0, behavior: "smooth" });
+                              }, 150);
                             }}
                           >
                             {link.label}

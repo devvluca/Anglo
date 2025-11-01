@@ -203,7 +203,7 @@ const Blog = () => {
                   className={`rounded-full font-medium transition-all ${
                     selectedCategory === category 
                       ? "bg-purple text-white hover:bg-purple/90 shadow-elegant" 
-                      : "hover:scale-105 hover:shadow-md"
+                      : "hover:bg-beige hover:shadow-md"
                   }`}
                 >
                   {category}

@@ -133,7 +133,9 @@ export function SearchBar({ onClose }: SearchBarProps) {
                       animate={{ opacity: 1 }}
                       className="text-center py-12"
                     >
-                      <div className="text-4xl mb-4">🔍</div>
+                      <div className="mb-4 flex justify-center">
+                        <MagnifyingGlass size={48} className="text-primary" weight="thin" />
+                      </div>
                       <p className="text-foreground font-medium">Nenhum produto encontrado</p>
                       <p className="text-muted-foreground text-sm mt-1">Tente outro termo de busca</p>
                     </motion.div>

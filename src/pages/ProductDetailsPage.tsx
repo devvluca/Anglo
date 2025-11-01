@@ -404,7 +404,7 @@ export default function ProductDetailsPage() {
                     type="number"
                     value={quantity}
                     onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
-                    className="w-12 text-center bg-transparent text-foreground font-medium border-0 outline-none"
+                    className="w-12 text-center bg-transparent text-foreground font-medium border-0 outline-none [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [&]:[-moz-appearance:textfield]"
                     min="1"
                   />
                   <motion.button

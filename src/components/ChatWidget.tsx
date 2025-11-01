@@ -283,7 +283,7 @@ export function ChatWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            className="fixed bottom-24 right-6 z-40 w-96 max-w-[calc(100vw-24px)] bg-white rounded-2xl shadow-2xl overflow-hidden"
+            className="fixed bottom-24 right-2 left-2 md:left-auto md:right-6 z-40 w-auto md:w-96 max-w-[calc(100vw-16px)] md:max-w-[calc(100vw-24px)] bg-white rounded-2xl shadow-2xl overflow-hidden"
           >
             {/* Header */}
             <div className="bg-primary text-primary-foreground p-4 flex items-center justify-between">
@@ -415,6 +415,11 @@ export function ChatWidget() {
                 onChange={(e) => setInputValue(e.target.value)}
                 placeholder="Digite sua mensagem..."
                 className="flex-1 px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-sm"
+                style={{
+                  fontSize: '16px', // Previne zoom no iOS
+                  WebkitAppearance: 'none', // Remove aparência nativa
+                  WebkitTextSizeAdjust: '100%', // Previne ajuste automático de tamanho
+                }}
               />
               <motion.button
                 whileHover={{ scale: 1.05 }}

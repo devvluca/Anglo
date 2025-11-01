@@ -4,6 +4,7 @@ import { X, PaperPlaneTilt, ChatTeardrop } from 'phosphor-react';
 import { Trash, CaretUp, CaretDown } from 'phosphor-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import { ProductPreview } from './ProductPreview';
 
 interface Message {
   id: string;
@@ -15,6 +16,46 @@ interface Message {
 interface Suggestion {
   id: string;
   text: string;
+}
+
+// Função para processar texto da mensagem com previews de produtos
+function processMessageText(text: string) {
+  // Regex para detectar links de produtos - URLs completas ou caminhos relativos
+  const productLinkRegex = /(?:https?:\/\/[^\s]*?\/produto\/([a-zA-Z0-9\-]+)|\/produto\/([a-zA-Z0-9\-]+))/g;
+  const parts = [];
+  let lastIndex = 0;
+  let match;
+
+  while ((match = productLinkRegex.exec(text)) !== null) {
+    // Adicionar texto antes do link
+    if (match.index > lastIndex) {
+      parts.push({
+        type: 'text',
+        content: text.slice(lastIndex, match.index),
+      });
+    }
+
+    // Extrair o handle do produto (pode estar no grupo 1 ou 2)
+    const handle = match[1] || match[2];
+
+    // Adicionar preview do produto
+    parts.push({
+      type: 'product',
+      handle: handle,
+    });
+
+    lastIndex = match.index + match[0].length;
+  }
+
+  // Adicionar texto restante
+  if (lastIndex < text.length) {
+    parts.push({
+      type: 'text',
+      content: text.slice(lastIndex),
+    });
+  }
+
+  return parts;
 }
 
 // Converter tags customizadas para markdown
@@ -74,14 +115,14 @@ export function ChatWidget() {
           ];
       }
     }
-    return [
-      {
-        id: '1',
-        text: 'Olá! Eu sou Iris, a inteligência artificial da Editora Anglo. Posso te ajudar a conhecer nossa história, nossos livros, autores, políticas e tudo sobre o universo Anglo. Como posso te ajudar hoje?',
-        sender: 'bot',
-        timestamp: new Date(),
-      },
-    ];
+        return [
+          {
+            id: '1',
+            text: 'Olá! Eu sou Iris, inteligência artificial da Editora Anglo. Posso te ajudar a conhecer nossa história, livros, autores, políticas e tudo sobre o universo Anglo. Como posso te ajudar hoje?',
+            sender: 'bot',
+            timestamp: new Date(),
+          },
+        ];
   });
   // Salvar mensagens no localStorage sempre que mudarem
   useEffect(() => {
@@ -245,7 +286,7 @@ export function ChatWidget() {
             className="fixed bottom-24 right-6 z-40 w-96 max-w-[calc(100vw-24px)] bg-white rounded-2xl shadow-2xl overflow-hidden"
           >
             {/* Header */}
-            <div className="bg-gradient-to-r from-primary to-primary/80 text-primary-foreground p-4 flex items-center justify-between">
+            <div className="bg-primary text-primary-foreground p-4 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div
                   className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center group cursor-pointer relative"
@@ -255,13 +296,13 @@ export function ChatWidget() {
                 >
                   {/* Ícone ChatTeardrop (visível quando não está em hover) */}
                   <span
-                    className="absolute left-0 top-0 w-full h-full flex items-center justify-center transition-opacity duration-200 group-hover:opacity-0 group-hover:pointer-events-none"
+                    className="absolute left-0 top-0 w-full h-full flex items-center justify-center transition-all duration-300 group-hover:opacity-0 group-hover:pointer-events-none group-hover:rotate-180"
                   >
                     <ChatTeardrop size={20} weight="fill" className="text-beige" />
                   </span>
                   {/* Ícone Trash (visível apenas no hover) */}
                   <span
-                    className="absolute left-0 top-0 w-full h-full flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-200 group-hover:opacity-100 group-hover:pointer-events-auto"
+                    className="absolute left-0 top-0 w-full h-full flex items-center justify-center opacity-0 pointer-events-none transition-all duration-300 group-hover:opacity-100 group-hover:pointer-events-auto"
                   >
                     <Trash size={20} weight="bold" className="text-beige" />
                   </span>
@@ -311,9 +352,18 @@ export function ChatWidget() {
                   >
                     {message.sender === 'bot' ? (
                       <div className="prose prose-sm max-w-none [&_p]:m-0 [&_ul]:my-2 [&_ol]:my-2 [&_li]:my-0 [&_em]:italic [&_strong]:font-bold [&_a]:text-blue-600 [&_a]:underline [&_code]:bg-gray-200 [&_code]:px-1 [&_code]:rounded [&_pre]:bg-gray-100 [&_pre]:p-2 [&_pre]:rounded [&_h1]:text-lg [&_h2]:text-base [&_h3]:text-sm">
-                        <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                          {convertCustomTagsToMarkdown(message.text)}
-                        </ReactMarkdown>
+                        {processMessageText(convertCustomTagsToMarkdown(message.text)).map((part, index) => {
+                          if (part.type === 'text') {
+                            return (
+                              <ReactMarkdown key={index} remarkPlugins={[remarkGfm]}>
+                                {part.content}
+                              </ReactMarkdown>
+                            );
+                          } else if (part.type === 'product') {
+                            return <ProductPreview key={index} handle={part.handle} />;
+                          }
+                          return null;
+                        })}
                       </div>
                     ) : (
                       message.text

@@ -52,3 +52,21 @@ export async function shopifyFetch<T>({
     throw error;
   }
 }
+
+import { GET_PRODUCT_BY_HANDLE_QUERY } from './queries';
+
+export async function getProductByHandle(handle: string) {
+  try {
+    const data = await shopifyFetch<{
+      product: any;
+    }>({
+      query: GET_PRODUCT_BY_HANDLE_QUERY,
+      variables: { handle },
+    });
+
+    return data.product;
+  } catch (error) {
+    console.error('❌ Error fetching product by handle:', error);
+    return null;
+  }
+}

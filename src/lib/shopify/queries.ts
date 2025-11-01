@@ -366,3 +366,47 @@ export const GET_CART_QUERY = `
     }
   }
 `;
+
+export const GET_PRODUCT_BY_HANDLE_QUERY = `
+  query GetProduct($handle: String!) {
+    product(handle: $handle) {
+      id
+      title
+      description
+      handle
+      images(first: 1) {
+        edges {
+          node {
+            url
+            altText
+            width
+            height
+          }
+        }
+      }
+      priceRange {
+        minVariantPrice {
+          amount
+          currencyCode
+        }
+        maxVariantPrice {
+          amount
+          currencyCode
+        }
+      }
+      variants(first: 1) {
+        edges {
+          node {
+            id
+            title
+            availableForSale
+            price {
+              amount
+              currencyCode
+            }
+          }
+        }
+      }
+    }
+  }
+`;

@@ -167,7 +167,7 @@ export function CartIcon() {
                                 value={quantity}
                                 min={1}
                                 onChange={(e) => handleQuantityChange(line.id, parseInt(e.target.value) || 1)}
-                                className="w-8 text-center bg-white border border-gray-300 rounded text-sm text-foreground font-medium"
+                                className="w-8 text-center bg-white border border-gray-300 rounded text-sm text-foreground font-medium [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [&]:[-moz-appearance:textfield]"
                                 whileFocus={{ scale: 1.05 }}
                                 disabled={loading}
                               />

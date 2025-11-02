@@ -9,7 +9,7 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product }: ProductCardProps) {
-  const { addToCart, loading } = useCart();
+  const { addToCart } = useCart();
   const [isAdding, setIsAdding] = useState(false);
 
   const firstImage = product.images?.[0];
@@ -102,13 +102,13 @@ export function ProductCard({ product }: ProductCardProps) {
         <div className="flex gap-2">
           <motion.button
             onClick={handleAddToCart}
-            disabled={!firstVariant?.availableForSale || isAdding || loading}
+            disabled={!firstVariant?.availableForSale || isAdding}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             className="flex-1 bg-primary hover:bg-primary/90 disabled:bg-gray-300 text-white py-2 rounded-md font-medium transition-colors flex items-center justify-center gap-2"
           >
             <ShoppingCart size={16} />
-            {isAdding || loading ? 'Adicionando...' : 'Adicionar'}
+            {isAdding ? 'Adicionando...' : 'Adicionar'}
           </motion.button>
 
           <motion.a

@@ -12,15 +12,21 @@ export function useBlogPosts() {
     async function loadData() {
       try {
         setLoading(true);
+        console.log('🔄 Iniciando carregamento de posts...');
+        
         const [postsData, categoriesData] = await Promise.all([
           fetchBlogPosts(),
           fetchBlogCategories()
         ]);
         
+        console.log('📊 Posts carregados:', postsData.length);
+        console.log('📋 Categorias carregadas:', categoriesData.length);
+        console.log('📌 Dados dos posts:', postsData);
+        
         setPosts(postsData);
         setCategories(categoriesData);
       } catch (err) {
-        console.error('Erro ao carregar dados do blog:', err);
+        console.error('❌ Erro ao carregar dados do blog:', err);
         setError('Erro ao carregar os artigos');
       } finally {
         setLoading(false);

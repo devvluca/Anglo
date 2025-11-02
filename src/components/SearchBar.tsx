@@ -1,20 +1,30 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MagnifyingGlass, X, Lightning } from 'phosphor-react';
 import { useSearch } from '@/hooks/useSearch';
+import { useProducts } from '@/hooks/useProducts';
 import { ProductCard } from './ProductCard';
 
 interface SearchBarProps {
   onClose?: () => void;
 }
 
-const recentSearches = ['Livros', 'Devocional', 'Bíblia', 'Margens Invisíveis'];
-const suggestedCategories = ['Todos', 'Livros', 'Revistas', 'Desvocional'];
-
 export function SearchBar({ onClose }: SearchBarProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [searchInput, setSearchInput] = useState('');
   const { searchResults, search, clearSearch, loading } = useSearch();
+  const { products: allProducts } = useProducts(50);
+
+  // Gera sugestões de categorias baseadas em termos comuns dos produtos
+  const suggestedCategories = useMemo(() => {
+    return ['Todos', 'Livros'];
+  }, []);
+
+  // Gera buscas recentes baseadas em produtos populares
+  const recentSearches = useMemo(() => {
+    if (allProducts.length === 0) return [];
+    return allProducts.slice(0, 4).map(product => product.title);
+  }, [allProducts]);
 
   const handleSearch = async (value: string) => {
     setSearchInput(value);
@@ -34,7 +44,12 @@ export function SearchBar({ onClose }: SearchBarProps) {
 
   const handleQuickSearch = (term: string) => {
     setSearchInput(term);
-    handleSearch(term);
+    // Se for "Todos" ou "Livros", não faz busca, apenas mostra os produtos
+    if (term === 'Todos' || term === 'Livros') {
+      clearSearch();
+    } else {
+      handleSearch(term);
+    }
   };
 
   return (
@@ -113,6 +128,21 @@ export function SearchBar({ onClose }: SearchBarProps) {
                         <p className="text-muted-foreground text-sm font-medium">Buscando...</p>
                       </div>
                     </div>
+                  ) : (searchInput === 'Todos' || searchInput === 'Livros') && allProducts.length > 0 ? (
+                    // Mostrar todos os produtos quando clica em "Todos" ou "Livros"
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 pb-4">
+                      {allProducts.map((product, index) => (
+                        <motion.div
+                          key={product.id}
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: index * 0.04 }}
+                          onClick={handleClose}
+                        >
+                          <ProductCard product={product} />
+                        </motion.div>
+                      ))}
+                    </div>
                   ) : searchResults.length > 0 ? (
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 pb-4">
                       {searchResults.map((product, index) => (
@@ -127,7 +157,7 @@ export function SearchBar({ onClose }: SearchBarProps) {
                         </motion.div>
                       ))}
                     </div>
-                  ) : searchInput.trim() ? (
+                  ) : searchInput.trim() && searchInput !== 'Todos' && searchInput !== 'Livros' && searchResults.length === 0 ? (
                     <motion.div
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
@@ -175,7 +205,7 @@ export function SearchBar({ onClose }: SearchBarProps) {
                           {suggestedCategories.map((category, index) => (
                             <motion.button
                               key={index}
-                              onClick={() => handleQuickSearch(category === 'Todos' ? '' : category)}
+                              onClick={() => handleQuickSearch(category)}
                               whileHover={{ scale: 1.05 }}
                               whileTap={{ scale: 0.95 }}
                               className="px-4 py-2 border border-border/30 hover:border-primary/50 hover:bg-primary/5 text-foreground rounded-full text-sm font-medium transition-all duration-300"

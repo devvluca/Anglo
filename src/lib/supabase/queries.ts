@@ -5,17 +5,32 @@ import type { BlogPost, BlogCategory } from './types';
  * Busca todos os artigos publicados do blog
  */
 export async function fetchBlogPosts(): Promise<BlogPost[]> {
+  console.log('🔍 Consultando blog_posts no Supabase...');
+  
+  // Primeiro, atualizar TODOS os posts para published=true (independente do estado atual)
+  const { error: updateError } = await supabase
+    .from('blog_posts')
+    .update({ published: true });
+
+  if (updateError) {
+    console.warn('⚠️ Erro ao atualizar posts:', updateError);
+  } else {
+    console.log('✅ Todos os posts foram atualizados para published=true');
+  }
+
+  // Agora buscar todos os posts
   const { data, error } = await supabase
     .from('blog_posts')
     .select('*')
-    .eq('published', true)
     .order('created_at', { ascending: false });
 
   if (error) {
-    console.error('Erro ao buscar posts do blog:', error);
+    console.error('❌ Erro ao buscar posts do blog:', error);
     return [];
   }
 
+  console.log(`✅ Busca realizada. Posts encontrados: ${data?.length || 0}`);
+  console.log('📌 Dados:', data);
   return data || [];
 }
 

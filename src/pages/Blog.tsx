@@ -284,12 +284,22 @@ const Blog = () => {
                 <motion.div key={post.id} variants={item}>
                   <Card className="group overflow-hidden border-2 border-border hover:border-purple/50 transition-all duration-500 hover:shadow-elegant h-full">
                     <div className="relative overflow-hidden aspect-video bg-gradient-to-br from-purple/10 to-blue/10">
-                      {/* Placeholder para imagem */}
-                      <div className={`absolute inset-0 bg-gradient-to-br from-${post.color}/20 to-${post.color}/5 flex items-center justify-center`}>
-                        <div className={`w-20 h-20 rounded-full bg-${post.color}/20 flex items-center justify-center`}>
-                          <span className="text-3xl">📖</span>
+                      {post.image ? (
+                        <>
+                          <img 
+                            src={post.image} 
+                            alt={post.title}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          />
+                          <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-500"></div>
+                        </>
+                      ) : (
+                        <div className={`absolute inset-0 bg-gradient-to-br from-${post.color}/20 to-${post.color}/5 flex items-center justify-center`}>
+                          <div className={`w-20 h-20 rounded-full bg-${post.color}/20 flex items-center justify-center`}>
+                            <span className="text-3xl">📖</span>
+                          </div>
                         </div>
-                      </div>
+                      )}
                       <div className="absolute top-4 left-4">
                         <Badge className={`bg-${post.color} text-white border-0`}>
                           {post.category}
@@ -313,7 +323,7 @@ const Blog = () => {
                         </div>
                         <div className="flex items-center gap-2">
                           <Calendar className="w-4 h-4" />
-                          <span>{post.date}</span>
+                          <span>{new Date(post.date).toLocaleDateString('pt-BR')}</span>
                         </div>
                       </div>
                       
@@ -355,19 +365,27 @@ const Blog = () => {
                     </div>
                     <div className="flex items-center gap-2">
                       <Calendar className="w-4 h-4" />
-                      <span>{selectedPost.date}</span>
+                      <span>{new Date(selectedPost.date).toLocaleDateString('pt-BR')}</span>
                     </div>
                   </div>
                 </div>
               </DialogHeader>
               
-              <div className="relative overflow-hidden aspect-video bg-gradient-to-br from-purple/10 to-blue/10 rounded-lg mb-6">
-                <div className="absolute inset-0 bg-gradient-to-br from-purple/20 to-blue/5 flex items-center justify-center">
-                  <div className="w-24 h-24 rounded-full bg-white/20 flex items-center justify-center">
-                    <span className="text-5xl">📖</span>
+              {selectedPost.image ? (
+                <img 
+                  src={selectedPost.image} 
+                  alt={selectedPost.title}
+                  className="w-full h-auto rounded-lg mb-6 object-cover"
+                />
+              ) : (
+                <div className="relative overflow-hidden aspect-video bg-gradient-to-br from-purple/10 to-blue/10 rounded-lg mb-6">
+                  <div className="absolute inset-0 bg-gradient-to-br from-purple/20 to-blue/5 flex items-center justify-center">
+                    <div className="w-24 h-24 rounded-full bg-white/20 flex items-center justify-center">
+                      <span className="text-5xl">📖</span>
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
 
               <div 
                 className="prose prose-lg max-w-none text-foreground blog-article-content"

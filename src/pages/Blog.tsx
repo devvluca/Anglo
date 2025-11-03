@@ -100,7 +100,7 @@ const VennDiagram = ({ onNavigateHome }: { onNavigateHome: () => void }) => {
 // Dados de exemplo para os posts do blog (fallback se Supabase não tiver dados)
 const fallbackBlogPosts: BlogPost[] = [];
 
-const fallbackCategories = ["Todos", "Espiritualidade", "Educação", "Liturgia"];
+const fixedCategories = ["Todos", "Espiritualidade", "Educação", "Liturgia", "Outros"];
 
 const Blog = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -121,9 +121,7 @@ const Blog = () => {
   
   // Usar posts do Supabase se disponíveis, caso contrário usar fallback
   const blogPosts = supabasePosts.length > 0 ? supabasePosts : fallbackBlogPosts;
-  const categories = supabaseCategories.length > 0 
-    ? ["Todos", ...supabaseCategories.map(cat => cat.name)]
-    : fallbackCategories;
+  const categories = fixedCategories;
 
   const filteredPosts = blogPosts.filter(post => {
     const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||

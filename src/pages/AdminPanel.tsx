@@ -47,7 +47,7 @@ const initialFormData: BlogFormData = {
 };
 
 const categories = ['Espiritualidade', 'Educação', 'Liturgia', 'Devoção', 'Outros'];
-const colors = ['purple', 'blue', 'rose', 'green', 'orange'];
+const colors = ['purple', 'beige', 'rose', 'blue', 'green'];
 
 export default function AdminPanel() {
   const { logout } = useAdminAuth();

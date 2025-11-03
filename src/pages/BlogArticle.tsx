@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ChatWidget } from "@/components/ChatWidget";
 import { NewsletterSection } from "@/components/NewsletterSection";
-import { Calendar, User, ArrowLeft, Share } from "phosphor-react";
+import { Calendar, User, ArrowLeft, Share, Copy, WhatsappLogo, InstagramLogo } from "phosphor-react";
 import { motion } from "framer-motion";
 import { fetchBlogPostBySlug } from "@/lib/supabase/queries";
 import type { BlogPost } from "@/lib/supabase/types";
@@ -18,6 +18,8 @@ const BlogArticle = () => {
   const [post, setPost] = useState<BlogPost | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [showShareModal, setShowShareModal] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     async function loadPost() {
@@ -96,6 +98,21 @@ const BlogArticle = () => {
 
   const postUrl = `${window.location.origin}/blog/${post.slug}`;
   const shareText = `${post.title} - Blog Anglo`;
+
+  const handleShare = () => {
+    setShowShareModal(true);
+    setCopied(false);
+  };
+
+  const handleCopyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(postUrl);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+    } catch (err) {
+      console.error('Erro ao copiar link:', err);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -213,26 +230,16 @@ const BlogArticle = () => {
               </div>
               
               {/* Share Button */}
-              <button
-                onClick={() => {
-                  if (navigator.share) {
-                    navigator.share({
-                      title: post.title,
-                      text: post.excerpt,
-                      url: postUrl
-                    });
-                  } else {
-                    // Fallback: copiar URL
-                    navigator.clipboard.writeText(postUrl);
-                    alert('Link copiado!');
-                  }
-                }}
-                className="ml-auto flex items-center gap-2 hover:text-purple transition-colors"
+              <motion.button
+                onClick={handleShare}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.98 }}
+                className="ml-auto p-3 border border-gray-300 hover:border-gray-400 hover:bg-gray-50 rounded-lg transition-colors flex items-center gap-2 text-foreground"
                 title="Compartilhar artigo"
               >
                 <Share className="w-5 h-5" />
-                <span className="hidden sm:inline">Compartilhar</span>
-              </button>
+                <span className="hidden sm:inline text-sm font-medium">Compartilhar</span>
+              </motion.button>
             </div>
 
             {/* Featured Image */}
@@ -294,7 +301,118 @@ const BlogArticle = () => {
         </div>
       </article>
 
-      {/* Newsletter Section */}
+      {/* Modal de Compartilhamento */}
+      {showShareModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          {/* Fundo desfocado */}
+          <div
+            className="fixed inset-0 bg-black/40 backdrop-blur-sm"
+            onClick={() => setShowShareModal(false)}
+          />
+          {/* Modal */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.97 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.97 }}
+            transition={{ duration: 0.35, ease: 'easeInOut' }}
+            className="relative z-10 bg-white dark:bg-slate-900 rounded-2xl shadow-xl px-7 py-7 w-full max-w-xs flex flex-col items-center border border-gray-100 dark:border-slate-700"
+          >
+            <h3 className="text-base font-semibold text-primary mb-4">Compartilhar artigo</h3>
+            <div className="flex flex-row gap-6 w-full justify-center mb-3">
+              <motion.a
+                href={`https://wa.me/?text=${encodeURIComponent(`${post.title}\n${postUrl}`)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.07 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: 'tween', duration: 0.38, ease: 'easeInOut' }}
+                className="rounded-full bg-white dark:bg-slate-800 text-primary flex items-center justify-center w-12 h-12 shadow border border-primary/30 focus:outline-none focus:ring-2 focus:ring-primary/40"
+                title="WhatsApp"
+              >
+                <WhatsappLogo size={28} weight="thin" className="text-primary" />
+              </motion.a>
+              <motion.a
+                href={`https://www.instagram.com/?url=${encodeURIComponent(postUrl)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.07 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: 'tween', duration: 0.38, ease: 'easeInOut' }}
+                className="rounded-full bg-white dark:bg-slate-800 text-primary flex items-center justify-center w-12 h-12 shadow border border-primary/30 focus:outline-none focus:ring-2 focus:ring-primary/40"
+                title="Instagram"
+              >
+                <InstagramLogo size={28} weight="thin" className="text-primary" />
+              </motion.a>
+              <motion.button
+                onClick={handleCopyLink}
+                whileHover={{ scale: 1.07 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: 'tween', duration: 0.38, ease: 'easeInOut' }}
+                className={`rounded-full bg-muted dark:bg-slate-800 text-primary flex items-center justify-center w-12 h-12 shadow border ${copied ? 'border-primary' : 'border-gray-200 dark:border-slate-600'} relative focus:outline-none focus:ring-2 focus:ring-primary/40`}
+                title="Copiar link"
+                aria-label="Copiar link"
+              >
+                <motion.div
+                  initial={false}
+                  animate={copied ? { rotate: 360, scale: 1.1 } : { rotate: 0, scale: 1 }}
+                  transition={{ type: 'spring', stiffness: 160, damping: 20 }}
+                >
+                  {copied ? (
+                    <motion.svg
+                      key="check"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width={26}
+                      height={26}
+                      viewBox="0 0 256 256"
+                      fill="none"
+                      className="text-primary"
+                      initial={{ scale: 0.7, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      exit={{ scale: 0.7, opacity: 0 }}
+                    >
+                      <motion.path
+                        d="M216 72l-104 112-48-48"
+                        stroke="currentColor"
+                        strokeWidth="3"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        initial={{ pathLength: 0 }}
+                        animate={{ pathLength: 1 }}
+                        transition={{ duration: 0.4, ease: 'easeInOut' }}
+                      />
+                    </motion.svg>
+                  ) : (
+                    <Copy size={26} weight="regular" className="text-primary" />
+                  )}
+                </motion.div>
+                {copied && (
+                  <motion.span
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 8 }}
+                    transition={{ duration: 0.25, ease: 'easeOut' }}
+                    className="absolute left-1/2 -translate-x-1/2 top-14 text-xs font-medium text-primary bg-white dark:bg-slate-900 rounded-lg px-3 py-1 shadow border border-primary/30"
+                  >
+                    Copiado!
+                  </motion.span>
+                )}
+              </motion.button>
+            </div>
+            {/* Link visível abaixo */}
+            <div className="w-full flex flex-col items-center mt-2">
+              <span className="text-xs text-muted-foreground mb-1">Link do artigo:</span>
+              <div className="text-sm font-mono bg-muted dark:bg-slate-800 rounded-lg px-3 py-1 text-primary break-all select-all border border-primary/10 max-w-full" style={{maxWidth:'100%'}}>{postUrl}</div>
+            </div>
+            <button
+              onClick={() => setShowShareModal(false)}
+              className="absolute top-3 right-3 text-muted-foreground hover:text-primary transition-colors"
+              title="Fechar"
+            >
+              <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </motion.div>
+        </div>
+      )}
       <NewsletterSection />
 
       <Footer />

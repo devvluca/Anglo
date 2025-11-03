@@ -1,14 +1,14 @@
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { SignOut, Plus, Upload, X, Trash, PencilSimple, Eye } from 'phosphor-react';
+import { SignOut, Plus, Upload, X, Trash, PencilSimple, Eye, Image } from 'phosphor-react';
 import { useAdminAuth } from '@/contexts/AdminAuthContext';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { supabase } from '@/lib/supabase/config';
 import { uploadBlogImage } from '@/lib/supabase/storage';
 import { useToast } from '@/hooks/use-toast';
-import ImageCropEditor from '@/components/ImageCropEditor';
+import UnsplashImagePicker from '@/components/UnsplashImagePicker';
 
 interface BlogPost {
   id: number;
@@ -61,8 +61,8 @@ export default function AdminPanel() {
   const [imagePreview, setImagePreview] = useState<string>('');
   const [activeTab, setActiveTab] = useState<'create' | 'list'>('create');
   const [editingPostId, setEditingPostId] = useState<number | null>(null);
-  const [showImageEditor, setShowImageEditor] = useState(false);
   const [isLoadingPosts, setIsLoadingPosts] = useState(false);
+  const [showUnsplash, setShowUnsplash] = useState(false);
 
   const generateSlug = (text: string): string => {
     return text
@@ -195,17 +195,45 @@ export default function AdminPanel() {
     setImagePreview('');
   };
 
-  const handleCropImage = (croppedImage: string) => {
-    setImagePreview(croppedImage);
-    setFormData(prev => ({
-      ...prev,
-      image: croppedImage,
-    }));
-    setShowImageEditor(false);
-    toast({
-      title: 'Sucesso!',
-      description: 'Imagem redimensionada com sucesso',
-    });
+  const handleUnsplashSelect = async (imageUrl: string) => {
+    setIsUploadingImage(true);
+    try {
+      // Converter blob URL para URL remota usando Unsplash
+      // Se for um blob, fazer upload normalmente
+      if (imageUrl.startsWith('blob:')) {
+        // Fetch do blob e converter para file
+        const response = await fetch(imageUrl);
+        const blob = await response.blob();
+        const file = new File([blob], 'unsplash-image.jpg', { type: 'image/jpeg' });
+        const uploadedUrl = await uploadBlogImage(file);
+        if (uploadedUrl) {
+          setFormData(prev => ({
+            ...prev,
+            image: uploadedUrl,
+          }));
+          setImagePreview(uploadedUrl);
+          toast({
+            title: 'Sucesso!',
+            description: 'Imagem do Unsplash adicionada com sucesso',
+          });
+        }
+      } else {
+        setFormData(prev => ({
+          ...prev,
+          image: imageUrl,
+        }));
+        setImagePreview(imageUrl);
+      }
+    } catch (err) {
+      toast({
+        title: 'Erro',
+        description: 'Erro ao processar imagem do Unsplash',
+        variant: 'destructive',
+      });
+    } finally {
+      setIsUploadingImage(false);
+      setShowUnsplash(false);
+    }
   };
 
   const handleEditPost = (post: BlogPost) => {
@@ -274,6 +302,11 @@ export default function AdminPanel() {
 
       const slug = generateSlug(formData.title);
 
+      // Converter a data para ISO string corretamente (evita problemas com timezone)
+      // Pega a data selecionada e adiciona hora 12:00:00 UTC para evitar deslocamento de fuso
+      const dateObj = new Date(`${formData.date}T12:00:00Z`);
+      const isoDate = dateObj.toISOString().split('T')[0]; // volta a ser apenas a data
+
       if (editingPostId) {
         // Atualizar post existente
         const { error } = await supabase
@@ -285,7 +318,7 @@ export default function AdminPanel() {
             content: formData.content,
             category: formData.category,
             author: formData.author,
-            date: formData.date,
+            date: isoDate,
             color: formData.color,
             image: formData.image || null,
             published: true,
@@ -320,7 +353,7 @@ export default function AdminPanel() {
               content: formData.content,
               category: formData.category,
               author: formData.author,
-              date: formData.date,
+              date: isoDate,
               color: formData.color,
               image: formData.image || null,
               published: true,
@@ -362,16 +395,12 @@ export default function AdminPanel() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Image Editor Modal */}
-      <AnimatePresence>
-        {showImageEditor && formData.image && (
-          <ImageCropEditor
-            imageUrl={formData.image}
-            onSave={handleCropImage}
-            onCancel={() => setShowImageEditor(false)}
-          />
-        )}
-      </AnimatePresence>
+      {/* UnsplashImagePicker Modal */}
+      <UnsplashImagePicker
+        isOpen={showUnsplash}
+        onClose={() => setShowUnsplash(false)}
+        onSelect={handleUnsplashSelect}
+      />
 
       {/* Navbar */}
       <nav className="fixed top-0 left-0 right-0 z-40 bg-background/95 backdrop-blur-md shadow-elegant border-b border-border/50">
@@ -588,30 +617,37 @@ export default function AdminPanel() {
                                 <X size={16} weight="regular" />
                               </motion.button>
                             </div>
-                            <div className="flex gap-2">
-                              <motion.button
-                                type="button"
-                                onClick={() => fileInputRef.current?.click()}
-                                disabled={isLoading || isUploadingImage}
-                                whileHover={{ scale: 1.02 }}
-                                whileTap={{ scale: 0.98 }}
-                                className="flex-1 border border-border/50 rounded-lg py-2 text-sm font-medium text-foreground hover:bg-primary/5 transition-all disabled:opacity-50"
-                              >
-                                Trocar imagem
-                              </motion.button>
-                              <motion.button
-                                type="button"
-                                onClick={() => setShowImageEditor(true)}
-                                whileHover={{ scale: 1.02 }}
-                                whileTap={{ scale: 0.98 }}
-                                className="flex-1 border border-primary/30 rounded-lg py-2 text-sm font-medium text-primary hover:bg-primary/5 transition-all disabled:opacity-50"
-                              >
-                                Editar
-                              </motion.button>
-                            </div>
+                            <motion.button
+                              type="button"
+                              onClick={() => fileInputRef.current?.click()}
+                              disabled={isLoading || isUploadingImage}
+                              whileHover={{ scale: 1.02 }}
+                              whileTap={{ scale: 0.98 }}
+                              className="w-full border border-border/50 rounded-lg py-2 text-sm font-medium text-foreground hover:bg-primary/5 transition-all disabled:opacity-50"
+                            >
+                              Trocar imagem
+                            </motion.button>
                           </div>
                         )}
                       </div>
+
+                      {/* Botão Unsplash */}
+                      {!formData.image && (
+                        <motion.button
+                          type="button"
+                          onClick={() => setShowUnsplash(true)}
+                          disabled={isLoading || isUploadingImage}
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                          className="w-full border-2 border-dashed border-primary/50 rounded-lg p-4 hover:border-primary hover:bg-primary/5 transition-all duration-300 flex flex-col items-center justify-center gap-2 disabled:opacity-50"
+                        >
+                          <Image size={20} weight="regular" className="text-primary" />
+                          <div className="text-center">
+                            <p className="text-sm font-medium text-primary">Ou buscar no Unsplash</p>
+                            <p className="text-xs text-muted-foreground">Milhões de imagens de alta qualidade</p>
+                          </div>
+                        </motion.button>
+                      )}
 
                       {/* Grid 2x2 */}
                       <div className="grid grid-cols-2 gap-4">
@@ -821,7 +857,7 @@ export default function AdminPanel() {
 
                           <div className="space-y-1 text-xs text-muted-foreground">
                             <p>Autor: <span className="font-medium">{post.author}</span></p>
-                            <p>Data: <span className="font-medium">{new Date(post.date).toLocaleDateString('pt-BR')}</span></p>
+                            <p>Data: <span className="font-medium">{new Date(`${post.date}T12:00:00Z`).toLocaleDateString('pt-BR')}</span></p>
                           </div>
 
                           {/* Ações */}

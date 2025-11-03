@@ -7,9 +7,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ChatWidget } from "@/components/ChatWidget";
 import { NewsletterSection } from "@/components/NewsletterSection";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { MagnifyingGlass, Calendar, User, ArrowRight, ArrowUp } from "phosphor-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { MagnifyingGlass, Calendar, User, ArrowRight } from "phosphor-react";
+import { motion } from "framer-motion";
 import { useBlogPosts } from "@/hooks/useBlogPosts";
 import { useNavigate } from "react-router-dom";
 import type { BlogPost } from "@/lib/supabase/types";
@@ -106,7 +105,6 @@ const fallbackCategories = ["Todos", "Espiritualidade", "Educação", "Liturgia"
 const Blog = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("Todos");
-  const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
   const navigate = useNavigate();
   
   // Função para navegar para o HeroSection com scroll para o topo
@@ -323,14 +321,16 @@ const Blog = () => {
                         </div>
                         <div className="flex items-center gap-2">
                           <Calendar className="w-4 h-4" />
-                          <span>{new Date(post.date).toLocaleDateString('pt-BR')}</span>
+                          <span>
+                            {new Date(`${post.date}T12:00:00Z`).toLocaleDateString('pt-BR')}
+                          </span>
                         </div>
                       </div>
                       
                       <Button 
                         variant="ghost" 
                         className="mt-4 w-full group-hover:bg-purple/10 group-hover:text-purple transition-colors"
-                        onClick={() => setSelectedPost(post)}
+                        onClick={() => navigate(`/blog/${post.slug}`)}
                       >
                         Ler mais
                         <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
@@ -344,57 +344,6 @@ const Blog = () => {
         </div>
 
       </section>
-
-      {/* Modal do Artigo Completo */}
-      <AnimatePresence>
-        {selectedPost && (
-          <Dialog open={!!selectedPost} onOpenChange={() => setSelectedPost(null)}>
-            <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-background border-2 border-border shadow-2xl">
-              <DialogHeader>
-                <div className="relative">
-                  <Badge className={`bg-purple text-white border-0 mb-4`}>
-                    {selectedPost.category}
-                  </Badge>
-                  <DialogTitle className="font-serif text-3xl md:text-4xl font-bold text-foreground mb-4 pr-8">
-                    {selectedPost.title}
-                  </DialogTitle>
-                  <div className="flex items-center gap-6 text-sm text-muted-foreground mb-6">
-                    <div className="flex items-center gap-2">
-                      <User className="w-4 h-4" />
-                      <span>{selectedPost.author}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Calendar className="w-4 h-4" />
-                      <span>{new Date(selectedPost.date).toLocaleDateString('pt-BR')}</span>
-                    </div>
-                  </div>
-                </div>
-              </DialogHeader>
-              
-              {selectedPost.image ? (
-                <img 
-                  src={selectedPost.image} 
-                  alt={selectedPost.title}
-                  className="w-full h-auto rounded-lg mb-6 object-cover"
-                />
-              ) : (
-                <div className="relative overflow-hidden aspect-video bg-gradient-to-br from-purple/10 to-blue/10 rounded-lg mb-6">
-                  <div className="absolute inset-0 bg-gradient-to-br from-purple/20 to-blue/5 flex items-center justify-center">
-                    <div className="w-24 h-24 rounded-full bg-white/20 flex items-center justify-center">
-                      <span className="text-5xl">📖</span>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              <div 
-                className="prose prose-lg max-w-none text-foreground blog-article-content"
-                dangerouslySetInnerHTML={{ __html: selectedPost.content }}
-              />
-            </DialogContent>
-          </Dialog>
-        )}
-      </AnimatePresence>
 
       {/* Newsletter Section */}
       <NewsletterSection />

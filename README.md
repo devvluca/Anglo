@@ -1,73 +1,67 @@
-# Welcome to your Lovable project
+# Anglo
 
-## Project info
+Um e-commerce minimalista e moderno construído com React, integrando perfeitamente a Shopify Storefront API para gestão de produtos e Supabase para funcionalidades backend. Focado em oferecer uma experiência de compra leve, rápida e intuitiva.
 
-**URL**: https://lovable.dev/projects/04949ff7-33be-4e9d-ab63-2b0367a08c32
+---
 
-## How can I edit this code?
+## 🛠 Features Principais
 
-There are several ways of editing your application.
+- **Storefront Personalizado**: Integração robusta com a GraphQL Storefront API do Shopify.
+- **Design Minimalista**: Interface limpa utilizando Radix UI e Shadcn UI.
+- **Animações Fluidas**: Transições de página e componentes movidos a Framer Motion.
+- **Iconografia Moderna**: Utilização da biblioteca Phosphor Icons.
+- **Gerenciamento de Estado & Requisições**: Otimizado com React Query.
 
-**Use Lovable**
+## 💻 Tech Stack
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/04949ff7-33be-4e9d-ab63-2b0367a08c32) and start prompting.
+- [Vite](https://vitejs.dev/) & [React](https://react.dev/) (TypeScript)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Shadcn UI](https://ui.shadcn.com/) / [Radix UI](https://www.radix-ui.com/)
+- [Framer Motion](https://www.framer.com/motion/)
+- [Shopify Storefront API](https://shopify.dev/docs/api/storefront)
+- [Supabase](https://supabase.com/)
 
-Changes made via Lovable will be committed automatically to this repo.
+---
 
-**Use your preferred IDE**
+## 🚀 Como começar
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Pré-requisitos
+- Node.js & npm instalados
+- Uma loja Shopify com Storefront API configurada (Access Token)
+- Projeto Supabase configurado (opcional, dependendo dos recursos habilitados)
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### Instalação
 
-Follow these steps:
-
+**Passo 1:** Clone o repositório
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+git clone https://github.com/devvluca/Anglo.git
+cd Anglo
 ```
 
-**Edit a file directly in GitHub**
+**Passo 2:** Instale as dependências
+```sh
+npm install
+```
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+**Passo 3:** Configure as Variáveis de Ambiente
+Crie um arquivo `.env` na raiz do projeto e adicione as credenciais (veja `src/lib/shopify/config.ts`):
+```env
+VITE_SHOPIFY_STORE_DOMAIN=sua-loja.myshopify.com
+VITE_SHOPIFY_STOREFRONT_ACCESS_TOKEN=seu_access_token_aqui
+VITE_SHOPIFY_API_VERSION=2024-10
+```
 
-**Use GitHub Codespaces**
+**Passo 4:** Inicie o servidor de desenvolvimento
+```sh
+npm run dev
+```
+Acesse em: `http://localhost:5173/`
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## 📦 Build e Deploy
 
-## What technologies are used for this project?
+Para gerar uma versão de produção otimizada:
+```sh
+npm run build
+```
 
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/04949ff7-33be-4e9d-ab63-2b0367a08c32) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+O projeto pode ser facilmente hospedado em ferramentas de deploy modernas como Vercel, Netlify ou integrado com a plataforma Lovable.
